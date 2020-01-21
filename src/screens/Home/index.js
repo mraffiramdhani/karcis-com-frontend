@@ -1,12 +1,28 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet } from 'react-native'
 
-export default class Home extends Component {
+import { Header } from '../../components/Header'
+
+class Home extends Component {
   render() {
     return (
-      <View>
-        <Text> Ini Home </Text>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <Header />
+        <View style={styles.body}>
+
+        </View>
+      </SafeAreaView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  body: {
+    flex: 1
+  }
+})
+
+export default Home

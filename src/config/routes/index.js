@@ -2,9 +2,9 @@ import React from 'react'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { Home, LaunchPage, Login, MyOrder, TixPoint } from '../../screens/index'
+import { Home, LaunchPage, Login, MyOrder, TixPoint, Account } from '../../screens/index'
 
 const AuthStack = createStackNavigator(
   {
@@ -23,31 +23,43 @@ const BottomNavigationStack = createBottomTabNavigator({
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => (
         < Icon
-          name="th-large"
+          name="home-variant-outline"
           color={tintColor}
           size={25}
         />
       )
     }
   },
-  Favourite: {
+  MyOrder: {
     screen: MyOrder,
     navigationOptions: {
       tabBarLabel: 'My Order',
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="star"
+        <Icon name="format-list-bulleted"
           color={tintColor}
           size={25}
         />
       )
     }
   },
-  Profile: {
+  TixPoint: {
     screen: TixPoint,
     navigationOptions: {
       tabBarLabel: 'TIX Point',
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="user"
+        <Icon name="ticket-confirmation"
+          color={tintColor}
+          size={25}
+        />
+      )
+    }
+  },
+  Account: {
+    screen: Account,
+    navigationOptions: {
+      tabBarLabel: 'Account',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="account-circle-outline"
           color={tintColor}
           size={25}
         />
@@ -57,14 +69,13 @@ const BottomNavigationStack = createBottomTabNavigator({
 },
   {
     tabBarOptions: {
-      activeTintColor: 'yellow',
-      inactiveTintColor: 'blue',
+      activeTintColor: '#1483F5',
+      inactiveTintColor: '#35405A',
       labelStyle: {
         fontSize: 12,
       },
       style: {
-        backgroundColor: 'cyan',
-        borderTopWidth: 2,
+        backgroundColor: '#FFFFFF',
         paddingVertical: 6,
         height: 60
       }
@@ -89,7 +100,7 @@ const Router = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'LaunchPage'
+    initialRouteName: 'AppStackNavigation'
   }
 )
 
