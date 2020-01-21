@@ -19,7 +19,7 @@ export const Header = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
+    height: 55,
     backgroundColor: '#0064D2',
     flexDirection: "row",
     justifyContent: 'space-between',

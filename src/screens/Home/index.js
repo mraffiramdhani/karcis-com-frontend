@@ -4,6 +4,7 @@ import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } fr
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
 import CategoriesHome from '../../components/CategoriesHome'
+import HorizontalHotelPromo from '../../components/HorizontalHotelPromo'
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class Home extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <Header />
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
             <View>
               <BannerHome image={this.state.bannerImage} />
@@ -28,10 +30,10 @@ class Home extends Component {
               <Text style={styles.textSectionTitle}>Hey you, going anywhere?</Text>
               <CategoriesHome />
             </View>
-            <View>
+            <View style={styles.containerNewYearPromo}>
               <Text style={styles.textSectionTitle}>Awali Tahun Baru dengan Staycation!</Text>
-              <Text style={styles.textSectionSubtitle}>Awali Tahun Baru dengan Staycation!</Text>
-              <CategoriesHome />
+              <Text style={styles.textSectionSubtitle}>Suasana tahun baru masih terasa. Staycation saat weekend, boleh juga!</Text>
+              <HorizontalHotelPromo />
             </View>
           </View>
         </ScrollView>
@@ -46,7 +48,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   body: {
-    flex: 1
+    flex: 1,
+    paddingBottom: 20
   },
   btnSeeAllPromo: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -69,6 +72,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     paddingHorizontal: 16
+  },
+  textSectionSubtitle: {
+    color: '#646D83',
+    fontSize: 14,
+    paddingHorizontal: 16,
+    lineHeight: 22,
+    marginVertical: 15
+  },
+  containerNewYearPromo: {
+    marginTop: 16
   }
 })
 
