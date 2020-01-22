@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from './node_modules/react';
+import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import Icons from './node_modules/react-native-vector-icons/Foundation';
-import MyIcon from './node_modules/react-native-vector-icons/Entypo';
+import Icons from 'react-native-vector-icons/Foundation';
+import MyIcon from 'react-native-vector-icons/Entypo';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   root: {
@@ -56,8 +57,12 @@ class Headers extends Component {
               </Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Icons name="clipboard-notes" style={styles.icon} />
-              <MyIcon name="dots-three-vertical" style={styles.icon} />
+              <TouchableOpacity>
+                <Icons name="clipboard-notes" style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <MyIcon name="dots-three-vertical" style={styles.icon} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>

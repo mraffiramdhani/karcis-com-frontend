@@ -1,15 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from './node_modules/react';
+import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Tab, Tabs, TabHeading, ScrollableTab} from 'native-base';
-import MyIcons from './node_modules/react-native-vector-icons/Octicons';
-import Icons1 from './node_modules/react-native-vector-icons/FontAwesome';
-import Icon from './node_modules/react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from './node_modules/react-native-vector-icons/MaterialIcons';
-import Icon3 from './node_modules/react-native-vector-icons/Fontisto';
+import MyIcons from 'react-native-vector-icons/Octicons';
+import Icons1 from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import Icon3 from 'react-native-vector-icons/Fontisto';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import BeforeLogin from './BeforeLogin';
 import AfterLogin from './AfterLogin';
+import AfterOrder from './AfterOrder';
 
 const styles = StyleSheet.create({
   root: {
@@ -150,9 +151,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <AfterOrder />
         </Tab>
 
         <Tab
