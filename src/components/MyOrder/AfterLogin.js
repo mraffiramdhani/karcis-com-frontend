@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, {Component} from './node_modules/react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import usericon from '../../image/after.jpg';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';

@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, {Component} from './node_modules/react';
 import {Text, View, StyleSheet} from 'react-native';
-import Icons from 'react-native-vector-icons/Foundation';
-import MyIcon from 'react-native-vector-icons/Entypo';
+import Icons from './node_modules/react-native-vector-icons/Foundation';
+import MyIcon from './node_modules/react-native-vector-icons/Entypo';
 
 const styles = StyleSheet.create({
   root: {
