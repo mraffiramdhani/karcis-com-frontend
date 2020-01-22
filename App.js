@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import React, { Component } from 'react';
+import Routes from './src/config/routes';
 
 export default class App extends Component {
   render() {
     return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    );
+      <Routes />
+    )
   }
 }
