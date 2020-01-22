@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, {Component} from 'react';
+import Headers from '../../components/MyOrder/Headers';
+import TabCard from '../../components/MyOrder/TabCard';
 
 export default class MyOrder extends Component {
   render() {
     return (
-      <View>
-        <Text> ini myOrder </Text>
-      </View>
-    )
+      <>
+        <Headers />
+        <TabCard />
+      </>
+    );
   }
 }
