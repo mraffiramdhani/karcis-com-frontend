@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, ImageBackground} from 'react-native';
+import {StyleSheet, View, ImageBackground, StatusBar} from 'react-native';
 
-import image from '../../image/splash.jpg';
+import image from '../../image/splash.png';
 
 const styles = StyleSheet.create({
   root: {
@@ -70,7 +70,10 @@ export default class SplashScreen extends React.Component {
     header: null,
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    StatusBar.setBarStyle('light-content', true);
+    StatusBar.setBackgroundColor('transparent');
+    StatusBar.setTranslucent(true);
     setTimeout(() => {
       this.props.navigation.navigate('home');
     }, 2000);
