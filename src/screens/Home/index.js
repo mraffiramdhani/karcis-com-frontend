@@ -5,6 +5,10 @@ import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
 import CategoriesHome from '../../components/CategoriesHome'
 import HorizontalHotelPromo from '../../components/HorizontalHotelPromo'
+import HorizontalSpecialPromo from '../../components/HorizontalSpecialPromo'
+import HorizontalFeatures from '../../components/HorizontalFeatures'
+import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
+import HorizontalAttraction from '../../components/HorizontalAttraction'
 
 class Home extends Component {
   constructor(props) {
@@ -34,6 +38,25 @@ class Home extends Component {
               <Text style={styles.textSectionTitle}>Awali Tahun Baru dengan Staycation!</Text>
               <Text style={styles.textSectionSubtitle}>Suasana tahun baru masih terasa. Staycation saat weekend, boleh juga!</Text>
               <HorizontalHotelPromo />
+            </View>
+            <View style={styles.containerSpecialPromo}>
+              <Text style={styles.textSectionTitle}>Penawaran Special</Text>
+              <Text style={styles.textSectionSubtitle}>Penawaran Special khusus buat kamu</Text>
+              <HorizontalSpecialPromo />
+            </View>
+            <View style={styles.containerNewFeatures}>
+              <Text style={styles.textSectionTitle}>Kamu Udah Tau Belum?</Text>
+              <Text style={styles.textSectionSubtitle}>Ada banyak fitur baru di tiket.com yang bikin perjalanmu makin mudah!</Text>
+              <HorizontalFeatures />
+            </View>
+            <View style={styles.containerMenuCityOfSingapore}>
+              <Text style={styles.textSectionTitle}>Eksplor Singapura di Awal Tahun!</Text>
+              <MenuCityOfSingapore />
+            </View>
+            <View style={styles.containerWeekendAttraction}>
+              <Text style={styles.textSectionTitle}>Ke Atraksi di Akhir Pekan!</Text>
+              <Text style={styles.textSectionSubtitle}>Kalau bingung mau kemana saat weekend, bisa ke sini nih!</Text>
+              <HorizontalAttraction />
             </View>
           </View>
         </ScrollView>
@@ -71,17 +94,30 @@ const styles = StyleSheet.create({
     color: '#35405A',
     fontSize: 18,
     fontWeight: 'bold',
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
+    marginBottom: -10
   },
   textSectionSubtitle: {
     color: '#646D83',
     fontSize: 14,
     paddingHorizontal: 16,
     lineHeight: 22,
-    marginVertical: 15
+    marginVertical: 16
   },
   containerNewYearPromo: {
-    marginTop: 16
+    marginTop: 16,
+    marginBottom: 40
+  },
+  containerSpecialPromo: {
+    marginTop: 16,
+    marginBottom: 20
+  },
+  containerNewFeatures: {
+    marginTop: 16,
+    marginBottom: 40
+  },
+  containerMenuCityOfSingapore: {
+    marginTop: 16,
   }
 })
 

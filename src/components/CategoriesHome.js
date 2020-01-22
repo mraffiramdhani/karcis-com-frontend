@@ -9,6 +9,14 @@ export default class CategoriesHome extends Component {
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
+            <Image source={require('../assets/icons/airplane.png')} style={styles.imageIcon} />
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.textCategories}>Pesawat</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.containerItemIcon}>
+          <View style={styles.containerImgIcon}>
             <Image source={require('../assets/icons/hotel.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
@@ -17,15 +25,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/comingSoon.png')} style={styles.imageIcon} />
-          </View>
-          <View style={styles.containerText}>
-            <Text style={styles.textCategories}>Pesawat</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.containerItemIcon}>
-          <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/comingSoon.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/icons/train.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Kereta Api</Text>
@@ -33,7 +33,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/comingSoon.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/icons/car-pngrepo-com.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Sewa Mobil</Text>
@@ -41,7 +41,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/comingSoon.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/icons/tent.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Atraksi</Text>
@@ -49,7 +49,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/comingSoon.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/icons/ticket.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Event</Text>
