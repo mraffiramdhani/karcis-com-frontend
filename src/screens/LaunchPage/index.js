@@ -1,4 +1,5 @@
 import React from 'react';
+import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import {StyleSheet, View, ImageBackground, StatusBar} from 'react-native';
 
 import image from '../../image/splash.png';
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
 
 export default class SplashScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    headerShown: null,
   };
 
   componentDidMount() {
