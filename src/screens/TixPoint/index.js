@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, {Component} from 'react';
+import {Text, View} from 'react-native';
 
 export default class TixPoint extends Component {
   render() {
@@ -7,6 +7,6 @@ export default class TixPoint extends Component {
       <View>
         <Text> ini Text Point </Text>
       </View>
-    )
+    );
   }
 }

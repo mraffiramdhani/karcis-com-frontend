@@ -11,6 +11,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import BeforeLogin from './BeforeLogin';
 import AfterLogin from './AfterLogin';
 import AfterOrder from './AfterOrder';
+import ComingSoon from './ComingSoon';
 
 const styles = StyleSheet.create({
   root: {
@@ -119,9 +120,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <ComingSoon />
         </Tab>
 
         <Tab
@@ -181,9 +180,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <ComingSoon />
         </Tab>
 
         <Tab
@@ -213,9 +210,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <ComingSoon />
         </Tab>
 
         <Tab
@@ -245,9 +240,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <ComingSoon />
         </Tab>
 
         <Tab
@@ -277,9 +270,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View style={{backgroundColor: '#000', height: 100}}>
-            <Text style={{color: 'white'}}>Test</Text>
-          </View>
+          <ComingSoon />
         </Tab>
       </Tabs>
     );
