@@ -5380,27 +5380,16 @@ react-native-keyboard-aware-scroll-view@0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-<<<<<<< HEAD
-react-native-paper@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-3.5.0.tgz#d74db26fa1714911ec1c9187c430726c680f4b52"
-  integrity sha512-W347plzhV/EsVzC8aT8se6s/jmIx1kSF7E4fpbptA950OHxb4gPFFruHZkffHTByLUiZEgKl3nXKqXkRDDp1UA==
-=======
 react-native-paper@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-3.4.1.tgz#85dbaa6c7bbd1728419c0545efcee213fe432348"
   integrity sha512-Jx71GnjnmVtJhPfNUgYp1uBjdGc2GImMJLP60MF8DkCzZBJuvfykKUk5ZU0+DXIPfUOH9DRTlncid7YG9kRYfA==
->>>>>>> 5e304d16ef35fd2a40ce7ba989a2aa63f8cddec9
   dependencies:
     "@callstack/react-theme-provider" "^3.0.5"
     color "^3.1.2"
     react-native-safe-area-view "^0.14.6"
 
-<<<<<<< HEAD
-react-native-reanimated@^1.5.0:
-=======
 react-native-reanimated@^1.7.0:
->>>>>>> 5e304d16ef35fd2a40ce7ba989a2aa63f8cddec9
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.7.0.tgz#896db2576552ac59d288a1f6c7f00afc171f240c"
   integrity sha512-FQWSqP605eQVJumuK2HpR+7heF0ZI+qfy4jNguv3Xv8nPFHeIgZaRTXHCEQL2AcuSIj50zy8jGJf5l134QMQWQ==
