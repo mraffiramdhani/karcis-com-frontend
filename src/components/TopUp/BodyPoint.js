@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'native-base';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import usericon from '../../image/membercard.png';
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'gold',
     marginRight: 10,
+    marginTop: 15,
   },
 });
 
@@ -49,14 +50,42 @@ class BodyPoint extends Component {
           <Text style={{fontSize: 20, marginBottom: 10}}> Username </Text>
         </View>
 
-        <Image
-          source={usericon}
-          style={{height: 200, width: 320, borderRadius: 10, marginBottom: 15}}
-        />
-
+        <View style={{overflow: 'hidden', borderRadius: 10}}>
+          <ImageBackground
+            source={usericon}
+            style={{
+              height: 200,
+              width: 320,
+            }}>
+            <View
+              style={{
+                justifyContent: 'flex-end',
+                flex: 1,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  textAlign: 'right',
+                  marginRight: 10,
+                  fontSize: 25,
+                }}>
+                Username
+              </Text>
+              <Text
+                style={{
+                  color: 'white',
+                  textAlign: 'right',
+                  marginRight: 10,
+                  marginBottom: 10,
+                }}>
+                00001
+              </Text>
+            </View>
+          </ImageBackground>
+        </View>
         <View style={{flexDirection: 'row', marginBottom: 5}}>
           <Icons name="coins" style={styles.coin} />
-          <Text style={{fontWeight: 'bold', fontSize: 16}}>
+          <Text style={{fontWeight: 'bold', fontSize: 16, marginTop: 15}}>
             Rp. 2.000.000,-
           </Text>
         </View>

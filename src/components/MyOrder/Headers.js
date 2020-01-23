@@ -4,6 +4,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import Icons from 'react-native-vector-icons/Foundation';
 import MyIcon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Headers extends Component {
+class Headerss extends Component {
   render() {
     return (
       <View>
@@ -57,7 +58,8 @@ class Headers extends Component {
               </Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('HistoryOrder')}>
                 <Icons name="clipboard-notes" style={styles.icon} />
               </TouchableOpacity>
               <TouchableOpacity>
@@ -71,4 +73,5 @@ class Headers extends Component {
   }
 }
 
+const Headers = withNavigation(Headerss);
 export default Headers;
