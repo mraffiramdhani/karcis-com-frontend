@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import usericon from '../../image/after.jpg';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   buttonLogin: {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class AfterLogin extends Component {
+class AfterLogins extends Component {
   render() {
     return (
       <View>
@@ -37,7 +38,9 @@ export default class AfterLogin extends Component {
             <Image source={usericon} style={{height: 330, width: '100%'}} />
           </View>
           <View style={{alignItems: 'center', marginTop: 10}}>
-            <TouchableOpacity style={styles.buttonLogin}>
+            <TouchableOpacity
+              style={styles.buttonLogin}
+              onPress={() => this.props.navigation.navigate('Home')}>
               <Text style={styles.buttonText}>PESAN PERJALANAN</Text>
             </TouchableOpacity>
           </View>
@@ -51,3 +54,6 @@ export default class AfterLogin extends Component {
     );
   }
 }
+
+const AfterLogin = withNavigation(AfterLogins);
+export default AfterLogin;
