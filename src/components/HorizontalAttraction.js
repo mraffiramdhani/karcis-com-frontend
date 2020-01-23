@@ -11,7 +11,7 @@ export default class HorizontalAttraction extends Component {
           style={styles.containerAttraction}>
           <TouchableOpacity style={styles.containerAttractionItem}>
             <View style={styles.containerImage}>
-              <Image source={require('../assets/attraction/1.png')} style={styles.imageAttraction} />
+              <Image source={require('../assets/images/attraction/1.png')} style={styles.imageAttraction} />
             </View>
             <View style={styles.containerDescAttraction}>
               <Text style={styles.textTitleAttraction}>Trans Studio Bali</Text>
@@ -20,7 +20,7 @@ export default class HorizontalAttraction extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerAttractionItem}>
             <View style={styles.containerImage}>
-              <Image source={require('../assets/attraction/2.png')} style={styles.imageAttraction} />
+              <Image source={require('../assets/images/attraction/2.png')} style={styles.imageAttraction} />
             </View>
             <View style={styles.containerDescAttraction}>
               <Text style={styles.textTitleAttraction}>Legoland Malaysia</Text>
@@ -29,7 +29,7 @@ export default class HorizontalAttraction extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.containerAttractionItem, { marginRight: 16 }]}>
             <View style={styles.containerImage}>
-              <Image source={require('../assets/attraction/3.png')} style={styles.imageAttraction} />
+              <Image source={require('../assets/images/attraction/3.png')} style={styles.imageAttraction} />
             </View>
             <View style={styles.containerDescAttraction}>
               <Text style={styles.textTitleAttraction}>Tiket Dunia Fantasi Ancol</Text>

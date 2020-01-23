@@ -11,7 +11,7 @@ export default class HorizontalFeatures extends Component {
           style={styles.containerPromo}>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/newFeature/1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/newFeature/1.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>6 Fitur Baru Tiket.com</Text>
@@ -20,7 +20,7 @@ export default class HorizontalFeatures extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/newFeature/2.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/newFeature/2.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Liburan Bareng Pakai  "Group Booking"</Text>
@@ -29,7 +29,7 @@ export default class HorizontalFeatures extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.containerPromoItem, { marginRight: 16 }]}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/newFeature/3.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/newFeature/3.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Fitur Hotel Now, Buat yang Suka Dadakan!</Text>

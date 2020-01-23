@@ -11,7 +11,7 @@ export default class HorizontalHotelPromo extends Component {
           style={styles.containerPromo}>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/1.png')} style={styles.imagePromo} />
             </View>
             <View>
               <Text style={styles.textTitlePromo}>BlackBrid Hotel</Text>
@@ -20,7 +20,7 @@ export default class HorizontalHotelPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/2.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/2.png')} style={styles.imagePromo} />
             </View>
             <View>
               <Text style={styles.textTitlePromo}>Le Eminence Hotel Puncak</Text>
@@ -29,7 +29,7 @@ export default class HorizontalHotelPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/3.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/3.png')} style={styles.imagePromo} />
             </View>
             <View>
               <Text style={styles.textTitlePromo}>Hotel Monopoli</Text>
@@ -38,7 +38,7 @@ export default class HorizontalHotelPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.containerPromoItem, { marginRight: 16 }]}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/4.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/4.png')} style={styles.imagePromo} />
             </View>
             <View>
               <Text style={styles.textTitlePromo}>The 101 Yogyakarta</Text>

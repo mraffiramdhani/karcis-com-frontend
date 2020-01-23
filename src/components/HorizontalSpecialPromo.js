@@ -11,7 +11,7 @@ export default class HorizontalSpecialPromo extends Component {
           style={styles.containerPromo}>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/specialPromo/1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/specialPromo/1.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Gratis Airport Transfer</Text>
@@ -20,7 +20,7 @@ export default class HorizontalSpecialPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/specialPromo/2.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/specialPromo/2.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Free TIX Spot Airport Lounge!</Text>
@@ -29,7 +29,7 @@ export default class HorizontalSpecialPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/specialPromo/3.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/specialPromo/3.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Harga Special United Airlines</Text>
@@ -38,7 +38,7 @@ export default class HorizontalSpecialPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.containerPromoItem, { marginRight: 16 }]}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/specialPromo/4.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/specialPromo/4.png')} style={styles.imagePromo} />
             </View>
             <View style={styles.containerDescPromo}>
               <Text style={styles.textTitlePromo}>Herschel</Text>

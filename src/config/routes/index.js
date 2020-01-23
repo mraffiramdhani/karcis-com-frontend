@@ -100,7 +100,7 @@ const Router = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'AppStackNavigation'
+    initialRouteName: 'AuthStack'
   }
 )
 

@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default class CategoriesHome extends Component {
 
   render() {
     return (
       <View style={styles.containerIcon}>
-        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/airplane.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/airplane.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Pesawat</Text>
@@ -17,7 +16,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/hotel.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/hotel.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Hotel</Text>
@@ -25,7 +24,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/train.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/train.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Kereta Api</Text>
@@ -33,7 +32,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/car-pngrepo-com.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/car-pngrepo-com.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Sewa Mobil</Text>
@@ -41,7 +40,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/tent.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/tent.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Atraksi</Text>
@@ -49,7 +48,7 @@ export default class CategoriesHome extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemIcon}>
           <View style={styles.containerImgIcon}>
-            <Image source={require('../assets/icons/ticket.png')} style={styles.imageIcon} />
+            <Image source={require('../assets/images/icons/ticket.png')} style={styles.imageIcon} />
           </View>
           <View style={styles.containerText}>
             <Text style={styles.textCategories}>Event</Text>

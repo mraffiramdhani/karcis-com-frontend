@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
 
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
@@ -14,12 +14,13 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bannerImage: [require('../../assets/carouselImage/1.png'), require('../../assets/carouselImage/2.png'), require('../../assets/carouselImage/3.png'), require('../../assets/carouselImage/4.png')]
+      bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')]
     }
   }
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <Header />
         <ScrollView
           showsVerticalScrollIndicator={false}>
@@ -71,8 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   body: {
-    flex: 1,
-    paddingBottom: 20
+    flex: 1
   },
   btnSeeAllPromo: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',

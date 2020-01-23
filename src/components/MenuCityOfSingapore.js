@@ -8,22 +8,22 @@ export default class MenuCityOfSingapore extends Component {
       <View style={styles.containerMenu}>
         <TouchableOpacity style={styles.containerItemMenu}>
           <View style={styles.containerImgCity}>
-            <Image source={require('../assets/singaporeCity/2.png')} style={styles.imageCity} />
+            <Image source={require('../assets/images/singaporeCity/2.png')} style={styles.imageCity} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemMenu}>
           <View style={styles.containerImgCity}>
-            <Image source={require('../assets/singaporeCity/1.png')} style={styles.imageCity} />
+            <Image source={require('../assets/images/singaporeCity/1.png')} style={styles.imageCity} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemMenu}>
           <View style={styles.containerImgCity}>
-            <Image source={require('../assets/singaporeCity/4.png')} style={styles.imageCity} />
+            <Image source={require('../assets/images/singaporeCity/4.png')} style={styles.imageCity} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.containerItemMenu}>
           <View style={styles.containerImgCity}>
-            <Image source={require('../assets/singaporeCity/3.png')} style={styles.imageCity} />
+            <Image source={require('../assets/images/singaporeCity/3.png')} style={styles.imageCity} />
           </View>
         </TouchableOpacity>
       </View>
