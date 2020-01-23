@@ -11,7 +11,7 @@ export default class HorizontalHotelPromo extends Component {
           style={styles.containerPromo}>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/room1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/1.png')} style={styles.imagePromo} />
             </View>
             <View>
               <Text style={styles.textTitlePromo}>BlackBrid Hotel</Text>
@@ -20,20 +20,29 @@ export default class HorizontalHotelPromo extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerPromoItem}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/room1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/2.png')} style={styles.imagePromo} />
             </View>
             <View>
-              <Text style={styles.textTitlePromo}>BlackBrid Hotel</Text>
-              <Text style={styles.textDescPromo}>Pergi kebandung, nginep disini</Text>
+              <Text style={styles.textTitlePromo}>Le Eminence Hotel Puncak</Text>
+              <Text style={styles.textDescPromo}>Pesan hotel ini saat staycation</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.containerPromoItem}>
+            <View style={styles.containerImagePromo}>
+              <Image source={require('../assets/images/hotelRooms/3.png')} style={styles.imagePromo} />
+            </View>
+            <View>
+              <Text style={styles.textTitlePromo}>Hotel Monopoli</Text>
+              <Text style={styles.textDescPromo}>Eksplor kerenya Jakarta, nginep disini!</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.containerPromoItem, { marginRight: 16 }]}>
             <View style={styles.containerImagePromo}>
-              <Image source={require('../assets/hotelRooms/room1.png')} style={styles.imagePromo} />
+              <Image source={require('../assets/images/hotelRooms/4.png')} style={styles.imagePromo} />
             </View>
             <View>
-              <Text style={styles.textTitlePromo}>BlackBrid Hotel</Text>
-              <Text style={styles.textDescPromo}>Pergi kebandung, nginep disini</Text>
+              <Text style={styles.textTitlePromo}>The 101 Yogyakarta</Text>
+              <Text style={styles.textDescPromo}>Harus ke sini saat ke Jogya</Text>
             </View>
           </TouchableOpacity>
         </ScrollView>
@@ -47,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   containerPromoItem: {
-    width: 140,
+    width: 150,
     marginLeft: 16
   },
   containerImagePromo: {
@@ -64,12 +73,13 @@ const styles = StyleSheet.create({
   },
   textTitlePromo: {
     color: '#35405A',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     marginVertical: 10
   },
   textDescPromo: {
     color: '#8A93A7',
-    fontSize: 14
+    fontSize: 14,
+    lineHeight: 20
   },
 })

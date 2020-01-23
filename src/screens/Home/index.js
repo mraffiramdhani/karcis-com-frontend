@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
 
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
 import CategoriesHome from '../../components/CategoriesHome'
 import HorizontalHotelPromo from '../../components/HorizontalHotelPromo'
+import HorizontalSpecialPromo from '../../components/HorizontalSpecialPromo'
+import HorizontalFeatures from '../../components/HorizontalFeatures'
+import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
+import HorizontalAttraction from '../../components/HorizontalAttraction'
 
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bannerImage: [require('../../assets/carouselImage/1.png'), require('../../assets/carouselImage/2.png'), require('../../assets/carouselImage/3.png'), require('../../assets/carouselImage/4.png')]
+      bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')]
     }
   }
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <Header />
         <ScrollView
           showsVerticalScrollIndicator={false}>
@@ -35,6 +40,25 @@ class Home extends Component {
               <Text style={styles.textSectionSubtitle}>Suasana tahun baru masih terasa. Staycation saat weekend, boleh juga!</Text>
               <HorizontalHotelPromo />
             </View>
+            <View style={styles.containerSpecialPromo}>
+              <Text style={styles.textSectionTitle}>Penawaran Special</Text>
+              <Text style={styles.textSectionSubtitle}>Penawaran Special khusus buat kamu</Text>
+              <HorizontalSpecialPromo />
+            </View>
+            <View style={styles.containerNewFeatures}>
+              <Text style={styles.textSectionTitle}>Kamu Udah Tau Belum?</Text>
+              <Text style={styles.textSectionSubtitle}>Ada banyak fitur baru di tiket.com yang bikin perjalanmu makin mudah!</Text>
+              <HorizontalFeatures />
+            </View>
+            <View style={styles.containerMenuCityOfSingapore}>
+              <Text style={styles.textSectionTitle}>Eksplor Singapura di Awal Tahun!</Text>
+              <MenuCityOfSingapore />
+            </View>
+            <View style={styles.containerWeekendAttraction}>
+              <Text style={styles.textSectionTitle}>Ke Atraksi di Akhir Pekan!</Text>
+              <Text style={styles.textSectionSubtitle}>Kalau bingung mau kemana saat weekend, bisa ke sini nih!</Text>
+              <HorizontalAttraction />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -48,8 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   body: {
-    flex: 1,
-    paddingBottom: 20
+    flex: 1
   },
   btnSeeAllPromo: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -71,17 +94,30 @@ const styles = StyleSheet.create({
     color: '#35405A',
     fontSize: 18,
     fontWeight: 'bold',
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
+    marginBottom: -10
   },
   textSectionSubtitle: {
     color: '#646D83',
     fontSize: 14,
     paddingHorizontal: 16,
     lineHeight: 22,
-    marginVertical: 15
+    marginVertical: 16
   },
   containerNewYearPromo: {
-    marginTop: 16
+    marginTop: 16,
+    marginBottom: 40
+  },
+  containerSpecialPromo: {
+    marginTop: 16,
+    marginBottom: 20
+  },
+  containerNewFeatures: {
+    marginTop: 16,
+    marginBottom: 40
+  },
+  containerMenuCityOfSingapore: {
+    marginTop: 16,
   }
 })
 
