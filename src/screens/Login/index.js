@@ -6,13 +6,7 @@ import { TextInput } from 'react-native-paper'
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')]
-    }
-  }
+class Login extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -163,4 +157,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home
+export default Login
