@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { withNavigation } from 'react-navigation';
 
 export const Header = (props) => {
   return (
@@ -11,7 +12,7 @@ export const Header = (props) => {
       </View>
       <View>
         <TouchableOpacity>
-          <Text style={styles.textLogin}>LOG IN</Text>
+          <Text style={styles.textLogin}>Masuk</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -20,12 +21,12 @@ export const Header = (props) => {
 
 export const HeaderLogin = (props) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.containerLogin}>
       <View style={styles.rightContainer}>
         <TouchableOpacity>
           <Icon name="arrow-left" size={25} color="#FFF" style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.textLogin}>LOG IN</Text>
+        <Text style={styles.textLogin}>Masuk</Text>
       </View>
       <View>
         <TouchableOpacity>
@@ -36,14 +37,37 @@ export const HeaderLogin = (props) => {
   )
 }
 
+export const HeaderForgotPassword = (props) => {
+  return (
+    <View style={styles.containerLogin}>
+      <View style={styles.rightContainer}>
+        <TouchableOpacity
+          onPress={props.onPressLeft}>
+          <Icon name="arrow-left" size={25} color="#FFF" style={styles.icon} />
+        </TouchableOpacity>
+        <Text style={styles.textForgotPassword}>Lupa Kata Sandi</Text>
+      </View>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
+    height: 85,
+    backgroundColor: '#0064D2',
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 25
+  },
+  containerLogin: {
     height: 55,
     backgroundColor: '#0064D2',
     flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   containerImg: {
     width: 110,
@@ -57,8 +81,8 @@ const styles = StyleSheet.create({
   },
   textLogin: {
     color: '#fff',
-    fontWeight: '500',
-    fontSize: 14
+    fontWeight: 'bold',
+    fontSize: 16
   },
   rightContainer: {
     flexDirection: "row",
@@ -66,6 +90,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10
+  },
+  textForgotPassword: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16
   }
-
 })

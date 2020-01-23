@@ -1,8 +1,17 @@
-import SplashScreen from './LaunchPage/index';
-import Home from './Home/index';
-import Login from './Login/index';
-import MyOrder from './MyOrder/index';
-import TopUp from './TopUp/index';
-import Account from './Account/index';
+import SplashScreen from './LaunchPage';
+import Home from './Home';
+import Login from './Login';
+import MyOrder from './MyOrder';
+import TopUp from './TopUp';
+import Account from './Account';
+import ForgotPassword from './ForgotPassword'
 
-export {SplashScreen, Home, Login, MyOrder, TopUp, Account};
+export {
+  SplashScreen,
+  Home,
+  Login,
+  MyOrder,
+  TopUp,
+  Account,
+  ForgotPassword
+};

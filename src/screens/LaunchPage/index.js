@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ImageBackground, StatusBar} from 'react-native';
+import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
 
 import image from '../../image/splash.png';
 

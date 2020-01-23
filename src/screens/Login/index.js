@@ -7,6 +7,13 @@ import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
 class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -15,7 +22,7 @@ class Login extends Component {
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
-            <Text style={styles.textSectionTitle}>Log in to enjoy faster booking, TIX Point, and member deals</Text>
+            <Text style={styles.textSectionTitle}>Log in untuk memesan lebih cepat, TIX POINT, dan promo eksklusif</Text>
             <View style={styles.containerInputLogin}>
               <TextInput
                 label='Email'
@@ -26,7 +33,7 @@ class Login extends Component {
                 onChangeText={email => this.setState({ email })}
               />
               <TextInput
-                label='Password'
+                label='Kata Sandi'
                 mode='outlined'
                 style={styles.textInput}
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent' } }}
@@ -34,16 +41,18 @@ class Login extends Component {
                 value={this.state.password}
                 onChangeText={password => this.setState({ password })}
               />
-              <TouchableOpacity style={styles.linkForgotPassword}>
-                <Text style={styles.textForgotPassword}>Forgot your password?</Text>
+              <TouchableOpacity
+                style={styles.linkForgotPassword}
+                onPress={() => this.props.navigation.navigate('ForgotPassword')}>
+                <Text style={styles.textForgotPassword}>Lupa kata sandi?</Text>
               </TouchableOpacity>
-              <ButtonLogin />
+              <ButtonLogin label="LOG IN" />
             </View>
             <View style={styles.containerLine}>
               <View
                 style={styles.line}
               />
-              <Text style={styles.textOrWith}>or with</Text>
+              <Text style={styles.textOrWith}>atau dengan</Text>
               <View
                 style={styles.line}
               />
@@ -62,8 +71,8 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.containerRegister}>
-              <Text style={styles.textOrWith}>Don't have an account?</Text>
-              <TouchableOpacity><Text style={styles.textRegister}>REGISTER</Text></TouchableOpacity>
+              <Text style={styles.textOrWith}>Belum punya akun?</Text>
+              <TouchableOpacity><Text style={styles.textRegister}>DAFTAR</Text></TouchableOpacity>
             </View>
           </View>
         </ScrollView>
