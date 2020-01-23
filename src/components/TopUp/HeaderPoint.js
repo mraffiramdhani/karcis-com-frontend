@@ -1,10 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import Icons from 'react-native-vector-icons/Foundation';
+import {View, StyleSheet, Text} from 'react-native';
 import MyIcon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -13,7 +11,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   banner: {
-    height: 40,
+    height: 50,
     backgroundColor: '#0064D2',
   },
   icon: {
@@ -27,25 +25,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
-  card1: {
-    width: 80,
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    elevation: 5,
+  info: {
+    backgroundColor: '#eee',
+    paddingTop: 10,
+    alignItems: 'center',
   },
-  card2: {
+  image: {
+    width: '100%',
+  },
+  coin: {
+    fontSize: 20,
+    color: 'gold',
     marginRight: 10,
-    marginLeft: 10,
-    width: 80,
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    elevation: 5,
   },
 });
 
-class Headerss extends Component {
+class HeaderPoint extends Component {
   render() {
     return (
       <View>
@@ -54,14 +49,10 @@ class Headerss extends Component {
             <View style={{flex: 1}}>
               <Text style={{padding: 15, color: 'white', fontSize: 15}}>
                 {' '}
-                My Order{' '}
+                Karcis Point{' '}
               </Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('HistoryOrder')}>
-                <Icons name="clipboard-notes" style={styles.icon} />
-              </TouchableOpacity>
               <TouchableOpacity>
                 <MyIcon name="dots-three-vertical" style={styles.icon} />
               </TouchableOpacity>
@@ -73,5 +64,4 @@ class Headerss extends Component {
   }
 }
 
-const Headers = withNavigation(Headerss);
-export default Headers;
+export default HeaderPoint;
