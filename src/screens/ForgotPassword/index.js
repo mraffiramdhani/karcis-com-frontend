@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
 import { TextInput } from 'react-native-paper'
-
 
 import { HeaderForgotPassword } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
@@ -16,6 +15,7 @@ class ForgotPassword extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderForgotPassword onPressLeft={() => this.props.navigation.navigate('Login')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>

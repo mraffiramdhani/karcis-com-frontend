@@ -3,9 +3,12 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 export const ButtonLogin = (props) => {
   return (
-    <TouchableOpacity style={styles.btnLogin}>
+    <TouchableOpacity
+      style={styles.btnLogin}
+      disabled={props.disabled}
+      onPress={props.onPress}>
       <Text style={styles.textBtnLogin}>{props.label}</Text>
-    </TouchableOpacity>
+    </TouchableOpacity >
   )
 }
 

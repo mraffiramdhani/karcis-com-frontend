@@ -11,7 +11,10 @@ import {
   MyOrder,
   TopUp,
   Account,
-  ForgotPassword
+  ForgotPassword,
+  Register,
+  RegisterNextFirst,
+  RegisterNextSecond
 } from '../../screens/index';
 import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
@@ -36,11 +39,14 @@ const SplashNav = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     Login,
-    ForgotPassword
+    ForgotPassword,
+    Register,
+    RegisterNextFirst,
+    RegisterNextSecond
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Login',
+    initialRouteName: 'Register',
   },
 );
 

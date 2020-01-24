@@ -4,7 +4,10 @@ import Login from './Login';
 import MyOrder from './MyOrder';
 import TopUp from './TopUp';
 import Account from './Account';
-import ForgotPassword from './ForgotPassword'
+import ForgotPassword from './ForgotPassword';
+import Register from './Register';
+import RegisterNextFirst from './Register/RegisterNextFirst';
+import RegisterNextSecond from './Register/RegisterNextSecond';
 
 export {
   SplashScreen,
@@ -13,5 +16,8 @@ export {
   MyOrder,
   TopUp,
   Account,
-  ForgotPassword
+  ForgotPassword,
+  Register,
+  RegisterNextFirst,
+  RegisterNextSecond
 };

@@ -23,10 +23,11 @@ export const HeaderLogin = (props) => {
   return (
     <View style={styles.containerLogin}>
       <View style={styles.rightContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={props.onPressLeft}>
           <Icon name="arrow-left" size={25} color="#FFF" style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.textLogin}>Masuk</Text>
+        <Text style={styles.textLogin}>{props.title}</Text>
       </View>
       <View>
         <TouchableOpacity>

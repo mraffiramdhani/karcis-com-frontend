@@ -1,51 +1,75 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, StatusBar } from 'react-native'
 import { TextInput } from 'react-native-paper'
 
+// import Components
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-class Login extends Component {
+// utils
+import { emailValidation } from '../../utils/emailValidation'
+
+class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      isValid_email: false,
+      disabled: false
     }
   }
+
+  _checkEmail = (emailInput) => {
+    const isTrue = emailValidation(emailInput)
+
+    isTrue ? this.setState({ isValid_email: true }) : this.setState({ isValid_email: false })
+    this.setState({
+      email: emailInput,
+      disabled: false
+    });
+  }
+
+  _handleNextFirst = () => {
+    const { isValid_email, email } = this.state
+    if (isValid_email == true) {
+      this.props.navigation.navigate('RegisterNextFirst', {
+        email
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
+  }
+
   render() {
+    const { disabled } = this.state
+    const colorLineFrom = disabled == false ? '#0064D2' : '#F2625F'
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <HeaderLogin title="Masuk" />
+        <HeaderLogin
+          title="Daftar"
+          onPressLeft={() => this.props.navigation.navigate('Login')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
-            <Text style={styles.textSectionTitle}>Log in untuk memesan lebih cepat, TIX POINT, dan promo eksklusif</Text>
-            <View style={styles.containerInputLogin}>
+            <Text style={styles.textSectionTitle}>Daftar untuk mulai berpetualang.</Text>
+            <View style={styles.containerInputEmail}>
               <TextInput
                 label='Email'
                 mode='outlined'
                 style={styles.textInput}
-                theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
+                theme={{ colors: { primary: colorLineFrom, underlineColor: 'transparent', } }}
                 value={this.state.email}
-                onChangeText={email => this.setState({ email })}
+                onChangeText={this._checkEmail}
               />
-              <TextInput
-                label='Kata Sandi'
-                mode='outlined'
-                style={styles.textInput}
-                theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent' } }}
-                secureTextEntry={true}
-                value={this.state.password}
-                onChangeText={password => this.setState({ password })}
-              />
-              <TouchableOpacity
-                style={styles.linkForgotPassword}
-                onPress={() => this.props.navigation.navigate('ForgotPassword')}>
-                <Text style={styles.textForgotPassword}>Lupa kata sandi?</Text>
-              </TouchableOpacity>
-              <ButtonLogin label="LOG IN" />
+              {disabled == true &&
+                <Text style={styles.textError}>Format email harus seperti email@email.com</Text>}
+              <ButtonLogin
+                label="SELANJUTNYA"
+                disabled={disabled}
+                onPress={() => this._handleNextFirst()} />
             </View>
             <View style={styles.containerLine}>
               <View
@@ -69,10 +93,10 @@ class Login extends Component {
                 <Text style={styles.textSocialMedia}>Facebook</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.containerRegister}>
-              <Text style={styles.textOrWith}>Belum punya akun?</Text>
+            <View style={styles.containerLogin}>
+              <Text style={styles.textOrWith}>Sudah punya akun?</Text>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Register')}><Text style={styles.textRegister}>DAFTAR</Text></TouchableOpacity>
+                onPress={() => this.props.navigation.navigate('Login')}><Text style={styles.textLogin}>MASUK</Text></TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -96,24 +120,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingHorizontal: 16,
   },
-  containerInputLogin: {
+  containerInputEmail: {
     paddingHorizontal: 16,
-    marginTop: 5
+    marginTop: 20
   },
   textInput: {
     backgroundColor: "#FFF",
     height: 45,
-    marginTop: 20,
     color: '#35405A',
-    marginBottom: 5
+    marginBottom: 25
   },
-  linkForgotPassword: {
-    alignSelf: 'flex-end',
-    marginTop: 15,
-    marginBottom: 20
-  },
-  textForgotPassword: {
-    color: '#0064D2'
+  textError: {
+    marginTop: -25,
+    marginBottom: 25,
+    color: '#F2625F'
   },
   containerLine: {
     flexDirection: 'row',
@@ -155,15 +175,15 @@ const styles = StyleSheet.create({
     color: '#222222',
     marginLeft: 10
   },
-  containerRegister: {
+  containerLogin: {
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 25,
   },
-  textRegister: {
+  textLogin: {
     color: '#0064D2'
   }
 })
 
-export default Login
+export default Register
