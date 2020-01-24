@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'native-base';

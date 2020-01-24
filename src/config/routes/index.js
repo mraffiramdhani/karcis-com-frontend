@@ -16,6 +16,8 @@ import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
 import FormTopUp from '../../screens/TopUp/FormTopUp';
 import FormHistory from '../../screens/TopUp/FormHistory';
+import SearchHotel from '../../screens/SearchHotel';
+import ListLocation from '../../screens/ListLocation';
 
 const SplashNav = createStackNavigator(
   {
@@ -50,12 +52,18 @@ const MyOrderStack = createStackNavigator(
         headerShown: false,
       },
     },
-    // Search: {
-    //   screen: Search,
-    //   navigationOptions: {
-    //     headerShown: false,
-    //   },
-    // },
+    SearchHotel: {
+      screen: SearchHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListLocation: {
+      screen: ListLocation,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
     Home: {
       screen: Home,
       navigationOptions: {
