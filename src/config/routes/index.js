@@ -1,7 +1,7 @@
 import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -11,6 +11,10 @@ import {
   MyOrder,
   TopUp,
   Account,
+  ForgotPassword,
+  Register,
+  RegisterNextFirst,
+  RegisterNextSecond
 } from '../../screens/index';
 import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
@@ -35,10 +39,14 @@ const SplashNav = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     Login,
+    ForgotPassword,
+    Register,
+    RegisterNextFirst,
+    RegisterNextSecond
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Login',
+    initialRouteName: 'Register',
   },
 );
 
@@ -86,7 +94,7 @@ const MyOrderStack = createStackNavigator(
   },
 );
 
-MyOrderStack.navigationOptions = ({navigation}) => {
+MyOrderStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
     tabBarVisible = false;
@@ -123,7 +131,7 @@ const TopUpStack = createStackNavigator(
   },
 );
 
-TopUpStack.navigationOptions = ({navigation}) => {
+TopUpStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
     tabBarVisible = false;
@@ -140,7 +148,7 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: Home,
       navigationOptions: {
         tabBarLabel: 'Home',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="home-variant-outline" color={tintColor} size={25} />
         ),
       },
@@ -149,7 +157,7 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: MyOrderStack,
       navigationOptions: {
         tabBarLabel: 'My Order',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="format-list-bulleted" color={tintColor} size={25} />
         ),
       },
@@ -158,7 +166,7 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: TopUpStack,
       navigationOptions: {
         tabBarLabel: 'TIX Point',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="ticket-confirmation" color={tintColor} size={25} />
         ),
       },
@@ -167,7 +175,7 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: Account,
       navigationOptions: {
         tabBarLabel: 'Account',
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="account-circle-outline" color={tintColor} size={25} />
         ),
       },
@@ -206,7 +214,7 @@ const Router = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'SplashNav',
+    initialRouteName: 'AuthStack',
   },
 );
 
