@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import Icons from 'react-native-vector-icons/Foundation';
@@ -59,6 +58,7 @@ class Headerss extends Component {
             </View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
+                // eslint-disable-next-line react/prop-types
                 onPress={() => this.props.navigation.navigate('HistoryOrder')}>
                 <Icons name="clipboard-notes" style={styles.icon} />
               </TouchableOpacity>

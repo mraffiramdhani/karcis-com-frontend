@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Tab, Tabs, TabHeading, ScrollableTab} from 'native-base';
@@ -8,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/Fontisto';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import BeforeLogin from './BeforeLogin';
 import AfterLogin from './AfterLogin';
 import AfterOrder from './AfterOrder';
 import ComingSoon from './ComingSoon';
@@ -89,8 +87,8 @@ class TabCard extends Component {
             </TabHeading>
           }>
           <View>
-            <AfterLogin />
           </View>
+            <AfterOrder />
         </Tab>
 
         <Tab
@@ -150,7 +148,7 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <AfterOrder />
+            <AfterLogin />
         </Tab>
 
         <Tab
