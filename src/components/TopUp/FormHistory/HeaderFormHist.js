@@ -1,7 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import Icons from 'react-native-vector-icons/AntDesign';
-import {Left} from 'native-base';
+import {Left, Container, Accordion} from 'native-base';
 
 const styles = StyleSheet.create({
   root: {
@@ -13,34 +14,13 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#0064D2',
   },
-  icon: {
-    fontSize: 25,
-    color: 'white',
-    padding: 5,
-    paddingRight: 15,
-    paddingBottom: 10,
-    marginTop: 10,
-  },
-  iconFilter: {
-    fontSize: 20,
-    color: '#0064D2',
-  },
   row: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-  },
-  bottom: {
-    bottom: -160,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 30,
-    width: 150,
-    elevation: 5,
-  },
+  }
 });
 
-class HeaderHistory extends Component {
+class HeaderFormHist extends Component {
   render() {
     return (
       <View>
@@ -56,7 +36,7 @@ class HeaderHistory extends Component {
                     marginRight: 150,
                   }}>
                   {' '}
-                  Riwayat Pesanan{' '}
+                  Top Up History{' '}
                 </Text>
               </Left>
 
@@ -69,4 +49,4 @@ class HeaderHistory extends Component {
   }
 }
 
-export default HeaderHistory;
+export default HeaderFormHist

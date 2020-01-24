@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import usericon from '../../image/after.jpg';
@@ -40,7 +39,7 @@ class AfterLogins extends Component {
           <View style={{alignItems: 'center', marginTop: 10}}>
             <TouchableOpacity
               style={styles.buttonLogin}
-              onPress={() => this.props.navigation.navigate('Home')}>
+              onPress={() => this.props.navigation.navigate('SearchHotel')}>
               <Text style={styles.buttonText}>PESAN PERJALANAN</Text>
             </TouchableOpacity>
           </View>

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {View, Image} from 'react-native';
 import usericon from '../../image/coming.jpg';
