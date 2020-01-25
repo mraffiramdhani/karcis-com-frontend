@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.6",
+    "@twotalltotems/react-native-otp-input": "^1.1.4",
     "axios": "^0.19.1",
     "jwt-decode": "^2.2.0",
     "native-base": "^2.13.8",
@@ -20,6 +21,7 @@
     "react-native": "0.61.5",
     "react-native-banner-carousel": "^1.0.3",
     "react-native-gesture-handler": "^1.5.3",
+    "react-native-modals": "^0.19.9",
     "react-native-onesignal": "^3.6.3",
     "react-native-paper": "^3.5.0",
     "react-native-picker-box": "^1.0.5",
@@ -30,6 +32,7 @@
     "react-native-screens": "^2.0.0-alpha.24",
     "react-native-splash-screen": "^3.2.0",
     "react-native-star-rating": "^1.1.0",
+    "react-native-svg": "^11.0.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-wheel-picker-android": "^2.0.5",
     "react-native-wheel-scroll-picker": "^0.2.4",

@@ -12,9 +12,11 @@ import {
   TopUp,
   Account,
   ForgotPassword,
+  ForgotPasswordNext,
   Register,
   RegisterNextFirst,
-  RegisterNextSecond
+  RegisterNextSecond,
+  Setting
 } from '../../screens/index';
 import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
@@ -44,11 +46,13 @@ const AuthStack = createStackNavigator(
     ForgotPassword,
     Register,
     RegisterNextFirst,
-    RegisterNextSecond
+    RegisterNextSecond,
+    ForgotPasswordNext,
+    Setting
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Register',
+    initialRouteName: 'RegisterNextFirst',
   },
 );
 
