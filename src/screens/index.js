@@ -10,6 +10,7 @@ import Register from './Register';
 import RegisterNextFirst from './Register/RegisterNextFirst';
 import RegisterNextSecond from './Register/RegisterNextSecond';
 import Setting from './Setting';
+import InputNewPassword from './ForgotPassword/InputNewPassword';
 
 export {
   SplashScreen,
@@ -23,5 +24,6 @@ export {
   Register,
   RegisterNextFirst,
   RegisterNextSecond,
-  Setting
+  Setting,
+  InputNewPassword
 };

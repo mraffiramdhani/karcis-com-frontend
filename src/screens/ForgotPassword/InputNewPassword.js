@@ -5,11 +5,11 @@ import { TextInput } from 'react-native-paper'
 import { HeaderForgotPassword } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-class ForgotPassword extends Component {
+class InputNewPassword extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: ''
+      newPassword: ''
     }
   }
   render() {
@@ -18,23 +18,24 @@ class ForgotPassword extends Component {
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderForgotPassword
           onPressLeft={() => this.props.navigation.navigate('Login')}
-          title="Lupa Kata Sandi" />
+          title="Buat Kata Sandi Baru" />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
-            <Text style={styles.textSectionTitle}>Lupa Kata Sandi?</Text>
-            <Text style={styles.textSectionSubtitle}>Jangan khawatir. Tuliskan email atau nomor ponsel untuk membuat kata sandi baru.</Text>
+            <Text style={styles.textSectionTitle}>Hi Mochhamad Raffi Ramdhani</Text>
+            <Text style={styles.textSectionSubtitle}>Buat kata sandi barumu. Tip: buat yang mudah diingat tapi susah ditebak.</Text>
             <View style={styles.containerInputForgotPassword}>
               <TextInput
-                label='Email atau nomor ponsel '
+                label='Kata Sandi Baru '
                 mode='outlined'
                 style={styles.textInput}
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.email}
-                onChangeText={email => this.setState({ email })}
+                onChangeText={newPassword => this.setState({ newPassword })}
               />
+              <Text style={styles.labelForm}>Min. 7 karakter dengan kombinasi antara angka, simbol, & huruf kapital.</Text>
               <ButtonLogin
-                label="KIRIM"
+                label="KONFIRMASI"
                 onPress={() => this.props.navigation.navigate('ForgotPasswordNext')} />
             </View>
           </View>
@@ -73,9 +74,13 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: "#FFF",
     height: 45,
-    color: '#35405A',
+    color: '#35405A'
+  },
+  labelForm: {
+    fontSize: 12,
+    color: '#757575',
     marginBottom: 20
-  }
+  },
 })
 
-export default ForgotPassword
+export default InputNewPassword

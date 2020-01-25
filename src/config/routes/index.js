@@ -16,7 +16,8 @@ import {
   Register,
   RegisterNextFirst,
   RegisterNextSecond,
-  Setting
+  Setting,
+  InputNewPassword
 } from '../../screens/index';
 import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
@@ -48,11 +49,12 @@ const AuthStack = createStackNavigator(
     RegisterNextFirst,
     RegisterNextSecond,
     ForgotPasswordNext,
-    Setting
+    Setting,
+    InputNewPassword
   },
   {
     headerMode: 'none',
-    initialRouteName: 'RegisterNextFirst',
+    initialRouteName: 'InputNewPassword',
   },
 );
 

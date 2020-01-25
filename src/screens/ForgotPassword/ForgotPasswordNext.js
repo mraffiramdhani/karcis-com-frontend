@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   textSectionSubtitle: {
-    color: '#646D83',
+    color: '#35405A',
     fontSize: 14,
     paddingHorizontal: 16,
     lineHeight: 15,
