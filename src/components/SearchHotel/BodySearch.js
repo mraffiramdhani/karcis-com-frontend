@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { Card, Item, Input, DatePicker} from 'native-base';
+import { Card, Item, Input, DatePicker, Right} from 'native-base';
 import Icons from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import MyIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -95,6 +95,7 @@ class BodySearchs extends Component {
         super(props);
         this.state = { chosenDate1: new Date(),
           chosenDate2: new Date(),
+          daterange: 1
                          };
         this.setDate1 = this.setDate1.bind(this);
         this.setDate2 = this.setDate2.bind(this);
@@ -103,8 +104,18 @@ class BodySearchs extends Component {
         this.setState({ chosenDate1: newDate });
       }
       setDate2(newDate) {
-        this.setState({ chosenDate2: newDate });
+        if(this.state.chosenDate1 < newDate) {
+          this.setState({ chosenDate2: newDate });
+          const range = (this.state.chosenDate2 - this.state.chosenDate1) / (1000*3600*24)
+          this.setState({ daterange : range})
+        } else {
+          this.setState({ chosenDate2: newDate, daterange : 0 });
+        }
+        if(newDate < this.state.chosenDate1) {
+          this.setState({ chosenDate2: new Date() })
+        }
       }
+
     render() {
         return (
             <>
@@ -147,8 +158,11 @@ class BodySearchs extends Component {
                         </Text>
                 </Item>
 
-                <View style = {{marginLeft: 10, marginTop: 10}}>
+                <View style = {{marginLeft: 10, marginTop: 10, flexDirection: 'row'}}>
                     <Text style = {{fontSize: 14, color: 'grey'}}>Check-out</Text>
+                      <Right>
+                          <Text style = {{fontSize: 14, color: 'grey', marginRight: 10}}>{this.state.daterange} malam</Text>
+                      </Right>
                 </View>
 
                 <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
@@ -199,7 +213,7 @@ class BodySearchs extends Component {
                 </Item>
 
                 <View style={{alignItems: 'center', marginTop: 10}}>
-                <TouchableOpacity
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ListHotel')}
                 style={styles.buttonLogin}>
                 <Text style={styles.buttonText}>CARI HOTEL</Text>
                 </TouchableOpacity>

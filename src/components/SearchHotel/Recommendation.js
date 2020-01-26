@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight:15,
         backgroundColor: '#fff',
-        borderRadius: 5,
-        elevation: 5
+        borderRadius: 5
     
       }
   });

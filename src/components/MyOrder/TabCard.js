@@ -10,6 +10,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import AfterLogin from './AfterLogin';
 import AfterOrder from './AfterOrder';
 import ComingSoon from './ComingSoon';
+import AfterLoginAll from './AfterLoginAll';
 
 const styles = StyleSheet.create({
   root: {
@@ -88,7 +89,7 @@ class TabCard extends Component {
           }>
           <View>
           </View>
-            <AfterOrder />
+            <AfterLoginAll />
         </Tab>
 
         <Tab

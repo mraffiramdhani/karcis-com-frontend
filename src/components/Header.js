@@ -54,13 +54,12 @@ export const HeaderForgotPassword = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 85,
+    height: 55,
     backgroundColor: '#0064D2',
     flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 25
   },
   containerLogin: {
     height: 55,
