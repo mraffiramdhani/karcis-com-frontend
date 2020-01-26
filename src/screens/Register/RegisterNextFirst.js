@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Button, Image } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
