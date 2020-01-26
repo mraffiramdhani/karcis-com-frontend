@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AfterLogins extends Component {
+class AfterLoginAlls extends Component {
   render() {
     return (
       <View>
@@ -39,7 +39,7 @@ class AfterLogins extends Component {
           <View style={{alignItems: 'center', marginTop: 10}}>
             <TouchableOpacity
               style={styles.buttonLogin}
-              onPress={() => this.props.navigation.navigate('SearchHotel')}>
+              onPress={() => this.props.navigation.navigate('Home')}>
               <Text style={styles.buttonText}>PESAN PERJALANAN</Text>
             </TouchableOpacity>
           </View>
@@ -54,5 +54,5 @@ class AfterLogins extends Component {
   }
 }
 
-const AfterLogin = withNavigation(AfterLogins);
-export default AfterLogin;
+const AfterLoginAll = withNavigation(AfterLoginAlls);
+export default AfterLoginAll;

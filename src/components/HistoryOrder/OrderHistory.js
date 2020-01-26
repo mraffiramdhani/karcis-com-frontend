@@ -5,7 +5,6 @@ import {Container, Card, CardItem, Text, Body, Left} from 'native-base';
 import Icons1 from 'react-native-vector-icons/FontAwesome';
 import MyIcon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
-import Modal, { SlideAnimation, ModalTitle, ModalContent } from 'react-native-modals';
 
 const styles = StyleSheet.create({
   icon: {
@@ -22,46 +21,18 @@ const styles = StyleSheet.create({
     width: 150,
     marginTop: 10,
     justifyContent: 'center',
+    alignItems: 'center'
   },
   buttonText: {
-    color: '#0064D2',
+    color: 'grey',
     fontSize: 12,
     marginLeft: 5,
   },
-  buttonYes: {
-    backgroundColor: 'yellow',
-    borderRadius: 50,
-    height: 45,
-    width: 100,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonNo: {
-    backgroundColor: 'green',
-    borderRadius: 50,
-    height: 45,
-    width: 100,
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonTextLogin: {
-    color: '#0064D2',
-    fontSize: 15,
-  },
 });
 
-export default class AfterOrder extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      visible: false
-    }
-  }
+class OrderHistory extends Component {
   render() {
     return (
-      <Container>
         <ScrollView>
           <Card>
             <CardItem bordered>
@@ -76,32 +47,10 @@ export default class AfterOrder extends Component {
                 />
                 <Text>Hotel</Text>
               </Left>
-              <TouchableOpacity  onPress={() => {this.setState({ visible: true })}}>
+              <TouchableOpacity>
                 <MyIcon name="dots-three-vertical" style={styles.icon} />
               </TouchableOpacity>
             </CardItem>
-            <Modal
-                visible={this.state.visible}                    
-                    modalTitle={<ModalTitle title="Hapus / Cancel Order" />}
-                    modalAnimation={new SlideAnimation({
-                    slideFrom: 'bottom', })}
-                    onTouchOutside={() => {
-                        this.setState({ visible: false });}}>
-
-                    <ModalContent style={{width: 350}}>   
-                       <View><Text>Hapus pesanan ini ?</Text></View> 
-                                  <TouchableOpacity 
-                                    onPress={() => this.setState({visible : false})}  
-                                    style={[{alignItems: 'center', marginBottom: 10}, styles.buttonLogin]} >
-                                        <Text style={styles.buttonTextLogin}>Ya</Text>
-                                </TouchableOpacity>                                
-                                <TouchableOpacity 
-                                    onPress={() => this.setState({visible : false})} 
-                                    style={[{alignItems: 'center', marginBottom: 10}, styles.buttonLogin]} >
-                                        <Text style={styles.buttonTextLogin}>Tidak</Text>
-                                </TouchableOpacity>
-                        </ModalContent>
-                </Modal>
             <CardItem bordered>
               <Body>
                 <View>
@@ -138,13 +87,14 @@ export default class AfterOrder extends Component {
                 </View>
 
                 <TouchableOpacity style={styles.metode}>
-                  <Text style={styles.buttonText}>Pilih metode pembayaran</Text>
+                  <Text style={styles.buttonText}>Pesanan Kadaluarsa</Text>
                 </TouchableOpacity>
               </Body>
             </CardItem>
           </Card>
         </ScrollView>
-      </Container>
     );
   }
 }
+
+export default OrderHistory

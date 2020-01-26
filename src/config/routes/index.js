@@ -22,6 +22,11 @@ import FormTopUp from '../../screens/TopUp/FormTopUp';
 import FormHistory from '../../screens/TopUp/FormHistory';
 import SearchHotel from '../../screens/SearchHotel';
 import ListLocation from '../../screens/ListLocation';
+import ListHotel from '../../screens/ListHotel';
+import DetailHotel from '../../screens/DetailHotel';
+import ListRoom from '../../screens/ListRoom';
+import FormOrder from '../../screens/FormOrder';
+import Payment from '../../screens/Payment';
 
 const SplashNav = createStackNavigator(
   {
@@ -52,6 +57,43 @@ const AuthStack = createStackNavigator(
   },
 );
 
+const HomeStack = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    // FormTopUp: {
+    //   screen: FormTopUp,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // FormHistory: {
+    //   screen: FormHistory,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+  },
+  {
+    initialRouteName: 'Home',
+  },
+);
+
+HomeStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
 const MyOrderStack = createStackNavigator(
   {
     MyOrder: {
@@ -72,12 +114,6 @@ const MyOrderStack = createStackNavigator(
         headerShown: false,
       },
     },
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
     HistoryOrder: {
       screen: HistoryOrder,
       navigationOptions: {
@@ -90,12 +126,36 @@ const MyOrderStack = createStackNavigator(
         headerShown: false,
       },
     },
-    // Details: {
-    //   screen: Details,
-    //   navigationOptions: {
-    //     headerShown: false,
-    //   },
-    // },
+    ListHotel: {
+      screen: ListHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    DetailHotel: {
+      screen: DetailHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListRoom: {
+      screen: ListRoom,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    FormOrder: {
+      screen: FormOrder,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Payment: {
+      screen: Payment,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
   },
   {
     initialRouteName: 'MyOrder',
@@ -153,7 +213,7 @@ TopUpStack.navigationOptions = ({ navigation }) => {
 const BottomNavigationStack = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: HomeStack,
       navigationOptions: {
         tabBarLabel: 'Home',
         tabBarIcon: ({ tintColor }) => (
@@ -222,7 +282,7 @@ const Router = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'SplashNav',
   },
 );
 
