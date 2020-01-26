@@ -89,7 +89,8 @@ class TabCard extends Component {
           }>
           <View>
           </View>
-            <AfterLoginAll />
+            {/* <AfterLoginAll /> */}
+            <AfterOrder />
         </Tab>
 
         <Tab
@@ -150,6 +151,7 @@ class TabCard extends Component {
             </TabHeading>
           }>
             <AfterLogin />
+           
         </Tab>
 
         <Tab
