@@ -1,5 +1,5 @@
 import React from 'react';
-import OneSignal from 'react-native-onesignal'; // Import package from node modules
+// import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
 
 import image from '../../image/splash.png';
@@ -74,7 +74,7 @@ export default class SplashScreen extends React.Component {
   componentDidMount() {
     StatusBar.setBarStyle('light-content', true);
     StatusBar.setBackgroundColor('transparent');
-    StatusBar.setTranslucent(true);
+    // StatusBar.setTranslucent(true);
     setTimeout(() => {
       this.props.navigation.navigate('Home');
     }, 2000);
