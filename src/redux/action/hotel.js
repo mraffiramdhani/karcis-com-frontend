@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { APP_URL } from '../../config/routes/Api';
+import { APP_URL } from '../../config/Api'
 
 const url = APP_URL.concat('hotel')
 
