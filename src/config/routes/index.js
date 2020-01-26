@@ -222,7 +222,7 @@ const Router = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'SplashNav',
   },
 );
 
