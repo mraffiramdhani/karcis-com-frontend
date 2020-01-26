@@ -32,6 +32,8 @@ class PushNotification extends Component {
   }
 
   render(){
-  	return()
+  	return(
+      
+    )
   }
 }

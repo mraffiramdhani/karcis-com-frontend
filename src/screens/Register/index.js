@@ -50,7 +50,8 @@ class Register extends Component {
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderLogin
           title="Daftar"
-          onPressLeft={() => this.props.navigation.navigate('Login')} />
+          onPressLeft={() => this.props.navigation.navigate('Login')}
+          onPressRight={() => this.props.navigation.navigate('Setting')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>

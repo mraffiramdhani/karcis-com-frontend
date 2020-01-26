@@ -44,7 +44,7 @@ class AfterLogins extends Component {
             </TouchableOpacity>
           </View>
           <View style={{alignItems: 'center', marginTop: 10}}>
-            <TouchableOpacity style={styles.secondButton}>
+            <TouchableOpacity style={styles.secondButton} onPress={() => this.props.navigation.navigate('HistoryOrder')}>
               <Text style={styles.buttonText}>LIHAT RIWAYAT PESANAN</Text>
             </TouchableOpacity>
           </View>

@@ -78,7 +78,11 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight:15,
         backgroundColor: '#fff',
+<<<<<<< HEAD
         borderRadius: 5,
+=======
+        borderRadius: 5
+>>>>>>> 8c0201c9878fd7659df983195850898b9eed8c7c
     
       }
   });

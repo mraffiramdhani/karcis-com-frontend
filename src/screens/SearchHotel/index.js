@@ -44,7 +44,8 @@ export default class SearchHotel extends Component {
             <>
                 <HeaderSearch />
                     <ScrollView style={{marginTop: '-27%'}}>
-                        <BodySearch person={this.state.personValue} room={this.state.roomValue} onRoomPickerPressed={() => this.myref.openPicker()} onPersonPickerPressed={() => this.myref1.openPicker()}/>
+                        <BodySearch person={this.state.personValue} room={this.state.roomValue} 
+                        onRoomPickerPressed={() => this.myref.openPicker()} onPersonPickerPressed={() => this.myref1.openPicker()}/>
                             <Text style = {{marginTop: 10, marginBottom: 5, marginLeft: 20}}>Akomodasi Pilihan</Text>
                         <View style={{marginBottom: 20}}>
                             <ScrollView horizontal={true}>
