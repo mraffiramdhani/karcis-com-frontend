@@ -1,7 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { withNavigation } from 'react-navigation';
 
 export const Header = (props) => {
   return (
@@ -19,6 +18,18 @@ export const Header = (props) => {
   )
 }
 
+export const HeaderProfile = (props) => {
+  return (
+    <View style={styles.containerLogin}>
+      <View>
+        <TouchableOpacity>
+          <Text style={styles.textLogin}>{props.title}</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
 export const HeaderLogin = (props) => {
   return (
     <View style={styles.containerLogin}>
@@ -30,7 +41,8 @@ export const HeaderLogin = (props) => {
         <Text style={styles.textLogin}>{props.title}</Text>
       </View>
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={props.onPressRight}>
           <Icon name="dots-vertical" size={25} color="#FFF" />
         </TouchableOpacity>
       </View>
@@ -46,7 +58,7 @@ export const HeaderForgotPassword = (props) => {
           onPress={props.onPressLeft}>
           <Icon name="arrow-left" size={25} color="#FFF" style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.textForgotPassword}>Lupa Kata Sandi</Text>
+        <Text style={styles.textForgotPassword}>{props.title}</Text>
       </View>
     </View>
   )
@@ -82,7 +94,7 @@ const styles = StyleSheet.create({
   textLogin: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 18
   },
   rightContainer: {
     flexDirection: "row",
@@ -94,6 +106,6 @@ const styles = StyleSheet.create({
   textForgotPassword: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 18
   }
 })

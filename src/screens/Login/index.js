@@ -17,7 +17,9 @@ class Login extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <HeaderLogin title="Masuk" />
+        <HeaderLogin title="Masuk"
+          onPressRight={() => this.props.navigation.navigate('Setting')}
+        />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
