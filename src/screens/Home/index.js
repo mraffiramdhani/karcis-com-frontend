@@ -12,6 +12,9 @@ import HorizontalFeatures from '../../components/HorizontalFeatures'
 import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
 import HorizontalAttraction from '../../components/HorizontalAttraction'
 
+import {connect} from 'react-redux';
+import {withNavigation} from 'react-navigation';
+
 class HomeOriginal extends Component {
   constructor(props) {
     super(props)
@@ -125,7 +128,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    balance: state.balance
   }
 }
 

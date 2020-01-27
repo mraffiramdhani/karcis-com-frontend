@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Dimensions, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, Dimensions, StyleSheet, TouchableOpacity, Alert, StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconA from 'react-native-vector-icons/AntDesign'
 import { List, ListItem, Left, Right, Body } from 'native-base'
@@ -12,89 +12,86 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { logout } from '../../redux/action/auth';
 import { StackActions, NavigationActions } from 'react-navigation';
-
-const resetAction = StackActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'BottomNavigationStack' })],
-});
-
+import rupiahFormat from '../../utils/rupiahFormat';
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = Dimensions.get('window').height / 4.9;
 
 class AccountOriginal extends Component {
-
-  constructor(props) {
+  constructor(props){
     super(props)
     this.state = {
       isLoading: false,
       isSuccess: false,
-      message: '',
+      message: ''
     }
   }
 
-  componentDidMount() {
-    console.log(this.props.auth);
-    if (!this.props.auth.data.token) {
-      this.props.navigation.navigate('Login')
-    } else {
-      this.props.navigation.navigate('Home')
+  componentDidMount(){
+    if(!this.props.auth.data.token){
+      this.props.navigation.navigate('Login');
+    }
+    else {
+      this.props.navigation.navigate('Account');
     }
   }
 
-  async handleLogout() {
-    const jwt = await this.props.auth.data.token
-    if (jwt !== null) {
-      await this.props.dispatch(logout(jwt))
-    }
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (prevProps.auth.isLoading !== this.state.isLoading) {
-      if (prevProps.auth.isLoading === true) {
-        this.setState({
-          isLoading: true
-        })
-        console.log('masih loading')
-      } else {
-        console.log('sudah fulfill')
-        if (this.props.auth.isSuccess) {
-          console.log('berhasil logout')
-          await this.setState({
-            isLoading: false,
-            isSuccess: true,
-            message: "Logout Success.",
-          })
-          this.handleRedirect()
-        } else {
-          console.log('gagal logout')
-          await this.setState({
-            isLoading: false,
-            isSuccess: false,
-            message: "Logout Failed. Try Again.",
-          })
-          this.handleRedirect()
+  async handleLogout(){
+        const jwt = await this.props.auth.data.token
+        if(jwt !== null){
+            await this.props.dispatch(logout(jwt))
         }
-      }
     }
-    else if (prevProps.auth.data.token === null) {
-      this.props.navigation.navigate('login');
-    }
-  }
 
-  async handleRedirect() {
-    if (this.state.isSuccess) {
-      Alert.alert('Logout Message', this.state.message, [
-        { text: 'OK', onPress: () => this.props.navigation.dispatch(resetAction) },
-      ])
-    } else {
-      Alert.alert('Logout Message', this.state.message)
+    async componentDidUpdate(prevProps) {
+        if (prevProps.auth.isLoading !== this.state.isLoading) {
+            if (prevProps.auth.isLoading === true) {
+                this.setState({
+                    isLoading: true
+                })
+                console.log('masih loading')
+            } else {
+                console.log('sudah fulfill')
+                if (this.props.auth.isSuccess) {
+                    console.log('berhasil logout')
+                    await this.setState({
+                        isLoading: false,
+                        isSuccess: true,
+                        message: "Logout Success.",
+                    })
+                    this.handleRedirect()
+                } else {
+                    console.log('gagal logout')
+                    await this.setState({
+                        isLoading: false,
+                        isSuccess: false,
+                        message: "Logout Failed. Try Again.",
+                    })
+                    this.handleRedirect()
+                }
+            }
+        }
+
+        if(prevProps.auth.data.token === null){
+          this.prop.navigation.navigate('Login');
+        }
     }
-  }
+
+    async handleRedirect() {
+        if (this.state.isSuccess) {
+            Alert.alert('Logout Message', this.state.message, [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+            ])
+        } else {
+            Alert.alert('Logout Message', this.state.message)
+        }
+    }
 
   render() {
+    const { first_name, last_name, email } = this.props.auth.data
     return (
       <SafeAreaView>
+      <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderProfile title="Akun" />
         <ScrollView>
           <View style={styles.body}>
@@ -102,7 +99,7 @@ class AccountOriginal extends Component {
             </View>
             <View style={styles.bannerContent}>
               <View style={styles.containerName}>
-                <Text style={styles.textName}>Rahman Wu</Text>
+                <Text style={styles.textName}>{`${first_name} ${last_name}`}</Text>
                 <Icon name="pencil" size={20} color='#0064D2' />
               </View>
               <View style={styles.containerVerify}>
@@ -111,7 +108,7 @@ class AccountOriginal extends Component {
               </View>
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
-                <Text style={styles.textSaldo}>Basic - 1.000 </Text>
+                <Text style={styles.textSaldo}>Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')} </Text>
                 <Text style={styles.textTixPoint}>TIX Point</Text>
               </View>
             </View>
@@ -196,7 +193,9 @@ class AccountOriginal extends Component {
             <List>
               <ListItem last>
                 <Body>
-                  <Text style={styles.textTitleOption}>Keluar</Text>
+                  <TouchableOpacity onPress={() => this.handleLogout()}>
+                    <Text style={styles.textTitleOption}>Keluar</Text>
+                  </TouchableOpacity>
                 </Body>
               </ListItem>
             </List>
@@ -295,7 +294,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    balance: state.balance
   }
 }
 
