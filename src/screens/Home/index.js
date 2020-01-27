@@ -10,7 +10,10 @@ import HorizontalFeatures from '../../components/HorizontalFeatures'
 import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
 import HorizontalAttraction from '../../components/HorizontalAttraction'
 
-class Home extends Component {
+import {connect} from 'react-redux';
+import {withNavigation} from 'react-navigation';
+
+class HomeOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,7 +24,7 @@ class Home extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <Header />
+        <Header onPress={() => this.props.auth.data.token ? this.props.navigation.navigate('TopUp') : this.props.navigation.navigate('Login') } />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
@@ -121,4 +124,13 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    balance: state.balance
+  }
+}
+
+const Home = withNavigation(HomeOriginal)
+
+export default connect(mapStateToProps)(Home)

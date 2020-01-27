@@ -11,10 +11,3 @@ export const getHotel = () => {
     payload: axios.get(url)
   }
 }
-
-// export const getItemById = (id_item) => {
-//   return {
-//     type: 'GET_ITEM_BY_ID',
-//     payload: axios.get(url.concat(`/${id_item}`))
-//   }
-// }

@@ -5,6 +5,7 @@ import Icons from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/Fontisto';
 import MyIcon from 'react-native-vector-icons/EvilIcons';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import {withNavigation} from 'react-navigation'
 
 const styles = StyleSheet.create({
     root: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     },
   });
 
-class HeaderLoc extends Component {
+class HeaderLocOriginal extends Component {
     render() {
         return (
 <View>
@@ -50,7 +51,7 @@ class HeaderLoc extends Component {
                   Tujuan{' '}
                 </Text>
               </Left>
-              <Icons name="cross" style={styles.icon} />
+              <Icons name="cross" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
           <View style={{backgroundColor: 'white', borderRadius: 5, width: '90%', height: '40%', alignSelf: 'center', flexDirection: 'row'}}>
@@ -65,5 +66,7 @@ class HeaderLoc extends Component {
         )
     }
 }
+
+const HeaderLoc = withNavigation(HeaderLocOriginal)
 
 export default HeaderLoc

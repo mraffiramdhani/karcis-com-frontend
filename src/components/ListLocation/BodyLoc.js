@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Item } from 'native-base'
 import MyIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderLoc from '../../components/ListLocation/HeaderLoc';
+import {connect} from 'react-redux';
 
 const styles = StyleSheet.create({
     root: {
@@ -34,6 +35,10 @@ const styles = StyleSheet.create({
   });
 
 class BodyLoc extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <ScrollView>
@@ -46,19 +51,36 @@ class BodyLoc extends Component {
         <Text style={{color: 'grey'}}>Tujuan Terpopuler</Text>
       </View>
 
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <MyIcons name="city-variant-outline" style={{color : '#0064D2', fontSize: 20, marginLeft: '4%', marginRight: '2.5%'}} />
-          <Text>Bandung</Text>
-        </View>
-        <View style={{marginBottom: '6%'}}>
-          <Text style={{marginLeft: '12%', fontSize: 12, color: 'grey'}}>Jawa Barat, Indonesia</Text>
-        </View>
-      </View>
+      {
+        this.props.city.isLoading &&
+        <ActivityIndicator color="blue" size="large" />
+      }
+
+      {
+        !this.props.city.isLoading && this.props.city.data.map((v, i) => {
+          return(
+            <TouchableOpacity key={v.id}>
+            <View style={{flexDirection: 'row'}}>
+              <MyIcons name="city-variant-outline" style={{color : '#0064D2', fontSize: 20, marginLeft: '4%', marginRight: '2.5%'}} />
+              <Text>{v.name}</Text>
+            </View>
+            <View style={{marginBottom: '6%'}}>
+              <Text style={{marginLeft: '12%', fontSize: 12, color: 'grey'}}>Indonesia</Text>
+            </View>
+          </TouchableOpacity>
+            )
+        })
+      }
       
       </ScrollView>
     )
   }
 }
 
-export default BodyLoc
+const mapStateToProps = state => {
+  return {
+    city: state.city
+  }
+}
+
+export default connect(mapStateToProps)(BodyLoc)

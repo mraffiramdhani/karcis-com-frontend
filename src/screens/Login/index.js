@@ -1,18 +1,73 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
+
+import {connect} from 'react-redux';
+import {login} from '../../redux/action/auth';
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      isLoading: false,
+      isSuccess: false
     }
   }
+
+  async handleSubmit(){
+    const {email, password} = this.state;
+    const data = {email,password};
+    await this.props.dispatch(login(data))
+  }
+
+  async componentDidUpdate(prevProps) {
+        if (prevProps.auth.isLoading !== this.state.isLoading) {
+            if (prevProps.auth.isLoading === true) {
+                this.setState({
+                    isLoading: true
+                })
+                console.log('masih loading')
+            } else {
+                console.log('sudah fulfill')
+                if (this.props.auth.isSuccess) {
+                    console.log('berhasil login')
+                    await this.setState({
+                        isLoading: false,
+                        isSuccess: true,
+                        message: "Login Success.",
+                    })
+                    this.handleRedirect()
+                } else {
+                    console.log('gagal login')
+                    await this.setState({
+                        isLoading: false,
+                        isSuccess: false,
+                        message: "Login Failed. Try Again.",
+                    })
+                    this.handleRedirect()
+                }
+            }
+        }
+        else{
+
+        }
+    }
+
+    handleRedirect() {
+        if (this.state.isSuccess) {
+            Alert.alert('Login Message', this.state.message, [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
+            ])
+        } else {
+            Alert.alert('Login Message', this.state.message)
+        }
+    }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -47,7 +102,7 @@ class Login extends Component {
                 onPress={() => this.props.navigation.navigate('ForgotPassword')}>
                 <Text style={styles.textForgotPassword}>Lupa kata sandi?</Text>
               </TouchableOpacity>
-              <ButtonLogin label="LOG IN" />
+              <ButtonLogin label="LOG IN" onPress={() => this.handleSubmit()} />
             </View>
             <View style={styles.containerLine}>
               <View
@@ -168,4 +223,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Login
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Login)

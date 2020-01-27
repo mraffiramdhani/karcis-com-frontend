@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import {Left} from 'native-base';
 import Icons from 'react-native-vector-icons/AntDesign';
+import {withNavigation} from 'react-navigation';
 
 
 const styles = StyleSheet.create({
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     },
   });
 
-class HeaderSearch extends Component {
+class HeaderSearchOriginal extends Component {
     render() {
         return (
             <View>
@@ -49,7 +50,7 @@ class HeaderSearch extends Component {
                 </Text>
               </Left>
 
-              <Icons name="arrowleft" style={styles.icon} />
+              <Icons name="arrowleft" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
         </View>
@@ -57,5 +58,7 @@ class HeaderSearch extends Component {
         )
     }
 }
+
+const HeaderSearch = withNavigation(HeaderSearchOriginal)
 
 export default HeaderSearch
