@@ -329,4 +329,6 @@ const Router = createSwitchNavigator(
   },
 );
 
+
 export default createAppContainer(Router);
+

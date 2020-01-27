@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar , YellowBox} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 
@@ -12,8 +12,7 @@ import HorizontalFeatures from '../../components/HorizontalFeatures'
 import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
 import HorizontalAttraction from '../../components/HorizontalAttraction'
 
-import {connect} from 'react-redux';
-import {withNavigation} from 'react-navigation';
+YellowBox.ignoreWarnings(['Warning:', 'Require cycle:'])
 
 class HomeOriginal extends Component {
   constructor(props) {

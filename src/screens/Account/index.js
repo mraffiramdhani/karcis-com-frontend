@@ -108,7 +108,7 @@ class AccountOriginal extends Component {
               </View>
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
-                <Text style={styles.textSaldo}>Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')} </Text>
+                <Text style={styles.textSaldo}>Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')} </Text> 
                 <Text style={styles.textTixPoint}>TIX Point</Text>
               </View>
             </View>

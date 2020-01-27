@@ -92,12 +92,13 @@ class BodyPoint extends Component {
         </View>
         <View style={{flexDirection: 'row', marginBottom: 5}}>
           <Icons name="coins" style={styles.coin} />
-          {
-            !this.props.balance.isLoading &&
           <Text style={{fontWeight: 'bold', fontSize: 16, marginTop: 15}}>
-            {rupiahFormat(this.props.balance.data.balance, "Rp.")}
+            {
+              !this.props.balance.isLoading &&
+              rupiahFormat(this.props.balance.data.balance, "Rp.")
+            }
           </Text>
-          }
+          
         </View>
 
         <View style={{marginBottom: 10}}>

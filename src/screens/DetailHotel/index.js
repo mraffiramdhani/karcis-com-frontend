@@ -14,8 +14,8 @@ class DetailHotel extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.dispatch(getHotelById(this.props.navigation.getParam('id')))
+  async componentDidMount() {
+    await this.props.dispatch(getHotelById(this.props.navigation.getParam('id')))
   }
 
   render() {
@@ -23,9 +23,6 @@ class DetailHotel extends Component {
     const orderData = this.props.navigation.getParam('orderData')
     return (
       <>
-      {
-        (console.log(this.props.hotel.isLoading))
-      }
         <HeaderDetail dataDetail={this.props.hotel.dataDetail} />
         <ScrollView style={{ marginTop: -50 }}>
           <CarouselImage />

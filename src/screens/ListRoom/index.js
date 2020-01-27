@@ -23,7 +23,7 @@ class ListRoom extends Component {
         return (
             <>
                 <HeaderRoom orderData={orderData} />
-                <BodyRoom dataRooms={hotelRooms} orderData={orderData} />
+                <BodyRoom dataRooms={hotelRooms} orderData={orderData} /> 
             </>
         )
     }
