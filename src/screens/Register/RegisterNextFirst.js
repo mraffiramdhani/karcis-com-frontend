@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux';
@@ -76,43 +76,20 @@ class RegisterNextFirstOriginal extends Component {
   }
 
   handleRegister() {
-    const data = {
-      email: this.props.navigation.getParam('email'),
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      phone: this.state.telp_number,
-      password: this.state.password
-    };
-    this.props.dispatch(register(data));
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (prevProps.auth.isLoading !== this.state.isLoading) {
-      if (prevProps.auth.isLoading === true) {
-        this.setState({
-          isLoading: true
-        })
-        console.log('masih loading')
-      } else {
-        console.log('sudah fulfill')
-        if (this.props.auth.isSuccess) {
-          console.log('berhasil register')
-          await this.setState({
-            isLoading: false,
-            isSuccess: true,
-            message: "Register Success.",
-          })
-          this.handleRedirect()
-        } else {
-          console.log('gagal register')
-          await this.setState({
-            isLoading: false,
-            isSuccess: false,
-            message: "Register Failed. Try Again.",
-          })
-          this.handleRedirect()
-        }
-      }
+    const {email, first_name, last_name, telp_number, password} = this.state;
+    if(first_name !== '' && last_name !== '' && telp_number !== '' && password !== ''){
+      const data = {
+        email: this.props.navigation.getParam('email'),
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        phone: this.state.telp_number,
+        password: this.state.password
+      };
+      console.log(email, first_name, last_name, telp_number, password);
+      this.props.dispatch(register(data));
+    }
+    else {
+      Alert.alert('Register Message.', 'Please Provide a Valid Data.');
     }
   }
 
@@ -183,6 +160,7 @@ class RegisterNextFirstOriginal extends Component {
                   style={[styles.textInput, styles.fromTelpNumber]}
                   theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                   value={this.state.telp_number}
+                  keyboardType="number-pad"
                   onChangeText={this._checkTelpNumber}
                 />
               </View>
@@ -198,9 +176,20 @@ class RegisterNextFirstOriginal extends Component {
               <View style={styles.containertFormProvisions}>
                 <Text style={styles.labelForm}>Min. 7 karakter dengan kombinasi antara angka, simbol, & huruf kapital.</Text>
               </View>
-              <ButtonLogin
+              {
+                this.props.auth.isLoading && 
+                <TouchableOpacity
+                  style={styles.btnLogin}
+                  disabled={true}>
+                  <ActivityIndicator size="small" color="blue" />
+                </TouchableOpacity >
+              }
+              {
+                !this.props.auth.isLoading && 
+                <ButtonLogin
                 label="SELANJUTNYA"
                 onPress={() => this.handleRegister()} />
+              }
             </View>
           </View>
         </ScrollView>
@@ -261,8 +250,15 @@ const styles = StyleSheet.create({
     marginTop: -25,
     marginBottom: 25,
     color: '#F2625F',
-
-  }
+  },
+  btnLogin: {
+    width: '100%',
+    backgroundColor: '#FEDD00',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    borderRadius: 50
+  },
 })
 
 const mapStateToProps = state => {

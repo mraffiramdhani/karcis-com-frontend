@@ -6,6 +6,7 @@ import auth from './auth';
 import topup from './topup';
 import hotelRooms from './hotelRooms';
 import balance from './balance';
+import hotelSearch from './hotelSearch'
 
 const appReducer = combineReducers({
   hotel,
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
   auth,
   topup,
   hotelRooms,
-  balance
+  balance,
+  hotelSearch
 })
 
 export default appReducer;

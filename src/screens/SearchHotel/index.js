@@ -6,6 +6,8 @@ import HeaderSearch from '../../components/SearchHotel/HeaderSearch';
 import BodySearch from '../../components/SearchHotel/BodySearch';
 import Recommendation from '../../components/SearchHotel/Recommendation';
 import PickerBox from 'react-native-picker-box';
+import { connect } from 'react-redux';
+import { resetSearchParam, setRoomCount, setGuestCount } from '../../redux/action/hotelSearch';
 
 class SearchHotel extends Component {
     constructor(props) {
@@ -40,6 +42,10 @@ class SearchHotel extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.dispatch(resetSearchParam());
+      }
+
     handleExecuteSearch(chosenDate1, chosenDate2, daterange) {
         const { roomValue, personValue } = this.state
         this.props.navigation.navigate('ListHotel', {
@@ -53,16 +59,26 @@ class SearchHotel extends Component {
         });
     }
 
+    handleSetRoomCount(room_count){
+        this.props.dispatch(setRoomCount(room_count))
+        this.setState({ roomValue: room_count })
+    }
+
+    handleSetGuestCount(guest_count){
+        this.props.dispatch(setGuestCount(guest_count))
+        this.setState({ personValue: guest_count })   
+    }
+
     render() {
         return (
             <>
                 <HeaderSearch />
-                <ScrollView style={{ marginTop: '-27%' }}>
+                <ScrollView style={{ marginTop: '-27%' }} showsVerticalScrollIndicator={false}>
                     <BodySearch onSearchPressed={(a, b, c) => this.handleExecuteSearch(a, b, c)} person={this.state.personValue} room={this.state.roomValue}
                         onRoomPickerPressed={() => this.myref.openPicker()} onPersonPickerPressed={() => this.myref1.openPicker()} />
                     <Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 20 }}>Akomodasi Pilihan</Text>
                     <View style={{ marginBottom: 20 }}>
-                        <ScrollView horizontal={true}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             <Recommendation />
                         </ScrollView>
                     </View>
@@ -71,13 +87,13 @@ class SearchHotel extends Component {
                 <PickerBox
                     ref={ref => this.myref = ref}
                     data={this.state.roomdata}
-                    onValueChange={value => this.setState({ roomValue: value })}
+                    onValueChange={value => this.handleSetRoomCount(value)}
                     selectedValue={this.state.roomValue}
                 />
                 <PickerBox
                     ref={ref => this.myref1 = ref}
                     data={this.state.persondata}
-                    onValueChange={value => this.setState({ personValue: value })}
+                    onValueChange={value => this.handleSetGuestCount(value)}
                     personValue={this.state.personValue}
                 />
             </>
@@ -85,4 +101,10 @@ class SearchHotel extends Component {
     }
 }
 
-export default SearchHotel
+const mapStateToProps = state => {
+    return {
+        hotelSearch: state.hotelSearch
+    }
+}
+
+export default connect(mapStateToProps)(SearchHotel)

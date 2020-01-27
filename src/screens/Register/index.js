@@ -63,6 +63,7 @@ class Register extends Component {
                 style={styles.textInput}
                 theme={{ colors: { primary: colorLineFrom, underlineColor: 'transparent', } }}
                 value={this.state.email}
+                keyboardType="email-address"
                 onChangeText={this._checkEmail}
               />
               {disabled == true &&
