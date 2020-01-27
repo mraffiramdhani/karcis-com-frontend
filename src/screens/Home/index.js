@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar , YellowBox} from 'react-native';
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
@@ -10,7 +12,9 @@ import HorizontalFeatures from '../../components/HorizontalFeatures'
 import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
 import HorizontalAttraction from '../../components/HorizontalAttraction'
 
-class Home extends Component {
+YellowBox.ignoreWarnings(['Warning:', 'Require cycle:'])
+
+class HomeOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,7 +25,7 @@ class Home extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <Header />
+        <Header onPressLogin={() => this.props.navigation.navigate('Login')} isAuth={this.props.auth.data.token ? this.props.auth.data.first_name : 'Masuk'} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
@@ -121,4 +125,13 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    balance: state.balance
+  }
+}
+
+const Home = withNavigation(HomeOriginal)
+
+export default connect(mapStateToProps)(Home)

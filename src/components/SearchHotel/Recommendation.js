@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
         marginRight:15,
         backgroundColor: '#fff',
         borderRadius: 5
-    
       }
   });
 

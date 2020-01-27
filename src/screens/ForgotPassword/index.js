@@ -16,7 +16,9 @@ class ForgotPassword extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <HeaderForgotPassword onPressLeft={() => this.props.navigation.navigate('Login')} />
+        <HeaderForgotPassword
+          onPressLeft={() => this.props.navigation.navigate('Login')}
+          title="Lupa Kata Sandi" />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
@@ -31,7 +33,9 @@ class ForgotPassword extends Component {
                 value={this.state.email}
                 onChangeText={email => this.setState({ email })}
               />
-              <ButtonLogin label="KIRIM" />
+              <ButtonLogin
+                label="KIRIM"
+                onPress={() => this.props.navigation.navigate('ForgotPasswordNext')} />
             </View>
           </View>
         </ScrollView>
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   textSectionSubtitle: {
-    color: '#646D83',
+    color: '#35405A',
     fontSize: 14,
     paddingHorizontal: 16,
     lineHeight: 22,

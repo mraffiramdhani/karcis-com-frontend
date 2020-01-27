@@ -3,6 +3,9 @@ import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'native-base';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import usericon from '../../image/membercard.png';
+import {connect} from 'react-redux';
+import {getBalance} from '../../redux/action/balance';
+import rupiahFormat from '../../utils/rupiahFormat';
 
 const styles = StyleSheet.create({
   root: {
@@ -42,11 +45,16 @@ const styles = StyleSheet.create({
 });
 
 class BodyPoint extends Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
+    const {first_name, last_name } = this.props.auth.data
     return (
       <View style={styles.info}>
         <View>
-          <Text style={{fontSize: 20, marginBottom: 10}}> Username </Text>
+          <Text style={{fontSize: 20, marginBottom: 10}}> {`${first_name} ${last_name}`} </Text>
         </View>
 
         <View style={{overflow: 'hidden', borderRadius: 10}}>
@@ -68,7 +76,7 @@ class BodyPoint extends Component {
                   marginRight: 10,
                   fontSize: 25,
                 }}>
-                Username
+                {`${first_name} ${last_name}`}
               </Text>
               <Text
                 style={{
@@ -85,8 +93,12 @@ class BodyPoint extends Component {
         <View style={{flexDirection: 'row', marginBottom: 5}}>
           <Icons name="coins" style={styles.coin} />
           <Text style={{fontWeight: 'bold', fontSize: 16, marginTop: 15}}>
-            Rp. 2.000.000,-
+            {
+              !this.props.balance.isLoading &&
+              rupiahFormat(this.props.balance.data.balance, "Rp.")
+            }
           </Text>
+          
         </View>
 
         <View style={{marginBottom: 10}}>
@@ -97,4 +109,11 @@ class BodyPoint extends Component {
   }
 }
 
-export default BodyPoint;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    balance: state.balance
+  }
+}
+
+export default connect(mapStateToProps)(BodyPoint);
