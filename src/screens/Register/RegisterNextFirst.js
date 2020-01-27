@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import { register } from '../../redux/action/auth';
 
 // import Components
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 import { ModalStateCode } from '../../components/Modal'
 
-class RegisterNextFirst extends Component {
+class RegisterNextFirstOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -71,6 +74,58 @@ class RegisterNextFirst extends Component {
         modalVisible: false
       })
   }
+
+  handleRegister() {
+    const data = {
+      email: this.props.navigation.getParam('email'),
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      phone: this.state.telp_number,
+      password: this.state.password
+    };
+    this.props.dispatch(register(data));
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading === true) {
+        this.setState({
+          isLoading: true
+        })
+        console.log('masih loading')
+      } else {
+        console.log('sudah fulfill')
+        if (this.props.auth.isSuccess) {
+          console.log('berhasil register')
+          await this.setState({
+            isLoading: false,
+            isSuccess: true,
+            message: "Register Success.",
+          })
+          this.handleRedirect()
+        } else {
+          console.log('gagal register')
+          await this.setState({
+            isLoading: false,
+            isSuccess: false,
+            message: "Register Failed. Try Again.",
+          })
+          this.handleRedirect()
+        }
+      }
+    }
+  }
+
+  async handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Register Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
+      ])
+    } else {
+      Alert.alert('Register Message', this.state.message)
+    }
+  }
+
 
   render() {
     const { email } = this.state
@@ -145,7 +200,7 @@ class RegisterNextFirst extends Component {
               </View>
               <ButtonLogin
                 label="SELANJUTNYA"
-                onPress={() => this.props.navigation.navigate('RegisterNextSecond')} />
+                onPress={() => this.handleRegister()} />
             </View>
           </View>
         </ScrollView>
@@ -210,4 +265,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default RegisterNextFirst
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const RegisterNextFirst = withNavigation(RegisterNextFirstOriginal)
+
+export default connect(mapStateToProps)(RegisterNextFirst)

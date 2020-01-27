@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import {withNavigation} from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
 class CategoriesHomeOriginal extends Component {
 
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
   }
 })
 
-const CategoriesHome = withNavigation(CategoriesHomeOriginal)
+const CategoriesHome = withNavigation(CategoriesHomeOriginal);
 
-export default CategoriesHome
+export default CategoriesHome;

@@ -4,74 +4,70 @@ import { Item } from 'native-base'
 import MyIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderLoc from '../../components/ListLocation/HeaderLoc';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
-    root: {
-      flex: 1,
-      backgroundColor: '#eee',
-      padding: 5,
-    },
-    banner: {
-      height: 100,
-      backgroundColor: '#0064D2',
-    },
-    icon: {
-      fontSize: 25,
-      color: 'white',
-      padding: 5,
-      paddingRight: 15,
-      paddingBottom: 10,
-      marginTop: 10,
-    },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-    },
-    searchBar: {
-        marginTop: '-20%',
-        backgroundColor: '#fff'
-    }
-  });
+  root: {
+    flex: 1,
+    backgroundColor: '#eee',
+    padding: 5,
+  },
+  banner: {
+    height: 100,
+    backgroundColor: '#0064D2',
+  },
+  icon: {
+    fontSize: 25,
+    color: 'white',
+    padding: 5,
+    paddingRight: 15,
+    paddingBottom: 10,
+    marginTop: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  searchBar: {
+    marginTop: '-20%',
+    backgroundColor: '#fff'
+  }
+});
 
-class BodyLoc extends Component {
-  constructor(props){
+class BodyLocOriginal extends Component {
+  constructor(props) {
     super(props)
   }
-
+  
   render() {
     return (
       <ScrollView>
-      <Item>
-        <MyIcons name="crosshairs-gps" style={{color : '#0064D2', fontSize: 20, marginTop: '5%', marginBottom: '5%', marginLeft: '4%', marginRight: '2%'}} />
-        <Text>Dekat saya</Text>
-      </Item>
+        <Item>
+          <MyIcons name="crosshairs-gps" style={{ color: '#0064D2', fontSize: 20, marginTop: '5%', marginBottom: '5%', marginLeft: '4%', marginRight: '2%' }} />
+          <Text>Dekat saya</Text>
+        </Item>
 
-      <View style={{margin: '5%'}}>
-        <Text style={{color: 'grey'}}>Tujuan Terpopuler</Text>
-      </View>
+        <View style={{ margin: '5%' }}>
+          <Text style={{ color: 'grey' }}>Tujuan Terpopuler</Text>
+        </View>
 
-      {
-        this.props.city.isLoading &&
-        <ActivityIndicator color="blue" size="large" />
-      }
-
-      {
-        !this.props.city.isLoading && this.props.city.data.map((v, i) => {
-          return(
-            <TouchableOpacity key={v.id}>
-            <View style={{flexDirection: 'row'}}>
-              <MyIcons name="city-variant-outline" style={{color : '#0064D2', fontSize: 20, marginLeft: '4%', marginRight: '2.5%'}} />
-              <Text>{v.name}</Text>
-            </View>
-            <View style={{marginBottom: '6%'}}>
-              <Text style={{marginLeft: '12%', fontSize: 12, color: 'grey'}}>Indonesia</Text>
-            </View>
-          </TouchableOpacity>
-            )
-        })
-      }
-      
+        {this.props.city.isLoading &&
+          <ActivityIndicator color="blue" size="large" />
+        }
+        {!this.props.city.isLoading && this.props.city.data.map((v, i) => {
+          return (
+            <TouchableOpacity key={v.id} onPress={() => this.props.navigation.navigate('SearchHotel', { city_id: v.id })}>
+              <View style={{ flexDirection: 'row' }}>
+                <MyIcons name="city-variant-outline" style={{ color: '#0064D2', fontSize: 20, marginLeft: '4%', marginRight: '2.5%' }} />
+                <Text>{v.name}</Text>
+              </View>
+              <View style={{ marginBottom: '6%' }}>
+                <Text style={{ marginLeft: '12%', fontSize: 12, color: 'grey' }}>Indonesia</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        })}
       </ScrollView>
     )
   }
@@ -82,5 +78,7 @@ const mapStateToProps = state => {
     city: state.city
   }
 }
+
+const BodyLoc = withNavigation(BodyLocOriginal)
 
 export default connect(mapStateToProps)(BodyLoc)

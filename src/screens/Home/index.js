@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
@@ -24,7 +26,7 @@ class HomeOriginal extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <Header onPress={() => this.props.auth.data.token ? this.props.navigation.navigate('TopUp') : this.props.navigation.navigate('Login') } />
+        <Header onPressLogin={() => this.props.navigation.navigate('Login')} isAuth={this.props.auth.data.token ? this.props.auth.data.first_name : 'Masuk'} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>

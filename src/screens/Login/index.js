@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { login } from '../../redux/action/auth';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
@@ -8,71 +12,70 @@ import { ButtonLogin } from '../../components/Button'
 import {connect} from 'react-redux';
 import {login} from '../../redux/action/auth';
 
-class Login extends Component {
+class LoginOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
       password: '',
       isLoading: false,
-      isSuccess: false
+      isSuccess: false,
+      message: ''
     }
   }
 
-  async handleSubmit(){
-    const {email, password} = this.state;
-    const data = {email,password};
-    await this.props.dispatch(login(data))
+  async handleSubmit() {
+    const { email, password } = this.state
+    const data = { email, password }
+    await this.props.dispatch(login(data));
   }
 
   async componentDidUpdate(prevProps) {
-        if (prevProps.auth.isLoading !== this.state.isLoading) {
-            if (prevProps.auth.isLoading === true) {
-                this.setState({
-                    isLoading: true
-                })
-                console.log('masih loading')
-            } else {
-                console.log('sudah fulfill')
-                if (this.props.auth.isSuccess) {
-                    console.log('berhasil login')
-                    await this.setState({
-                        isLoading: false,
-                        isSuccess: true,
-                        message: "Login Success.",
-                    })
-                    this.handleRedirect()
-                } else {
-                    console.log('gagal login')
-                    await this.setState({
-                        isLoading: false,
-                        isSuccess: false,
-                        message: "Login Failed. Try Again.",
-                    })
-                    this.handleRedirect()
-                }
-            }
-        }
-        else{
-
-        }
-    }
-
-    handleRedirect() {
-        if (this.state.isSuccess) {
-            Alert.alert('Login Message', this.state.message, [
-                { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
-            ])
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading === true) {
+        this.setState({
+          isLoading: true
+        })
+        console.log('masih loading')
+      } else {
+        console.log('sudah fulfill')
+        if (this.props.auth.isSuccess) {
+          console.log('berhasil login')
+          await this.setState({
+            isLoading: false,
+            isSuccess: true,
+            message: "Login Success.",
+          })
+          await AsyncStorage.setItem('token', this.props.auth.data.token)
+          this.handleRedirect()
         } else {
-            Alert.alert('Login Message', this.state.message)
+          console.log('gagal login')
+          await this.setState({
+            isLoading: false,
+            isSuccess: false,
+            message: "Login Failed. Try Again.",
+          })
+          this.handleRedirect()
         }
+      }
     }
+  }
+
+  async handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Login Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
+      ])
+    } else {
+      Alert.alert('Login Message', this.state.message)
+    }
+  }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <HeaderLogin title="Masuk"
+        <HeaderLogin title="Masuk" onPressLeft={() => this.props.navigation.goBack()}
           onPressRight={() => this.props.navigation.navigate('Setting')}
         />
         <ScrollView
@@ -228,5 +231,7 @@ const mapStateToProps = state => {
     auth: state.auth
   }
 }
+
+const Login = withNavigation(LoginOriginal)
 
 export default connect(mapStateToProps)(Login)

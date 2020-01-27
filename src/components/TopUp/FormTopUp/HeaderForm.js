@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Icons from 'react-native-vector-icons/AntDesign';
-import {Left} from 'native-base';
+import { Left } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -41,13 +42,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class HeaderForm extends Component {
+class HeaderFormOriginal extends Component {
   render() {
     return (
       <View>
         <View style={styles.banner}>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Left>
                 <Text
                   style={{
@@ -61,7 +62,7 @@ class HeaderForm extends Component {
                 </Text>
               </Left>
 
-              <Icons name="arrowleft" style={styles.icon} />
+              <Icons name="arrowleft" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
         </View>
@@ -69,5 +70,7 @@ class HeaderForm extends Component {
     );
   }
 }
+
+const HeaderForm = withNavigation(HeaderFormOriginal)
 
 export default HeaderForm;

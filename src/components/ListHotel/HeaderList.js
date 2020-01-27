@@ -7,6 +7,7 @@ import MyIcon from 'react-native-vector-icons/EvilIcons';
 import MyIcons from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class HeaderList extends Component {
+class HeaderListOriginal extends Component {
   render() {
     return (
       <View>
@@ -52,7 +53,7 @@ class HeaderList extends Component {
                   Bogor{' '}
                 </Text>
               </Left>
-              <Icons name="cross" style={styles.icon} />
+              <Icons name="cross" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
           <View style={{ backgroundColor: 'white', borderRadius: 5, width: '90%', height: '30%', alignSelf: 'center', flexDirection: 'row' }}>
@@ -67,5 +68,7 @@ class HeaderList extends Component {
     )
   }
 }
+
+const HeaderList = withNavigation(HeaderListOriginal);
 
 export default HeaderList

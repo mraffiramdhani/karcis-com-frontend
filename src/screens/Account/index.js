@@ -8,9 +8,10 @@ import { HeaderProfile } from '../../components/Header'
 import HorizontalProfileMission from '../../components/HorizontalProfileMission'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import {connect} from 'react-redux';
-import {logout} from '../../redux/action/auth';
-import {withNavigation} from 'react-navigation';
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import { logout } from '../../redux/action/auth';
+import { StackActions, NavigationActions } from 'react-navigation';
 import rupiahFormat from '../../utils/rupiahFormat';
 
 const BannerWidth = Dimensions.get('window').width;
@@ -188,7 +189,7 @@ class AccountOriginal extends Component {
               </ListItem>
             </List>
           </View>
-          <View style={styles.containerOptionProfile3}>
+          <TouchableOpacity onPress={() => this.handleLogout()} style={styles.containerOptionProfile3}>
             <List>
               <ListItem last>
                 <Body>
@@ -198,7 +199,7 @@ class AccountOriginal extends Component {
                 </Body>
               </ListItem>
             </List>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, ActivityIndicator } from 'react-native'
 import { Left, Input, Item, Right, Card, CardItem } from 'native-base'
 import Icons from 'react-native-vector-icons/Entypo';
 import MyIcon from 'react-native-vector-icons/EvilIcons';
@@ -49,8 +49,12 @@ const styles = StyleSheet.create({
 });
 
 class BodyLists extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    const { hotel } = this.props
+    const { hotel, orderData } = this.props
 
     return (
       <Card style={styles.card}>
@@ -62,9 +66,14 @@ class BodyLists extends Component {
           </Item>
 
           <ScrollView>
-            {hotel.isLoading == false && hotel.dataHotel.hotels.map(v => (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailHotel', {
-                id: v.id
+            {hotel.isLoading == true &&
+              <ActivityIndicator color="blue" size="large" />
+            }
+            {hotel.isLoading == false && hotel.data.hotels.map(v => (
+              <TouchableOpacity key={v.id} onPress={() => this.props.navigation.navigate('DetailHotel', {
+                id: v.id,
+                cost: v.cost,
+                orderData: orderData
               })}>
                 <Item inlineLabel style={{ flexDirection: 'row' }}>
                   <CardItem style={{ width: '30%', paddingLeft: 10, paddingRight: 10 }}>
@@ -127,4 +136,6 @@ class BodyLists extends Component {
 }
 
 const BodyList = withNavigation(BodyLists);
+
+
 export default BodyList
