@@ -139,7 +139,7 @@ class BodySearchs extends Component {
                 <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
                    <Icons name="calendar" style={styles.iconFilter}/> 
                    <DatePicker
-                        minimumDate={new Date(2019, 1, 1)}
+                        minimumDate={new Date()}
                         maximumDate={new Date(2021, 12, 31)}
                         locale={"en"}
                         timeZoneOffsetInMinutes={undefined}
@@ -168,7 +168,7 @@ class BodySearchs extends Component {
                 <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
                    <Icons name="calendar" style={styles.iconFilter}/> 
                    <DatePicker
-                        minimumDate={new Date(2019, 1, 1)}
+                        minimumDate={new Date()}
                         maximumDate={new Date(2021, 12, 31)}
                         locale={"en"}
                         timeZoneOffsetInMinutes={undefined}
