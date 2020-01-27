@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { withNavigation } from 'react-navigation'
 
 export const Header = (props) => {
   return (
@@ -10,8 +11,8 @@ export const Header = (props) => {
           style={styles.img} />
       </View>
       <View>
-        <TouchableOpacity>
-          <Text style={styles.textLogin}>Masuk</Text>
+        <TouchableOpacity onPress={props.onPressLogin}>
+          <Text style={styles.textLogin}>{props.isAuth}</Text>
         </TouchableOpacity>
       </View>
     </View>

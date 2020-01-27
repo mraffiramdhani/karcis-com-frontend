@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Dimensions, StyleSheet } from 'react-native'
+import { Text, View, SafeAreaView, Dimensions, StyleSheet, Alert, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconA from 'react-native-vector-icons/AntDesign'
 import { List, ListItem, Left, Right, Body } from 'native-base'
@@ -8,10 +8,90 @@ import { HeaderProfile } from '../../components/Header'
 import HorizontalProfileMission from '../../components/HorizontalProfileMission'
 import { ScrollView } from 'react-native-gesture-handler'
 
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import { logout } from '../../redux/action/auth';
+import { StackActions, NavigationActions } from 'react-navigation';
+
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: 'BottomNavigationStack' })],
+});
+
+
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = Dimensions.get('window').height / 4.9;
 
-export default class Account extends Component {
+class AccountOriginal extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: false,
+      isSuccess: false,
+      message: '',
+    }
+  }
+
+  componentDidMount() {
+    console.log(this.props.auth);
+    if (!this.props.auth.data.token) {
+      this.props.navigation.navigate('Login')
+    } else {
+      this.props.navigation.navigate('Home')
+    }
+  }
+
+  async handleLogout() {
+    const jwt = await this.props.auth.data.token
+    if (jwt !== null) {
+      await this.props.dispatch(logout(jwt))
+    }
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading === true) {
+        this.setState({
+          isLoading: true
+        })
+        console.log('masih loading')
+      } else {
+        console.log('sudah fulfill')
+        if (this.props.auth.isSuccess) {
+          console.log('berhasil logout')
+          await this.setState({
+            isLoading: false,
+            isSuccess: true,
+            message: "Logout Success.",
+          })
+          this.handleRedirect()
+        } else {
+          console.log('gagal logout')
+          await this.setState({
+            isLoading: false,
+            isSuccess: false,
+            message: "Logout Failed. Try Again.",
+          })
+          this.handleRedirect()
+        }
+      }
+    }
+    else if (prevProps.auth.data.token === null) {
+      this.props.navigation.navigate('login');
+    }
+  }
+
+  async handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Logout Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.dispatch(resetAction) },
+      ])
+    } else {
+      Alert.alert('Logout Message', this.state.message)
+    }
+  }
+
   render() {
     return (
       <SafeAreaView>
@@ -112,7 +192,7 @@ export default class Account extends Component {
               </ListItem>
             </List>
           </View>
-          <View style={styles.containerOptionProfile3}>
+          <TouchableOpacity onPress={() => this.handleLogout()} style={styles.containerOptionProfile3}>
             <List>
               <ListItem last>
                 <Body>
@@ -120,7 +200,7 @@ export default class Account extends Component {
                 </Body>
               </ListItem>
             </List>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     )
@@ -212,3 +292,13 @@ const styles = StyleSheet.create({
     fontSize: 13
   }
 })
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const Account = withNavigation(AccountOriginal)
+
+export default connect(mapStateToProps)(Account)

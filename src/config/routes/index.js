@@ -256,6 +256,7 @@ const BottomNavigationStack = createBottomTabNavigator(
     },
   },
   {
+    initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: '#1483F5',
       inactiveTintColor: '#35405A',
