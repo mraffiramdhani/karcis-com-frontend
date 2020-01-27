@@ -222,9 +222,13 @@ class BodyDetail extends Component {
 
           <View style={{ flexDirection: 'row' }}>
             <View style={{ marginLeft: 5, width: '17%', marginRight: 25 }}>
-              <Thumbnail style={{ backgroundColor: 'grey' }}
-                source={{ uri: `${APP_URL_IMAGE_ICON}/${dataDetail.amenities[0].icon}` }} />
-              <Text style={{ alignSelf: 'center', marginTop: 5 }}>{dataDetail.amenities[0].name}</Text>
+              {dataDetail.amenities && (
+                <>
+                  <Thumbnail style={{ backgroundColor: 'grey' }}
+                    source={{ uri: `${APP_URL_IMAGE_ICON}/${dataDetail.amenities[0].icon}` }} />
+                  <Text style={{ alignSelf: 'center', marginTop: 5 }}>{dataDetail.amenities[0].name}</Text>
+                </>
+              )}
             </View>
           </View>
 

@@ -125,7 +125,8 @@ class BodyRooms extends Component {
                   <View>
                     <TouchableOpacity
                       onPress={() => this.props.navigation.navigate('FormOrder', {
-                        orderData: orderData
+                        orderData: orderData,
+                        cost: v.cost
                       })}
                       style={styles.buttonLogin}>
                       <Text style={styles.buttonText}>PILIH</Text>
