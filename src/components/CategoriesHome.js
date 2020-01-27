@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation';
 
-export default class CategoriesHome extends Component {
+class CategoriesHomeOriginal extends Component {
 
   render() {
     return (
@@ -14,7 +15,7 @@ export default class CategoriesHome extends Component {
             <Text style={styles.textCategories}>Pesawat</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerItemIcon}>
+        <TouchableOpacity style={styles.containerItemIcon} onPress={() => this.props.navigation.navigate('SearchHotel')}>
           <View style={styles.containerImgIcon}>
             <Image source={require('../assets/images/icons/hotel.png')} style={styles.imageIcon} />
           </View>
@@ -98,3 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
+
+const CategoriesHome = withNavigation(CategoriesHomeOriginal);
+
+export default CategoriesHome;

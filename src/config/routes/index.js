@@ -12,9 +12,12 @@ import {
   TopUp,
   Account,
   ForgotPassword,
+  ForgotPasswordNext,
   Register,
   RegisterNextFirst,
-  RegisterNextSecond
+  RegisterNextSecond,
+  Setting,
+  InputNewPassword
 } from '../../screens/index';
 import HistoryOrder from '../../screens/HistoryOrder';
 import FilterPage from '../../components/HistoryOrder/FilterPage';
@@ -47,13 +50,16 @@ const AuthStack = createStackNavigator(
   {
     Login,
     ForgotPassword,
+    ForgotPasswordNext,
+    Setting,
+    InputNewPassword,
     Register,
     RegisterNextFirst,
     RegisterNextSecond
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Register',
+    initialRouteName: 'Login',
   },
 );
 
@@ -65,18 +71,54 @@ const HomeStack = createStackNavigator(
         headerShown: false,
       },
     },
-    // FormTopUp: {
-    //   screen: FormTopUp,
-    //   navigationOptions: {
-    //     headerShown: false,
-    //   },
-    // },
-    // FormHistory: {
-    //   screen: FormHistory,
-    //   navigationOptions: {
-    //     headerShown: false,
-    //   },
-    // },
+    SearchHotel: {
+      screen: SearchHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListLocation: {
+      screen: ListLocation,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Filter: {
+      screen: FilterPage,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListHotel: {
+      screen: ListHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    DetailHotel: {
+      screen: DetailHotel,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListRoom: {
+      screen: ListRoom,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    FormOrder: {
+      screen: FormOrder,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Payment: {
+      screen: Payment,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
   },
   {
     initialRouteName: 'Home',
@@ -233,7 +275,7 @@ const BottomNavigationStack = createBottomTabNavigator(
     TopUp: {
       screen: TopUpStack,
       navigationOptions: {
-        tabBarLabel: 'TIX Point',
+        tabBarLabel: 'Karcis Point',
         tabBarIcon: ({ tintColor }) => (
           <Icon name="ticket-confirmation" color={tintColor} size={25} />
         ),
@@ -250,6 +292,7 @@ const BottomNavigationStack = createBottomTabNavigator(
     },
   },
   {
+    initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: '#1483F5',
       inactiveTintColor: '#35405A',
@@ -286,4 +329,6 @@ const Router = createSwitchNavigator(
   },
 );
 
+
 export default createAppContainer(Router);
+

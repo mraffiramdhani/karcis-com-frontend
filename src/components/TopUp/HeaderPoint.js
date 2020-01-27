@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, { Component } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import MyIcon from 'react-native-vector-icons/Entypo';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -40,20 +41,24 @@ const styles = StyleSheet.create({
   },
 });
 
-class HeaderPoint extends Component {
+class HeaderPointOriginal extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <View>
         <View style={styles.banner}>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
-              <Text style={{padding: 15, color: 'white', fontSize: 15}}>
+            <View style={{ flex: 1 }}>
+              <Text style={{ padding: 15, color: 'white', fontSize: 15 }}>
                 {' '}
                 Karcis Point{' '}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
                 <MyIcon name="dots-three-vertical" style={styles.icon} />
               </TouchableOpacity>
             </View>
@@ -63,5 +68,7 @@ class HeaderPoint extends Component {
     );
   }
 }
+
+const HeaderPoint = withNavigation(HeaderPointOriginal)
 
 export default HeaderPoint;

@@ -1,23 +1,37 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
+import axios from 'axios'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
+import { register } from '../../redux/action/auth';
 
 // import Components
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
+import { ModalStateCode } from '../../components/Modal'
 
-class RegisterNextFirst extends Component {
+class RegisterNextFirstOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: this.props.navigation.getParam('email'),
+      email: '',
       first_name: '',
       last_name: '',
-      state_code: '',
+      state_code: '+62',
       telp_number: '',
       password: '',
       isValid_dataFrom: false,
+      modalVisible: false,
+      contriesData: {},
+      sifetched: false
     }
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('https://restcountries.eu/rest/v2/all')
+    this.setState({ contriesData: data, isfetched: !this.state.isfetched })
   }
 
   _checkFirstName = (fnInput) => {
@@ -50,6 +64,69 @@ class RegisterNextFirst extends Component {
     })
   }
 
+  _handleModal = () => {
+    const { modalVisible } = this.state
+    modalVisible == false ?
+      this.setState({
+        modalVisible: true
+      }) :
+      this.setState({
+        modalVisible: false
+      })
+  }
+
+  handleRegister() {
+    const data = {
+      email: this.props.navigation.getParam('email'),
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      phone: this.state.telp_number,
+      password: this.state.password
+    };
+    this.props.dispatch(register(data));
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading === true) {
+        this.setState({
+          isLoading: true
+        })
+        console.log('masih loading')
+      } else {
+        console.log('sudah fulfill')
+        if (this.props.auth.isSuccess) {
+          console.log('berhasil register')
+          await this.setState({
+            isLoading: false,
+            isSuccess: true,
+            message: "Register Success.",
+          })
+          this.handleRedirect()
+        } else {
+          console.log('gagal register')
+          await this.setState({
+            isLoading: false,
+            isSuccess: false,
+            message: "Register Failed. Try Again.",
+          })
+          this.handleRedirect()
+        }
+      }
+    }
+  }
+
+  async handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Register Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
+      ])
+    } else {
+      Alert.alert('Register Message', this.state.message)
+    }
+  }
+
+
   render() {
     const { email } = this.state
     return (
@@ -57,14 +134,15 @@ class RegisterNextFirst extends Component {
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderLogin
           title="Daftar"
-          onPressLeft={() => this.props.navigation.navigate('Register')} />
+          onPressLeft={() => this.props.navigation.navigate('Register')}
+          onPressRight={() => this.props.navigation.navigate('Setting')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
             <View style={styles.containerFormRegister}>
               <View>
                 <Text style={styles.labelForm}>Email</Text>
-                <Text style={styles.textColor}>{email}</Text>
+                <Text style={styles.textColor}>{this.props.navigation.getParam('email')}</Text>
               </View>
               <TextInput
                 label='Nama depan'
@@ -91,6 +169,14 @@ class RegisterNextFirst extends Component {
                   value={this.state.state_code}
                   onChangeText={this._checkStateCode}
                 />
+                <Icon name="chevron-down"
+                  size={35} style={styles.iconChevron}
+                  onPress={() => this._handleModal()} />
+                <ModalStateCode
+                  visible={this.state.modalVisible}
+                  closeModal={() => this._handleModal()}
+                  contriesData={this.state.contriesData}
+                  isfetched={this.state.isfetched} />
                 <TextInput
                   label='Nomor ponsel'
                   mode='outlined'
@@ -114,7 +200,7 @@ class RegisterNextFirst extends Component {
               </View>
               <ButtonLogin
                 label="SELANJUTNYA"
-                onPress={() => this.props.navigation.navigate('RegisterNextSecond')} />
+                onPress={() => this.handleRegister()} />
             </View>
           </View>
         </ScrollView>
@@ -154,6 +240,12 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: "row",
   },
+  iconChevron: {
+    color: '#757575',
+    position: 'absolute',
+    top: 32,
+    left: 80
+  },
   formStateCode: {
     flex: 1.18,
     marginRight: 10
@@ -168,8 +260,17 @@ const styles = StyleSheet.create({
   textError: {
     marginTop: -25,
     marginBottom: 25,
-    color: '#F2625F'
+    color: '#F2625F',
+
   }
 })
 
-export default RegisterNextFirst
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const RegisterNextFirst = withNavigation(RegisterNextFirstOriginal)
+
+export default connect(mapStateToProps)(RegisterNextFirst)

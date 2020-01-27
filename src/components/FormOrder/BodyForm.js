@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
 
 class BodyForms extends Component {
     render () {
+        const {orderData} = this.props
         return (
                 <ScrollView>
             <View style = {{backgroundColor: '#fff'}}>
@@ -83,16 +84,16 @@ class BodyForms extends Component {
                                 </Text>
                                 <View style = {{marginTop: 10, flexDirection: 'row'}}>
                                     <Text style ={{color: 'grey'}}>
-                                        1 kamar
+                                        {orderData.roomValue} kamar
                                     </Text>
                                     <Icon name="primitive-dot" style={{color: 'grey', marginTop: 3, marginLeft: 10, marginRight: 10}} />
                                     <Text style ={{color: 'grey'}}>
-                                        1 Tamu
+                                        {orderData.personValue} Tamu
                                     </Text>
                                     <Icon name="primitive-dot" style={{color: 'grey', marginTop: 3, marginLeft: 10, marginRight: 10}} />
 
                                     <Text style ={{color: 'grey'}}>
-                                        1 Malam
+                                        {orderData.daterange} Malam
                                     </Text>
                                 </View>
                             </View>
@@ -105,17 +106,17 @@ class BodyForms extends Component {
                     </Text>
                     <Right>
                         <Text style = {{color: 'grey'}}>
-                        29 Januari 2020
+                        {orderData.chosenDate1.toString().substr(4, 12)}
                         </Text>
                     </Right>
                 </View>
                 <View style = {{flexDirection: 'row', marginLeft: 15, marginRight: 15, marginBottom: 15}}>
                     <Text>
-                        Check-in
+                        Check-out
                     </Text>
                     <Right>
                         <Text style = {{color: 'grey'}}>
-                        29 Januari 2020
+                        {orderData.chosenDate2.toString().substr(4, 12)}
                         </Text>
                     </Right>
                 </View>
