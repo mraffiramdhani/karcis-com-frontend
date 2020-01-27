@@ -39,6 +39,7 @@ class BodyLocOriginal extends Component {
   constructor(props) {
     super(props)
   }
+  
   render() {
     return (
       <ScrollView>
@@ -67,7 +68,6 @@ class BodyLocOriginal extends Component {
             </TouchableOpacity>
           )
         })}
-
       </ScrollView>
     )
   }

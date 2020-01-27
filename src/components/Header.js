@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { withNavigation } from 'react-navigation'
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { withNavigation } from 'react-navigation';
 
 export const Header = (props) => {
   return (

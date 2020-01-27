@@ -15,7 +15,7 @@ class CategoriesHomeOriginal extends Component {
             <Text style={styles.textCategories}>Pesawat</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerItemIcon} onPress={() => this.props.navigation.navigate("SearchHotel")}>
+        <TouchableOpacity style={styles.containerItemIcon} onPress={() => this.props.navigation.navigate('SearchHotel')}>
           <View style={styles.containerImgIcon}>
             <Image source={require('../assets/images/icons/hotel.png')} style={styles.imageIcon} />
           </View>
