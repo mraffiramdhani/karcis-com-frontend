@@ -91,131 +91,6 @@ const styles = StyleSheet.create({
 });
 
 class BodySearchs extends Component {
-<<<<<<< HEAD
-    constructor(props) {
-        super(props);
-        this.state = { chosenDate1: new Date(),
-          chosenDate2: new Date(),
-          daterange: 1
-                         };
-        this.setDate1 = this.setDate1.bind(this);
-        this.setDate2 = this.setDate2.bind(this);
-      }
-      setDate1(newDate) {
-        this.setState({ chosenDate1: newDate });
-      }
-      setDate2(newDate) {
-        if(this.state.chosenDate1 < newDate) {
-          this.setState({ chosenDate2: newDate });
-          const range = (this.state.chosenDate2 - this.state.chosenDate1) / (1000*3600*24)
-          this.setState({ daterange : range})
-        } else {
-          this.setState({ chosenDate2: newDate, daterange : 0 });
-        }
-        if(newDate < this.state.chosenDate1) {
-          this.setState({ chosenDate2: new Date() })
-        }
-      }
-
-    render() {
-        return (
-            <>
-            <Card style = {styles.card}>
-                <View style = {{marginTop: 10}}>
-                <View style = {{marginLeft: 10, marginBottom: 10}}>
-                    <Text style = {{fontSize: 14, color: 'grey',  }}>Nginep ke mana ?</Text>
-                </View>
-
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('ListLocation')}>
-                <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
-                   <Icon name="location" style={styles.iconBody}/> 
-                       <Text style = {{marginLeft: -5, fontSize: 16, marginBottom: 10}} > Hotel Dekat Anda </Text>
-                </Item>
-                </TouchableOpacity>
-
-                <View style = {{marginLeft: 10, marginTop: 10}}>
-                    <Text style = {{fontSize: 14, color: 'grey'}}>Check-in</Text>
-                </View>
-
-                <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
-                   <Icons name="calendar" style={styles.iconFilter}/> 
-                   <DatePicker
-                        minimumDate={new Date()}
-                        maximumDate={new Date(2021, 12, 31)}
-                        locale={"en"}
-                        timeZoneOffsetInMinutes={undefined}
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="Pilih Tanggal"
-                        placeholderTextColor="black"
-                        textStyle={{ color: "green" }}
-                        placeHolderTextStyle={{ color: "#d3d3d3" }}
-                        onDateChange={this.setDate1}
-                        disabled={false}
-                        />
-                        <Text>
-                        Date: {this.state.chosenDate1.toString().substr(4, 12)}
-                        </Text>
-                </Item>
-
-                <View style = {{marginLeft: 10, marginTop: 10, flexDirection: 'row'}}>
-                    <Text style = {{fontSize: 14, color: 'grey'}}>Check-out</Text>
-                      <Right>
-                          <Text style = {{fontSize: 14, color: 'grey', marginRight: 10}}>{this.state.daterange} malam</Text>
-                      </Right>
-                </View>
-
-                <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
-                   <Icons name="calendar" style={styles.iconFilter}/> 
-                   <DatePicker
-                        minimumDate={new Date()}
-                        maximumDate={new Date(2021, 12, 31)}
-                        locale={"en"}
-                        timeZoneOffsetInMinutes={undefined}
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="Pilih Tanggal"
-                        placeholderTextColor="black"
-                        textStyle={{ color: "green" }}
-                        placeHolderTextStyle={{ color: "#d3d3d3" }}
-                        onDateChange={this.setDate2}
-                        disabled={false}
-                        />
-                        <Text>
-                        Date: {this.state.chosenDate2.toString().substr(4, 12)}
-                        </Text>
-                </Item>
-
-                <View style = {{marginLeft: 10, marginTop: 10}}>
-                    <Text style = {{fontSize: 14, color: 'grey'}}>Kamar & Tamu</Text>
-                </View>
-
-                
-                <Item inlineLabel style = {{marginLeft: 10, marginRight: 10, flexDirection: 'row'}}>
-                   <MyIcon name="door-open" style={styles.iconDoor}/> 
-                   <TouchableOpacity onPress={() => this.props.onRoomPickerPressed()}>
-                    <Text style = {{fontSize: 16, marginTop: 10, marginBottom: 10}} disabled> <Text> { this.props.room } </Text>Kamar </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.onPersonPickerPressed()}>
-                    <Text style = {{fontSize: 16, marginTop: 10, marginBottom: 10}} disabled> <Text> { this.props.person } </Text>Tamu </Text> 
-                    </TouchableOpacity>
-                </Item>
-
-                <View style = {{marginLeft: 10, marginTop: 10}}>
-                    <Text style = {{fontSize: 14, color: 'grey'}}>Filter</Text>
-                </View>
-
-                <Item inlineLabel style = {{marginLeft: 10, marginRight: 10}}>
-                   <Icons keyboardType='number-pad' name="filter" style={styles.iconFilter}/> 
-                   <Input keyboardType='number-pad' style = {{fontSize: 16}} placeholder="Min (IDR)" placeholderTextColor='grey'/>
-                   <Input style = {{fontSize: 16}} placeholder="Max (IDR)" placeholderTextColor='grey'/>
-                </Item>
-
-                <View style={{alignItems: 'center', marginTop: 10}}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('ListHotel')}
-=======
   constructor(props) {
     super(props);
     this.state = {
@@ -346,8 +221,7 @@ class BodySearchs extends Component {
 
             <View style={{ alignItems: 'center', marginTop: 10 }}>
               <TouchableOpacity onPress={this._handleSearch}
->>>>>>> 4059ff17f942546eb3cd5c7ec5f758012fc3331b
-                style={styles.buttonLogin}>
+>>>>>>>>> Temporary merge branch 2                style={styles.buttonLogin}>
                 <Text style={styles.buttonText}>CARI HOTEL</Text>
               </TouchableOpacity>
             </View>

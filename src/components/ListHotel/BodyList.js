@@ -12,43 +12,6 @@ import rupiahFormat from '../../utils/rupiahFormat'
 import { APP_URL_IMAGE_HOTEL } from '../../config/Api';
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-    root: {
-      flex: 1,
-      backgroundColor: '#eee',
-      padding: 5,
-    },
-    banner: {
-      height: 130,
-      backgroundColor: '#0064D2',
-    },
-    icon: {
-      fontSize: 25,
-      color: 'white',
-      padding: 5,
-      paddingRight: 15,
-      paddingBottom: 10,
-      marginTop: 10,
-    },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-    },
-    card: {
-        marginTop: -25,
-        width: '100%', 
-        borderRadius: 20, 
-        alignSelf: 'center',
-        paddingBottom: 55
-    },
-    image : {
-        height : 130,
-        flex:1,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-      }
-  });
-=======
   root: {
     flex: 1,
     backgroundColor: '#eee',
@@ -84,7 +47,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   }
 });
->>>>>>> 4059ff17f942546eb3cd5c7ec5f758012fc3331b
 
 class BodyLists extends Component {
   constructor(props) {
