@@ -5,6 +5,7 @@ import { withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
 import { login } from '../../redux/action/auth';
 import { setPage } from '../../redux/action/page';
+import { getBalance } from '../../redux/action/balance';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { HeaderLogin } from '../../components/Header'
@@ -53,12 +54,15 @@ class LoginOriginal extends Component {
   }
 
   async handleRedirect() {
-    if (this.props.auth.isAuth) {
-      Alert.alert('Login Message', 'Authentication Success', [
-        { text: 'OK', onPress: () => this.props.navigation.navigate(this.props.page.page) },
-      ])
-    } else {
-      Alert.alert('Login Message', 'Authentication Failed. Please Try Again.')
+    if(!this.state.isLoading){
+      if (this.props.auth.isAuth) {
+        await this.props.dispatch(getBalance(this.props.auth.data.token))
+        Alert.alert('Login Message', 'Authentication Success', [
+          { text: 'OK', onPress: () => this.props.navigation.navigate(this.props.page.page) },
+        ])
+      } else {
+        Alert.alert('Login Message', 'Authentication Failed. Please Try Again.')
+      }
     }
   }
 

@@ -25,8 +25,15 @@ class AccountOriginal extends Component {
     this.state = {
       isLoading: false,
       isBalanceLoading: true,
-      isSuccess: false,
       message: ''
+    }
+
+    const jwt = this.props.auth.data.token;
+    if(jwt){
+      this.props.dispatch(getBalance(jwt));
+    }
+    else {
+      this.props.navigation.navigate('Login');
     }
   }
 
@@ -34,12 +41,6 @@ class AccountOriginal extends Component {
     const jwt = this.props.auth.data.token;
     await this.props.dispatch(setPage('Account'));
     await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
-    if(jwt){
-      await this.props.dispatch(getBalance(jwt));
-    }
-    else {
-      await this.props.navigation.navigate('Login');
-    }
   }
 
   onScreenFocus(jwt){
@@ -72,7 +73,6 @@ class AccountOriginal extends Component {
           console.log('berhasil logout')
           await this.setState({
             isLoading: false,
-            isSuccess: true,
             message: "Logout Success.",
           })
           this.handleRedirect()
@@ -80,7 +80,6 @@ class AccountOriginal extends Component {
           console.log('gagal logout')
           await this.setState({
             isLoading: false,
-            isSuccess: false,
             message: "Logout Failed. Try Again.",
           })
           this.handleRedirect()
@@ -96,9 +95,9 @@ class AccountOriginal extends Component {
   }
 
   async handleRedirect() {
-      if (this.state.isSuccess) {
+      if (!this.state.isAuth) {
           Alert.alert('Logout Message', this.state.message, [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
           ])
       } else {
           Alert.alert('Logout Message', this.state.message)

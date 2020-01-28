@@ -24,15 +24,15 @@ class RegisterNextFirstOriginal extends Component {
       password: '',
       isValid_dataFrom: false,
       modalVisible: false,
-      contriesData: {},
-      sifetched: false
+      isLoading: false,
+      isSuccess: false,
     }
   }
 
-  async componentDidMount() {
-    const { data } = await axios.get('https://restcountries.eu/rest/v2/all')
-    this.setState({ contriesData: data, isfetched: !this.state.isfetched })
-  }
+  // async componentDidMount() {
+  //   const { data } = await axios.get('https://restcountries.eu/rest/v2/all')
+  //   this.setState({ contriesData: data, isfetched: !this.state.isfetched })
+  // }
 
   _checkFirstName = (fnInput) => {
     this.setState({
@@ -93,7 +93,19 @@ class RegisterNextFirstOriginal extends Component {
     }
   }
 
-  async handleRedirect() {
+  async componentDidUpdate(prevProps){
+    if(prevProps.auth.isLoading !== this.state.isLoading){
+      if(prevProps.auth.isLoading){
+        await this.setState({isLoading: true});
+      }
+      else{
+        await this.setState({isLoading: false, isSuccess: prevProps.auth.isSuccess});
+        await this.handleRedirect();
+      }
+    }
+  }
+
+  handleRedirect() {
     if (this.state.isSuccess) {
       Alert.alert('Register Message', this.state.message, [
         { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
@@ -144,16 +156,7 @@ class RegisterNextFirstOriginal extends Component {
                   style={[styles.textInput, styles.formStateCode]}
                   theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                   value={this.state.state_code}
-                  onChangeText={this._checkStateCode}
                 />
-                <Icon name="chevron-down"
-                  size={35} style={styles.iconChevron}
-                  onPress={() => this._handleModal()} />
-                <ModalStateCode
-                  visible={this.state.modalVisible}
-                  closeModal={() => this._handleModal()}
-                  contriesData={this.state.contriesData}
-                  isfetched={this.state.isfetched} />
                 <TextInput
                   label='Nomor ponsel'
                   mode='outlined'
@@ -177,18 +180,15 @@ class RegisterNextFirstOriginal extends Component {
                 <Text style={styles.labelForm}>Min. 7 karakter dengan kombinasi antara angka, simbol, & huruf kapital.</Text>
               </View>
               {
-                this.props.auth.isLoading && 
-                <TouchableOpacity
-                  style={styles.btnLogin}
-                  disabled={true}>
-                  <ActivityIndicator size="small" color="blue" />
-                </TouchableOpacity >
-              }
-              {
-                !this.props.auth.isLoading && 
-                <ButtonLogin
-                label="SELANJUTNYA"
-                onPress={() => this.handleRegister()} />
+                (!this.props.auth.isLoading)
+                ? <ButtonLogin
+                    label="SELANJUTNYA"
+                    onPress={() => this.handleRegister()}
+                  />
+                : <ButtonLogin
+                    label={<ActivityIndicator size="small" color="blue" />}
+                    disabled={true}
+                  />
               }
             </View>
           </View>

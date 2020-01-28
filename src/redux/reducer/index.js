@@ -8,6 +8,7 @@ import hotelRooms from './hotelRooms';
 import balance from './balance';
 import hotelSearch from './hotelSearch'
 import page from './page';
+import hotelOrder from './hotelOrder';
 
 const appReducer = combineReducers({
   hotel,
@@ -17,7 +18,8 @@ const appReducer = combineReducers({
   hotelRooms,
   balance,
   hotelSearch,
-  page
+  page,
+  hotelOrder
 })
 
 export default appReducer;

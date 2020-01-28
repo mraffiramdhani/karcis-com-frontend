@@ -105,8 +105,17 @@ class BodySearchs extends Component {
   }
 
   setDate1(newDate) {
-    this.props.dispatch(setCheckIn(newDate));
-    this.setState({ chosenDate1: newDate });
+    const dateNow = new Date();
+    if(this.state.chosenDate2 < dateNow || this.state.chosenDate2 <= this.state.chosenDate1){
+      this.props.dispatch(setCheckIn(newDate));
+      this.setState({ chosenDate1: newDate, daterange: 0 });
+    }
+    else {
+      this.props.dispatch(setCheckIn(newDate));
+      this.setState({ chosenDate1: newDate });
+      const range = (this.state.chosenDate2 - this.state.chosenDate1) / (1000 * 3600 * 24)
+      this.setState({ daterange: range });
+    }
   }
   setDate2(newDate) {
     if (this.state.chosenDate1 < newDate) {

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {Text} from 'react-native';
 import Headers from '../../components/MyOrder/Headers';
 import TabCard from '../../components/MyOrder/TabCard';
 import { connect } from 'react-redux';
 import { setPage } from '../../redux/action/page';
+import { getHotelOrder } from '../../redux/action/hotelOrder';
 import { withNavigationFocus } from 'react-navigation';
 
 class MyOrderOriginal extends Component {
@@ -10,6 +12,7 @@ class MyOrderOriginal extends Component {
 		super(props)
 		this.state = {
 			page: 'MyOrder',
+			isLoading: true,
 		}
 	}
 
@@ -20,36 +23,34 @@ class MyOrderOriginal extends Component {
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
+		else{
+			await this.props.dispatch(getHotelOrder(jwt));
+		}
 	}
 
 	onScreenFocus(jwt){
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
+		else {
+			this.props.dispatch(getHotelOrder(jwt));
+			this.props.dispatch(setPage('MyOrder'));
+		}
 	}
 
-	// async shouldComponentUpdate(){
-	// 	return this.props.navigation.isFocused() === true
-	// }
-
-	// async componentDidUpdate(prevProps){
-	// 	const jwt = this.props.auth.data.token;
-
-	// 	if(this.props.navigation.isFocused() === true){
-	// 		if(jwt){
-	// 			this.props.dispatch(setPage('MyOrder'));
-	// 		}
-	// 		else {
-	// 			this.props.navigation.navigate('Login');
-	// 		}
-	// 	}
-	// }
+	async componentDidUpdate(prevProps){
+		if(prevProps.hotelOrder.isLoading !== this.state.isLoading){
+			if(!prevProps.hotelOrder.isLoading){
+				await this.setState({isLoading: false});
+			}
+		}
+	}
 
 	render() {
     return (
       <>
         <Headers />
-        <TabCard />
+        <TabCard loading={this.props.hotelOrder.isLoading} data={this.props.hotelOrder.data} />
       </>
     );
   }
@@ -58,7 +59,8 @@ class MyOrderOriginal extends Component {
 const mapStateToProps = state => {
 	return {
 		auth: state.auth,
-		page: state.page
+		page: state.page,
+		hotelOrder: state.hotelOrder
 	}
 }
 
