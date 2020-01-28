@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar , YellowBox} from 'react-native';
 import { connect } from 'react-redux';
 import { setPage } from '../../redux/action/page';
+import { getBalance } from '../../redux/action/balance';
 import { withNavigation } from 'react-navigation';
+import rupiahFormat from '../../utils/rupiahFormat';
 
 import { Header } from '../../components/Header'
 import BannerHome from '../../components/BannerHome'
@@ -12,6 +14,7 @@ import HorizontalSpecialPromo from '../../components/HorizontalSpecialPromo'
 import HorizontalFeatures from '../../components/HorizontalFeatures'
 import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
 import HorizontalAttraction from '../../components/HorizontalAttraction'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 YellowBox.ignoreWarnings(['Warning:', 'Require cycle:'])
 
@@ -25,14 +28,33 @@ class HomeOriginal extends Component {
   }
 
   async componentDidMount(){
+    const jwt = this.props.auth.data.token;
     await this.props.dispatch(setPage('Home'));
+    await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+  }
+
+  onScreenFocus(jwt){
+    if(jwt !== null && jwt !== undefined && jwt !== ''){
+      this.props.dispatch(getBalance(jwt));
+    }
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <Header onPressLogin={() => this.props.navigation.navigate('Login')} isAuth={this.props.auth.data.token ? this.props.balance.data.balance : 'Masuk'} />
+        <Header onPressLogin={() => {
+          return this.props.auth.data.token 
+          ? this.props.navigation.navigate('TopUp') 
+          : this.props.navigation.navigate('Login')
+        }} isAuth={
+          this.props.auth.data.token 
+          ? 
+          <>
+            <Icon name="ticket" size={15} />{" "}
+            {rupiahFormat(this.props.balance.data.balance,'')}
+          </>
+          : 'Masuk'} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>

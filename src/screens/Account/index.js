@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Dimensions, StyleSheet, TouchableOpacity, Alert, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, Dimensions, StyleSheet, TouchableOpacity, Alert, StatusBar, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconA from 'react-native-vector-icons/AntDesign'
 import { List, ListItem, Left, Right, Body } from 'native-base'
@@ -9,6 +9,7 @@ import HorizontalProfileMission from '../../components/HorizontalProfileMission'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux';
+import { setPage } from '../../redux/action/page';
 import { getBalance } from '../../redux/action/balance';
 import { withNavigation } from 'react-navigation';
 import { logout } from '../../redux/action/auth';
@@ -29,13 +30,25 @@ class AccountOriginal extends Component {
     }
   }
 
-  async componentDidMount(){
-    if(!this.props.auth.data.token){
-      this.props.navigation.push('Login');
+   async componentDidMount(){
+    const jwt = this.props.auth.data.token;
+    await this.props.dispatch(setPage('Account'));
+    await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+    if(jwt){
+      await this.props.dispatch(getBalance(jwt));
     }
     else {
-      await this.props.dispatch(getBalance(this.props.auth.data.token))
-      this.props.navigation.navigate('Account');
+      await this.props.navigation.navigate('Login');
+    }
+  }
+
+  onScreenFocus(jwt){
+    if(jwt === null && jwt === undefined && jwt === ''){
+      this.props.navigation.navigate('Login');
+    }
+    else {
+      this.props.dispatch(setPage('Account'));
+      this.props.dispatch(getBalance(jwt)); 
     }
   }
 
@@ -47,38 +60,40 @@ class AccountOriginal extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-        if (prevProps.auth.isLoading !== this.state.isLoading) {
-            if (prevProps.auth.isLoading === true) {
-                this.setState({
-                    isLoading: true
-                })
-                console.log('masih loading')
-            } else {
-                console.log('sudah fulfill')
-                if (this.props.auth.isSuccess) {
-                    console.log('berhasil logout')
-                    await this.setState({
-                        isLoading: false,
-                        isSuccess: true,
-                        message: "Logout Success.",
-                    })
-                    this.handleRedirect()
-                } else {
-                    console.log('gagal logout')
-                    await this.setState({
-                        isLoading: false,
-                        isSuccess: false,
-                        message: "Logout Failed. Try Again.",
-                    })
-                    this.handleRedirect()
-                }
-            }
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading === true) {
+        this.setState({
+          isLoading: true
+        })
+        console.log('masih loading')
+      } else {
+        console.log('sudah fulfill')
+        if (!this.props.auth.isAuth) {
+          console.log('berhasil logout')
+          await this.setState({
+            isLoading: false,
+            isSuccess: true,
+            message: "Logout Success.",
+          })
+          this.handleRedirect()
+        } else {
+          console.log('gagal logout')
+          await this.setState({
+            isLoading: false,
+            isSuccess: false,
+            message: "Logout Failed. Try Again.",
+          })
+          this.handleRedirect()
         }
-
-        if(this.props.auth.data.token === null){
-          this.props.navigation.push('Login');
-        }
+      }
     }
+
+    if(prevProps.balance.isLoading !== this.state.isBalanceLoading){
+      if(!prevProps.balance.isLoading){
+        this.setState({isBalanceLoading: false});
+      }
+    }
+  }
 
   async handleRedirect() {
       if (this.state.isSuccess) {
@@ -110,8 +125,14 @@ class AccountOriginal extends Component {
               </View>
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
-                  <Text style={styles.textSaldo}>Basic - {/*rupiahFormat(this.props.balance.data.balance, 'Rp.')*/} </Text>
-                <Text style={styles.textTixPoint}>TIX Point</Text>
+                  {
+                    !this.state.isBalanceLoading
+                    ? <Text style={styles.textSaldo}>
+                        Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')}
+                      </Text>
+                    : <ActivityIndicator size="small" color="blue" />
+                  }
+                <Text style={styles.textTixPoint}> TIX Point</Text>
               </View>
             </View>
             <Text style={styles.textSubtitle}>Selesaikan semua misi dan dapatkan 10.000 TIX Points</Text>

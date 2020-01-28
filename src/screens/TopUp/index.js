@@ -28,7 +28,7 @@ class TopUpOriginal extends Component {
 	}
 
 	onScreenFocus(jwt){
-		if(!jwt){
+		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
 	}

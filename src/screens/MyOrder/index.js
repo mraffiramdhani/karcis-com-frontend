@@ -17,13 +17,13 @@ class MyOrderOriginal extends Component {
 		const jwt = this.props.auth.data.token
 		await this.props.dispatch(setPage('MyOrder'));
 		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
-		if(!jwt){
+		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
 	}
 
 	onScreenFocus(jwt){
-		if(!jwt){
+		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
 	}

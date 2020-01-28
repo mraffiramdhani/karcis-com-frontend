@@ -38,28 +38,27 @@ class LoginOriginal extends Component {
     const { email, password } = this.state;
     const data = { email, password };
     await this.props.dispatch(login(data));
-    await this.setState({isLoading : true})
   }
 
-  // async componentDidUpdate(prevProps) {
-  //   const jwt = await this.props.auth.data.token;
-  //   if(jwt){
-  //     await this.props.navigation.navigate(this.props.page.page)
-  //   }
-
-  //   if(this.props.auth.isAuth){
-  //     await this.setState({isAuth: true});
-  //     this.handleRedirect()
-  //   }
-  // }
+  async componentDidUpdate(prevProps) {
+    if(this.props.auth.isLoading !== this.state.isLoading){
+      if(this.props.auth.isLoading){
+        await this.setState({isLoading: true});
+      }
+      else {
+        await this.setState({isLoading: false});
+        this.handleRedirect();
+      }
+    }
+  }
 
   async handleRedirect() {
-    if (this.state.isAuth) {
-      Alert.alert('Login Message', this.state.message, [
+    if (this.props.auth.isAuth) {
+      Alert.alert('Login Message', 'Authentication Success', [
         { text: 'OK', onPress: () => this.props.navigation.navigate(this.props.page.page) },
       ])
     } else {
-      Alert.alert('Login Message', this.state.message)
+      Alert.alert('Login Message', 'Authentication Failed. Please Try Again.')
     }
   }
 
