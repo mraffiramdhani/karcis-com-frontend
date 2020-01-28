@@ -16,6 +16,8 @@ import { logout } from '../../redux/action/auth';
 import { StackActions, NavigationActions } from 'react-navigation';
 import rupiahFormat from '../../utils/rupiahFormat';
 
+import ImagePicker from 'react-native-image-picker';
+
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = Dimensions.get('window').height / 4.9;
 
@@ -104,6 +106,19 @@ class AccountOriginal extends Component {
       }
   }
 
+    handleChoosePhoto = () => {
+      const options = {
+        noData: true,
+      };
+      ImagePicker.launchImageLibrary(options, (response) => {
+        const source = { uri: response.uri };
+        if (response.uri) {
+          this.setState({ photo: source });
+        }
+        
+      });
+    };
+
   render() {
     return (
       <SafeAreaView>
@@ -132,6 +147,13 @@ class AccountOriginal extends Component {
                     : <ActivityIndicator size="small" color="blue" />
                   }
                 <Text style={styles.textTixPoint}> TIX Point</Text>
+
+                <Right style={{marginTop: -20}}>
+                  <TouchableOpacity onPress={this.handleChoosePhoto}>
+                    <Thumbnail style = {{backgroundColor: 'grey'}} source = { this.state.photo }/>
+                  </TouchableOpacity>
+                </Right>
+
               </View>
             </View>
             <Text style={styles.textSubtitle}>Selesaikan semua misi dan dapatkan 10.000 TIX Points</Text>
