@@ -320,6 +320,7 @@ const BottomNavigationStack = createBottomTabNavigator(
     },
   },
   {
+    unmountInactiveScreens: true,
     initialRouteName: 'Home',
     backBehaviour: 'history',
     tabBarOptions: {

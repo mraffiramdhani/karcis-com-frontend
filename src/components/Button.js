@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 
 export const ButtonLogin = (props) => {
   return (
@@ -7,7 +7,11 @@ export const ButtonLogin = (props) => {
       style={styles.btnLogin}
       disabled={props.disabled}
       onPress={props.onPress}>
-      <Text style={styles.textBtnLogin}>{props.label}</Text>
+      {
+        typeof props.label === 'string'
+        ? <Text style={styles.textBtnLogin}>{props.label}</Text>
+        : props.label
+      }
     </TouchableOpacity >
   )
 }

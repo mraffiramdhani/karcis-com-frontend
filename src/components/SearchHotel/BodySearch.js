@@ -8,7 +8,7 @@ import MyIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
-import {setCheckIn, setCheckOut } from '../../redux/action/hotelSearch';
+import { setCheckIn, setCheckOut } from '../../redux/action/hotelSearch';
 
 const styles = StyleSheet.create({
   root: {
@@ -226,7 +226,7 @@ class BodySearchs extends Component {
             <Item inlineLabel style={{ marginLeft: 10, marginRight: 10 }}>
               <Icons keyboardType='number-pad' name="filter" style={styles.iconFilter} />
               <Input keyboardType='number-pad' style={{ fontSize: 16 }} placeholder="Min (IDR)" placeholderTextColor='grey' />
-              <Input style={{ fontSize: 16 }} placeholder="Max (IDR)" placeholderTextColor='grey' />
+              <Input keyboardType='number-pad' style={{ fontSize: 16 }} placeholder="Max (IDR)" placeholderTextColor='grey' />
             </Item>
 
             <View style={{ alignItems: 'center', marginTop: 10 }}>

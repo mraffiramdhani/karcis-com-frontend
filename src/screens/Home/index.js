@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar , YellowBox} from 'react-native';
 import { connect } from 'react-redux';
+import { setPage } from '../../redux/action/page';
 import { withNavigation } from 'react-navigation';
 
 import { Header } from '../../components/Header'
@@ -18,14 +19,20 @@ class HomeOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')]
+      bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')],
+      page: 'Home',
     }
   }
+
+  async componentDidMount(){
+    await this.props.dispatch(setPage('Home'));
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <Header onPressLogin={() => this.props.navigation.navigate('Login')} isAuth={this.props.auth.data.token ? this.props.auth.data.first_name : 'Masuk'} />
+        <Header onPressLogin={() => this.props.navigation.navigate('Login')} isAuth={this.props.auth.data.token ? this.props.balance.data.balance : 'Masuk'} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
@@ -128,7 +135,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    balance: state.balance
+    balance: state.balance,
+    page: state.page
   }
 }
 

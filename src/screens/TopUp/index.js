@@ -4,19 +4,31 @@ import BodyPoint from '../../components/TopUp/BodyPoint';
 import ListPoint from '../../components/TopUp/ListPoint';
 import {connect} from 'react-redux';
 import {getBalance} from '../../redux/action/balance';
-import {withNavigation} from 'react-navigation';
+import { setPage } from '../../redux/action/page';
+import {withNavigationFocus} from 'react-navigation';
 
 class TopUpOriginal extends Component {
 	constructor(props){
 		super(props)
+		this.state = {
+			page: 'TopUp',
+		}
 	}
 
-	componentDidMount(){
+	async componentDidMount(){
 		const jwt = this.props.auth.data.token;
-		if(jwt !== null && jwt !== undefined && jwt !== ''){
-			this.props.dispatch(getBalance(jwt));
+		await this.props.dispatch(setPage('TopUp'));
+		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+		if(jwt){
+			await this.props.dispatch(getBalance(jwt));
 		}
 		else {
+			await this.props.navigation.navigate('Login');
+		}
+	}
+
+	onScreenFocus(jwt){
+		if(!jwt){
 			this.props.navigation.navigate('Login');
 		}
 	}
@@ -39,6 +51,6 @@ const mapStateToProps = state => {
 	}
 }
 
-const TopUp = withNavigation(TopUpOriginal)
+const TopUp = withNavigationFocus(TopUpOriginal)
 
 export default connect(mapStateToProps)(TopUp);

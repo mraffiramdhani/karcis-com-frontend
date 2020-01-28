@@ -9,6 +9,7 @@ import HorizontalProfileMission from '../../components/HorizontalProfileMission'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux';
+import { getBalance } from '../../redux/action/balance';
 import { withNavigation } from 'react-navigation';
 import { logout } from '../../redux/action/auth';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -22,28 +23,30 @@ class AccountOriginal extends Component {
     super(props)
     this.state = {
       isLoading: false,
+      isBalanceLoading: true,
       isSuccess: false,
       message: ''
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     if(!this.props.auth.data.token){
-      this.props.navigation.navigate('Login');
+      this.props.navigation.push('Login');
     }
     else {
+      await this.props.dispatch(getBalance(this.props.auth.data.token))
       this.props.navigation.navigate('Account');
     }
   }
 
   async handleLogout(){
-        const jwt = await this.props.auth.data.token
-        if(jwt !== null){
-            await this.props.dispatch(logout(jwt))
-        }
-    }
+      const jwt = await this.props.auth.data.token
+      if(jwt !== null){
+          await this.props.dispatch(logout(jwt))
+      }
+  }
 
-    async componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
         if (prevProps.auth.isLoading !== this.state.isLoading) {
             if (prevProps.auth.isLoading === true) {
                 this.setState({
@@ -72,23 +75,22 @@ class AccountOriginal extends Component {
             }
         }
 
-        if(prevProps.auth.data.token === null){
-          this.prop.navigation.navigate('Login');
+        if(this.props.auth.data.token === null){
+          this.props.navigation.push('Login');
         }
     }
 
-    async handleRedirect() {
-        if (this.state.isSuccess) {
-            Alert.alert('Logout Message', this.state.message, [
-                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-            ])
-        } else {
-            Alert.alert('Logout Message', this.state.message)
-        }
-    }
+  async handleRedirect() {
+      if (this.state.isSuccess) {
+          Alert.alert('Logout Message', this.state.message, [
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+          ])
+      } else {
+          Alert.alert('Logout Message', this.state.message)
+      }
+  }
 
   render() {
-    const { first_name, last_name, email } = this.props.auth.data
     return (
       <SafeAreaView>
       <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
@@ -99,7 +101,7 @@ class AccountOriginal extends Component {
             </View>
             <View style={styles.bannerContent}>
               <View style={styles.containerName}>
-                <Text style={styles.textName}>{`${first_name} ${last_name}`}</Text>
+                <Text style={styles.textName}>{`${this.props.auth.data.first_name} ${this.props.auth.data.last_name}`}</Text>
                 <Icon name="pencil" size={20} color='#0064D2' />
               </View>
               <View style={styles.containerVerify}>
@@ -108,7 +110,7 @@ class AccountOriginal extends Component {
               </View>
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
-                <Text style={styles.textSaldo}>Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')} </Text> 
+                  <Text style={styles.textSaldo}>Basic - {/*rupiahFormat(this.props.balance.data.balance, 'Rp.')*/} </Text>
                 <Text style={styles.textTixPoint}>TIX Point</Text>
               </View>
             </View>
