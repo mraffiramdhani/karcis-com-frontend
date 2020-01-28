@@ -25,7 +25,7 @@ const hotelRooms = (state = initialState, action) => {
     case 'GET_ROOM_FULFILLED':
       return {
         ...state,
-        count: action.payload.data.length,
+        count: action.payload.data.data.rooms.length,
         data: action.payload.data.data,
         isLoading: false,
         isSuccess: true,

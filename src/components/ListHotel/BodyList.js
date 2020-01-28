@@ -59,17 +59,13 @@ class BodyLists extends Component {
     return (
       <Card style={styles.card}>
         <View style={{ marginTop: 10 }}>
-
           <Item inlineLabel>
             <Text style={{ marginLeft: 10, fontSize: 13, marginBottom: 15, marginTop: 10 }}>
               Menampilkan properti terbaik </Text>
           </Item>
 
           <ScrollView>
-            {hotel.isLoading == true &&
-              <ActivityIndicator color="blue" size="large" />
-            }
-            {hotel.isLoading == false && hotel.data.hotels.map(v => (
+            {hotel.data.hotels.map(v => (
               <TouchableOpacity key={v.id} onPress={() => this.props.navigation.navigate('DetailHotel', {
                 id: v.id,
                 cost: v.cost,

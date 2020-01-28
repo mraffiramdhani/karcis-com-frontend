@@ -26,7 +26,7 @@ const hotel = (state = initialState, action) => {
     case 'GET_HOTEL_FULFILLED':
       return {
         ...state,
-        count: action.payload.data.length,
+        count: action.payload.data.data.hotels.length,
         data: action.payload.data.data,
         isLoading: false,
         isSuccess: true,
@@ -49,7 +49,7 @@ const hotel = (state = initialState, action) => {
     case 'GET_HOTEL_BY_ID_FULFILLED':
       return {
         ...state,
-        count: action.payload.data.length,
+        count: action.payload.data.data.amenities.length,
         dataDetail: action.payload.data.data,
         isLoading: false,
         isSuccess: true,

@@ -6,23 +6,24 @@ import { connect } from 'react-redux'
 import { getHotel } from '../../redux/action/hotel';
 import { withNavigation } from 'react-navigation';
 
+import LoadingScreen from '../../components/LodingScreen';
+
 class ListHotelOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
       searchValue: '',
-      hotel: {}
     };
   }
 
-componentDidMount() {
-    this.props.dispatch(getHotel())
+  async componentDidMount() {
+    await this.props.dispatch(getHotel())
   }
-  
+
   async handleInputSearch(e) {
     await this.setState({ searchValue: e });
-    // console.log(this.state.searchValue)
   }
+
 
 
   // componentDidUpdate(prevProps, prevState) {
@@ -38,12 +39,21 @@ componentDidMount() {
 
   render() {
     const orderData = this.props.navigation.getParam('orderData')
-      return (
+    const { hotel } = this.props
+    const { isLoading, count, isSuccess } = this.props.hotel
+    return (
       <View>
-        <HeaderList onInputSearch={(e) => this.handleInputSearch(e)} />
-        <BodyList hotel={this.props.hotel} orderData={orderData} />
+        {isLoading == true && (
+          <LoadingScreen />
+        )}
+        {count > 0 && isSuccess == true && (
+          <View>
+            <HeaderList onInputSearch={(e) => this.handleInputSearch(e)} />
+            <BodyList hotel={hotel} orderData={orderData} />
+          </View>
+        )}
       </View>
-      )
+    )
   }
 }
 
