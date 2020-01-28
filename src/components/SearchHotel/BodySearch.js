@@ -220,8 +220,7 @@ class BodySearchs extends Component {
             </Item>
 
             <View style={{ alignItems: 'center', marginTop: 10 }}>
-              <TouchableOpacity onPress={this._handleSearch}
->>>>>>>>> Temporary merge branch 2                style={styles.buttonLogin}>
+              <TouchableOpacity onPress={this._handleSearch} style={styles.buttonLogin}>
                 <Text style={styles.buttonText}>CARI HOTEL</Text>
               </TouchableOpacity>
             </View>
