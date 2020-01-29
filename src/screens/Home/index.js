@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar, YellowBox } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,7 +24,8 @@ class HomeOriginal extends Component {
     super(props)
     this.state = {
       bannerImage: [require('../../assets/images/carouselImage/1.png'), require('../../assets/images/carouselImage/2.png'), require('../../assets/images/carouselImage/3.png'), require('../../assets/images/carouselImage/4.png')],
-      page: 'Home',
+      isLoading: false,
+      isSuccess: false,
     }
   }
 
@@ -38,6 +41,17 @@ class HomeOriginal extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.balance.isLoading !== this.state.isLoading) {
+      if (prevProps.balance.isLoading) {
+        this.setState({ isLoading: true });
+      }
+      else {
+        this.setState({ isLoading: false, isSuccess: prevProps.balance.isSuccess });
+      }
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -47,13 +61,13 @@ class HomeOriginal extends Component {
             ? this.props.navigation.navigate('TopUp')
             : this.props.navigation.navigate('Login')
         }} isAuth={
-          this.props.auth.data.token && !this.props.balance.isLoading
+          this.state.isSuccess && !this.state.isLoading
             ?
             <>
               <Icon name="ticket" size={15} />{" "}
               {rupiahFormat(this.props.balance.data.balance, '')}
             </>
-            : 'Masuk'} />
+            : ''} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>

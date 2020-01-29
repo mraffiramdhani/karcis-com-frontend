@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Icons from 'react-native-vector-icons/AntDesign';
-import {Left, Container, Accordion} from 'native-base';
+import { Left } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -17,16 +18,22 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+  },
+  icon: {
+    color: 'white',
+    fontSize: 30,
+    marginTop: 10,
+    marginLeft: 10
   }
 });
 
-class HeaderFormHist extends Component {
+class HeaderFormHists extends Component {
   render() {
     return (
       <View>
         <View style={styles.banner}>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
               <Left>
                 <Text
                   style={{
@@ -40,7 +47,7 @@ class HeaderFormHist extends Component {
                 </Text>
               </Left>
 
-              <Icons name="arrowleft" style={styles.icon} />
+              <Icons name="arrowleft" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
         </View>
@@ -48,5 +55,7 @@ class HeaderFormHist extends Component {
     );
   }
 }
+
+const HeaderFormHist = withNavigation(HeaderFormHists)
 
 export default HeaderFormHist

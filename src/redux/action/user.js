@@ -8,3 +8,12 @@ export const checkEmail = (email) => {
     payload: Post(url.concat('/email/check'), null, { email })
   }
 }
+
+export const uploadImage = (uri) => {
+  return {
+    type: 'UPLOAD_IMAGE',
+    payload: {
+      uri
+    }
+  }
+}

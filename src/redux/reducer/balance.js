@@ -1,5 +1,6 @@
 const initialState = {
   data: [],
+  dataHistory: {},
   isLoading: false,
   isError: false,
   isSuccess: true
@@ -47,13 +48,13 @@ const balance = (state = initialState, action) => {
     case 'GET_BALANCE_HISTORY_FULFILLED':
       return {
         ...state,
-        data: action.payload.data.data,
+        dataHistory: action.payload.data.data,
         isLoading: false,
         isSuccess: action.payload.data.success,
         isError: false
       }
     default:
-    return state
+      return state
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import HeaderPoint from '../../components/TopUp/HeaderPoint';
 import BodyPoint from '../../components/TopUp/BodyPoint';
@@ -16,7 +17,7 @@ class TopUpOriginal extends Component {
 
 	async componentDidMount() {
 		const jwt = this.props.auth.data.token;
-		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
+		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
 		if (jwt) {
 			await this.props.dispatch(getBalance(jwt));
 		}
@@ -25,8 +26,7 @@ class TopUpOriginal extends Component {
 		}
 	}
 
-	onScreenFocus() {
-		const jwt = this.props.auth.data.token;
+	onScreenFocus(jwt) {
 		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}

@@ -31,6 +31,12 @@ const user = (state = initialState, action) => {
         isSuccess: action.payload.data.success,
         message: action.payload.data.message
       }
+
+    case 'UPLOAD_IMAGE':
+      return {
+        ...state,
+        uri: action.payload.uri
+      }
     default:
       return state;
   }

@@ -10,6 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux';
 import { getBalance } from '../../redux/action/balance';
+import { uploadImage } from '../../redux/action/user';
 import { withNavigation } from 'react-navigation';
 import { logout } from '../../redux/action/auth';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -25,30 +26,30 @@ class AccountOriginal extends Component {
     super(props)
     this.state = {
       isLoading: false,
-      isBalanceLoading: true,
-      message: ''
+      isSuccess: false,
+      isBalanceLoading: false,
+      isBalanceSuccess: false,
+      message: '',
+      photo: '',
     }
 
     const jwt = this.props.auth.data.token;
-    if (jwt) {
-      this.props.dispatch(getBalance(jwt));
-    }
-    else {
+    if (jwt === null || jwt === undefined || jwt === '') {
       this.props.navigation.navigate('Login');
     }
   }
 
   async componentDidMount() {
-    await this.props.navigation.addListener('didFocus', this.onScreenFocus);
+    const jwt = this.props.auth.data.token;
+    this.props.dispatch(getBalance(jwt));
+    await this.setState({ photo: { uri: this.props.user.uri } });
+    console.log(this.state.photo);
+    await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
   }
 
-  onScreenFocus() {
-    const jwt = this.props.auth.data.token;
-    if (jwt === null && jwt === undefined && jwt === '') {
+  onScreenFocus(jwt) {
+    if (jwt === null || jwt === undefined || jwt === '') {
       this.props.navigation.navigate('Login');
-    }
-    else {
-      this.props.dispatch(getBalance(jwt));
     }
   }
 
@@ -61,17 +62,15 @@ class AccountOriginal extends Component {
 
   async componentDidUpdate(prevProps) {
     if (prevProps.auth.isLoading !== this.state.isLoading) {
-      if (prevProps.auth.isLoading === true) {
-        this.setState({
+      if (prevProps.auth.isLoading) {
+        await this.setState({
           isLoading: true
         })
-        console.log('masih loading')
       } else {
-        console.log('sudah fulfill')
-        if (!this.props.auth.isAuth) {
-          console.log('berhasil logout')
+        if (!this.props.auth.isSuccess) {
           await this.setState({
             isLoading: false,
+            isSuccess: prevProps.auth.isSuccess,
             message: "Logout Success.",
           })
           this.handleRedirect()
@@ -79,6 +78,7 @@ class AccountOriginal extends Component {
           console.log('gagal logout')
           await this.setState({
             isLoading: false,
+            isSuccess: prevProps.auth.isSuccess,
             message: "Logout Failed. Try Again.",
           })
           this.handleRedirect()
@@ -87,19 +87,24 @@ class AccountOriginal extends Component {
     }
 
     if (prevProps.balance.isLoading !== this.state.isBalanceLoading) {
-      if (!prevProps.balance.isLoading) {
-        this.setState({ isBalanceLoading: false });
+      if (prevProps.balance.isLoading) {
+        await this.setState({ isBalanceLoading: true });
+      }
+      else {
+        await this.setState({ isBalanceLoading: false, isBalanceSuccess: prevProps.balance.isSuccess });
       }
     }
   }
 
   async handleRedirect() {
-    if (!this.state.isAuth) {
+    if (this.state.isSuccess) {
       Alert.alert('Logout Message', this.state.message, [
-        { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
       ])
     } else {
-      Alert.alert('Logout Message', this.state.message)
+      Alert.alert('Logout Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+      ])
     }
   }
 
@@ -110,7 +115,7 @@ class AccountOriginal extends Component {
     ImagePicker.launchImageLibrary(options, (response) => {
       const source = { uri: response.uri };
       if (response.uri) {
-        console.log(response);
+        this.props.dispatch(uploadImage(response.uri));
         this.setState({ photo: source });
       }
 
@@ -138,9 +143,9 @@ class AccountOriginal extends Component {
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
                 {
-                  !this.state.isBalanceLoading
+                  (!this.state.isBalanceLoading && this.state.isBalanceSuccess)
                     ? <Text style={styles.textSaldo}>
-                      Basic - {/*rupiahFormat(this.props.balance.data.balance, '')*/}
+                      Basic - {rupiahFormat(this.props.balance.data.balance, '')}
                     </Text>
                     : <ActivityIndicator size="small" color="blue" />
                 }
@@ -337,7 +342,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    balance: state.balance
+    balance: state.balance,
+    user: state.user
   }
 }
 

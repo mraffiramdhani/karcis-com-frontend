@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
 import Headers from '../../components/MyOrder/Headers';
 import TabCard from '../../components/MyOrder/TabCard';
 import { connect } from 'react-redux';
@@ -11,13 +11,14 @@ class MyOrderOriginal extends Component {
 		super(props)
 		this.state = {
 			page: 'MyOrder',
-			isLoading: true,
+			isLoading: false,
+			isSuccess: false,
 		}
 	}
 
 	async componentDidMount() {
 		const jwt = this.props.auth.data.token;
-		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
+		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
 		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}
@@ -26,21 +27,12 @@ class MyOrderOriginal extends Component {
 		}
 	}
 
-	onScreenFocus() {
-		const jwt = this.props.auth.data.token;
+	onScreenFocus(jwt) {
 		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}
 		else {
 			this.props.dispatch(getHotelOrder(jwt));
-		}
-	}
-
-	async componentDidUpdate(prevProps) {
-		if (prevProps.hotelOrder.isLoading !== this.state.isLoading) {
-			if (!prevProps.hotelOrder.isLoading) {
-				await this.setState({ isLoading: false });
-			}
 		}
 	}
 

@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, Image, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 const BannerHeight = Dimensions.get('window').height / 2.3;
 
-export default class RegisterNextSecond extends Component {
+class RegisterNextSeconds extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <Image source={require('../../assets/images/logo/successRegister.png')}
           style={styles.img} />
         <View style={styles.containerText}>
-          <Text style={styles.textName}>Hi Arfifa Rahman, selamat datang</Text>
+          <Text style={styles.textName}>Hi {this.props.auth.data.first_name} {this.props.auth.data.last_name}, selamat datang</Text>
           <Text style={styles.textDesc}>sekarang kamu bisa pesan lebih cepat dengan Smart Traveler, nimati TIX Point, Member Deals dan banyak keuntungan lain. Sudah siap?</Text>
           <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home')}
             style={styles.btnSuccessRegister}>
             <Text style={styles.textBtn}>AYO!</Text>
           </TouchableOpacity >
@@ -66,3 +69,13 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 })
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const RegisterNextSecond = withNavigation(RegisterNextSeconds);
+
+export default connect(mapStateToProps)(RegisterNextSecond)
