@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
 });
 
 class BodyRooms extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {};
+  }
+
   render() {
     const { dataRooms, orderData } = this.props
     return (
@@ -88,9 +94,8 @@ class BodyRooms extends Component {
             <Text style={{ margin: 3, color: '#0064D2' }}>Sarapan</Text>
           </TouchableOpacity>
         </View>
-        {dataRooms.isLoading == false && dataRooms.data.rooms.map(v => (
-          <>
-            <Item style={{ backgroundColor: '#fff' }}>
+        {dataRooms.isLoading == false && dataRooms.data.rooms.map((v,i) => (
+            <Item style={{ backgroundColor: '#fff' }} key={i}>
               <View style={{ margin: '3%' }}>
                 <View>
                   <Text>{v.name}</Text>
@@ -124,10 +129,7 @@ class BodyRooms extends Component {
                   </View>
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.props.navigation.navigate('FormOrder', {
-                        orderData: orderData,
-                        cost: v.cost
-                      })}
+                      onPress={() => this.props.handleRoomOrder(v.room_type_id, orderData, v.cost)}
                       style={styles.buttonLogin}>
                       <Text style={styles.buttonText}>PILIH</Text>
                     </TouchableOpacity>
@@ -135,7 +137,6 @@ class BodyRooms extends Component {
                 </View>
               </View>
             </Item>
-          </>
         ))}
       </ScrollView>
     )

@@ -26,7 +26,7 @@ const topup = (state = initialState, action) => {
         ...state,
         data: action.payload.data.data,
         isLoading: false,
-        isSuccess: true,
+        isSuccess: action.payload.data.success,
         isError: false
       }
     default:

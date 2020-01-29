@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, SafeAreaView, Dimensions, StyleSheet, TouchableOpacity, Alert, StatusBar, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconA from 'react-native-vector-icons/AntDesign'
-import { List, ListItem, Left, Right, Body } from 'native-base'
+import { List, ListItem, Left, Right, Body, Thumbnail } from 'native-base'
 
 import { HeaderProfile } from '../../components/Header'
 import HorizontalProfileMission from '../../components/HorizontalProfileMission'

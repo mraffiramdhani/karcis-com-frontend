@@ -4,6 +4,7 @@ import HeaderList from '../../components/ListHotel/HeaderList';
 import BodyList from '../../components/ListHotel/BodyList';
 import { connect } from 'react-redux'
 import { getHotel } from '../../redux/action/hotel';
+import { setHotel } from '../../redux/action/order';
 import { withNavigation } from 'react-navigation';
 
 import LoadingScreen from '../../components/LodingScreen';
@@ -24,18 +25,11 @@ class ListHotelOriginal extends Component {
     await this.setState({ searchValue: e });
   }
 
-
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.searchValue !== this.state.searchValue) {
-  //     if (this.state.searchValue.length >= 3) {
-  //       this.props.dispatch(getHotel({ name: this.state.searchValue }))
-  //     }
-  //     else if (this.state.searchValue.length === 0) {
-  //       this.props.dispatch(getHotel());
-  //     }
-  //   }
-  // }
+  handleHotelPressed(id, cost, orderData){
+    console.log(id, cost, orderData)
+    this.props.dispatch(setHotel(id));
+    this.props.navigation.navigate('DetailHotel', {id, cost, orderData});
+  }
 
   render() {
     const orderData = this.props.navigation.getParam('orderData')
@@ -49,7 +43,7 @@ class ListHotelOriginal extends Component {
         {count > 0 && isSuccess == true && (
           <View>
             <HeaderList onInputSearch={(e) => this.handleInputSearch(e)} />
-            <BodyList hotel={hotel} orderData={orderData} />
+            <BodyList onHotelPressed={(id, cost, orderData) => this.handleHotelPressed(id, cost, orderData)} hotel={hotel} orderData={orderData} />
           </View>
         )}
       </View>

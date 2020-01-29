@@ -31,6 +31,9 @@ class TopUpOriginal extends Component {
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
+		else {
+			this.props.dispatch(getBalance(jwt));	
+		}
 	}
 
   render() {

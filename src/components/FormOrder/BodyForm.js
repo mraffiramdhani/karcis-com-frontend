@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 
 class BodyForms extends Component {
 	render() {
-		const { orderData, hotelDetail, costRoom } = this.props
+		const { orderData, hotelDetail, costRoom, auth } = this.props
 		return (
 			<ScrollView>
 				<View style={{ backgroundColor: '#fff' }}>
@@ -128,13 +128,10 @@ class BodyForms extends Component {
 
 						<View style={{ margin: 12 }}>
 							<Text style={{ fontSize: 13 }}>
-								tuan Username
+								tuan {auth.first_name} {auth.last_name}
                                 </Text>
 							<Text style={{ fontSize: 13 }}>
-								username@email.com
-                                </Text>
-							<Text style={{ fontSize: 13 }}>
-								+6289989989657
+								{auth.email}
                                 </Text>
 						</View>
 					</Card>
@@ -184,7 +181,7 @@ class BodyForms extends Component {
 
 					<View style={{ alignItems: 'center', marginBottom: 10 }}>
 						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate('Payment')}
+							onPress={() => this.props.handleConfirmOrder()}
 							style={styles.buttonLogin}>
 							<Text style={styles.buttonText}>LANJUTKAN KE PEMBAYARAN</Text>
 						</TouchableOpacity>

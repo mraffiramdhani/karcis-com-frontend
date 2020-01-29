@@ -6,6 +6,8 @@ import { Container, Content, Form, Item, Input, Label } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { topUp } from '../../../redux/action/topup';
+import { setPage } from '../../../redux/action/page';
+import {withNavigationFocus} from 'react-navigation';
 
 const styles = StyleSheet.create({
   button: {
@@ -26,30 +28,51 @@ const styles = StyleSheet.create({
   },
 });
 
-class BodyForm extends Component {
+class BodyFormOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: 0
+      value: 0,
+      isSuccess: false,
+      isClicked: false
+    }
+    const jwt = this.props.auth.data.token;
+    this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+  }
+
+  onScreenFocus(jwt){
+    if(jwt !== null && jwt !== undefined && jwt !== ''){
+      this.props.dispatch(setPage('TopUp'));
+      this.setState({isSuccess: false, isClicked: false});
     }
   }
 
   async handleTopUp() {
     const jwt = await this.props.auth.data.token
-    if (jwt !== null) {
+    if (jwt !== null && jwt !== undefined) {
       console.log(jwt)
       const data = { value: this.state.value }
       this.props.dispatch(topUp(jwt, data))
+      this.setState({isClicked: true});
     }
-    console.log(jwt)
-    this.handleRedirect();
   }
 
-  async handleRedirect() {
-    if (this.props.topup.isSuccess) {
-      Alert.alert('Top Up Success', this.state.message)
+  async componentDidUpdate(prevProps){
+    if(prevProps.topup.isSuccess && this.state.isClicked){
+      if(this.state.isSuccess){
+        this.handleRedirect();
+      }
+      else{
+        this.setState({isSuccess: true});
+      }
+    }
+  }
+
+  handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Top Up Success', 'Your Top Up Request Is Confirmed.')
     } else {
-      Alert.alert('Top Up Failed', this.state.message)
+      Alert.alert('Top Up Failed', 'Please Try Again.')
     }
   }
 
@@ -99,5 +122,7 @@ const mapStateToProps = state => {
     topup: state.topup
   }
 }
+
+const BodyForm = withNavigationFocus(BodyFormOriginal)
 
 export default connect(mapStateToProps)(BodyForm)

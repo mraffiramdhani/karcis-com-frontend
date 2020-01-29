@@ -4,6 +4,7 @@ import HeaderRoom from '../../components/ListRoom/HeaderRoom';
 import BodyRoom from '../../components/ListRoom/BodyRoom';
 import { connect } from 'react-redux';
 import { getRoom } from '../../redux/action/hotelRooms';
+import { setRoom } from '../../redux/action/order';
 
 import LoadingScreen from '../../components/LodingScreen';
 
@@ -20,6 +21,12 @@ class ListRoom extends Component {
     await this.props.dispatch(getRoom(id))
   }
 
+  handleRoomOrder(id, orderData, cost){
+    console.log(id, orderData, cost);
+    this.props.dispatch(setRoom(id));
+    this.props.navigation.navigate('FormOrder', {orderData, cost});
+  }
+
   render() {
     const { hotelRooms } = this.props
     const { isLoading, count, isSuccess } = this.props.hotelRooms
@@ -32,7 +39,7 @@ class ListRoom extends Component {
         {count > 0 && isSuccess == true && (
           <View>
             <HeaderRoom orderData={orderData} />
-            <BodyRoom dataRooms={hotelRooms} orderData={orderData} />
+            <BodyRoom handleRoomOrder={(id, orderData, cost) => this.handleRoomOrder(id, orderData, cost)} dataRooms={hotelRooms} orderData={orderData} />
           </View>
         )}
       </>
@@ -42,7 +49,8 @@ class ListRoom extends Component {
 
 const mapStateToProps = state => {
   return {
-    hotelRooms: state.hotelRooms
+    hotelRooms: state.hotelRooms,
+    order: state.order
   }
 }
 
