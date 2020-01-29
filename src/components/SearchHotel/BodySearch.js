@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import MyIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation'
+import { connect } from 'react-redux';
+import { setCheckIn, setCheckOut } from '../../redux/action/hotelSearch';
 
 const styles = StyleSheet.create({
   root: {
@@ -101,18 +103,32 @@ class BodySearchs extends Component {
     this.setDate1 = this.setDate1.bind(this);
     this.setDate2 = this.setDate2.bind(this);
   }
+
   setDate1(newDate) {
-    this.setState({ chosenDate1: newDate });
+    const dateNow = new Date();
+    if(this.state.chosenDate2 < dateNow || this.state.chosenDate2 <= this.state.chosenDate1){
+      this.props.dispatch(setCheckIn(newDate));
+      this.setState({ chosenDate1: newDate, daterange: 0 });
+    }
+    else {
+      this.props.dispatch(setCheckIn(newDate));
+      this.setState({ chosenDate1: newDate });
+      const range = (this.state.chosenDate2 - this.state.chosenDate1) / (1000 * 3600 * 24)
+      this.setState({ daterange: range });
+    }
   }
   setDate2(newDate) {
     if (this.state.chosenDate1 < newDate) {
+      this.props.dispatch(setCheckOut(newDate));
       this.setState({ chosenDate2: newDate });
       const range = (this.state.chosenDate2 - this.state.chosenDate1) / (1000 * 3600 * 24)
       this.setState({ daterange: range })
     } else {
+      this.props.dispatch(setCheckOut(newDate));
       this.setState({ chosenDate2: newDate, daterange: 0 });
     }
     if (newDate < this.state.chosenDate1) {
+      this.props.dispatch(setCheckOut(new Date()));
       this.setState({ chosenDate2: new Date() })
     }
   }
@@ -135,7 +151,10 @@ class BodySearchs extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('ListLocation')}>
               <Item inlineLabel style={{ marginLeft: 10, marginRight: 10 }}>
                 <Icon name="location" style={styles.iconBody} />
-                <Text style={{ marginLeft: -5, fontSize: 16, marginBottom: 10 }} > Hotel Dekat Anda </Text>
+                {
+                  this.props.hotelSearch.city_name &&
+                  <Text style={{fontSize: 16, marginBottom: 10}} > {this.props.hotelSearch.city_name} </Text>
+                }
               </Item>
             </TouchableOpacity>
 
@@ -216,12 +235,11 @@ class BodySearchs extends Component {
             <Item inlineLabel style={{ marginLeft: 10, marginRight: 10 }}>
               <Icons keyboardType='number-pad' name="filter" style={styles.iconFilter} />
               <Input keyboardType='number-pad' style={{ fontSize: 16 }} placeholder="Min (IDR)" placeholderTextColor='grey' />
-              <Input style={{ fontSize: 16 }} placeholder="Max (IDR)" placeholderTextColor='grey' />
+              <Input keyboardType='number-pad' style={{ fontSize: 16 }} placeholder="Max (IDR)" placeholderTextColor='grey' />
             </Item>
 
             <View style={{ alignItems: 'center', marginTop: 10 }}>
-              <TouchableOpacity onPress={this._handleSearch}
-                style={styles.buttonLogin}>
+              <TouchableOpacity onPress={this._handleSearch} style={styles.buttonLogin}>
                 <Text style={styles.buttonText}>CARI HOTEL</Text>
               </TouchableOpacity>
             </View>
@@ -235,4 +253,12 @@ class BodySearchs extends Component {
 }
 
 const BodySearch = withNavigation(BodySearchs);
-export default BodySearch
+
+const mapStateToProps = state => {
+  return {
+    hotelSearch: state.hotelSearch,
+    city: state.city
+  }
+}
+
+export default connect(mapStateToProps)(BodySearch)

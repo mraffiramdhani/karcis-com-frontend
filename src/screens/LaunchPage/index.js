@@ -73,7 +73,7 @@ export default class SplashScreen extends React.Component {
 
   componentDidMount() {
     StatusBar.setBarStyle('light-content', true);
-    StatusBar.setBackgroundColor('transparent');
+    StatusBar.setBackgroundColor('#0953A6');
     // StatusBar.setTranslucent(true);
     setTimeout(() => {
       this.props.navigation.navigate('Home');
@@ -82,6 +82,8 @@ export default class SplashScreen extends React.Component {
 
   render() {
     return (
+      <>
+      <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
       <View style={styles.container}>
         <ImageBackground
           style={styles.backgroundImage}
@@ -89,6 +91,7 @@ export default class SplashScreen extends React.Component {
           imageStyle={styles.imagebg}
         />
       </View>
+      </>
     );
   }
 }

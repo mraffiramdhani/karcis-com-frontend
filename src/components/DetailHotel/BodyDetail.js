@@ -231,6 +231,7 @@ class BodyDetail extends Component {
               )}
             </View>
           </View>
+          
 
           <View style={{ alignSelf: 'flex-start', marginTop: 20, marginBottom: 20 }}>
             <Text style={{ color: '#0064D2' }}>Lebih semua fasilitas</Text>

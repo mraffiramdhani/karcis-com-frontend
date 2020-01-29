@@ -8,6 +8,7 @@ import MyIcons from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   root: {
@@ -47,10 +48,10 @@ class HeaderListOriginal extends Component {
                     color: 'white',
                     fontSize: 15,
                     marginRight: 220,
-                    marginTop: 2
+                    marginTop: 2,
                   }}>
                   {' '}
-                  Bogor{' '}
+                  {this.props.hotelSearch.city_name}
                 </Text>
               </Left>
               <Icons name="cross" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
@@ -71,4 +72,10 @@ class HeaderListOriginal extends Component {
 
 const HeaderList = withNavigation(HeaderListOriginal);
 
-export default HeaderList
+const mapStateToProps = state => {
+  return {
+    hotelSearch: state.hotelSearch
+  }
+}
+
+export default connect(mapStateToProps)(HeaderList)

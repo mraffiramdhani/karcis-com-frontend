@@ -6,6 +6,7 @@ import Icons from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import Modal, { SlideAnimation, ModalTitle, ModalContent } from 'react-native-modals';
 import { withNavigation } from 'react-navigation';
+import rupiahFormat from '../../utils/rupiahFormat';
 
 const styles = StyleSheet.create({
   root: {
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     borderRadius: 50,
     height: 45,
-    width: 100,
+    width: '100%',
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -112,12 +113,16 @@ class BodyPayments extends Component {
         }
       }
 
-      handlePress = () => {
-          this.setState({visible : false})
-          console.log('test')
-        this.props.navigation.navigate('MyOrder')
-        
-      }
+    handleConfirm = () => {
+        this.setState({visible : false});
+        this.props.navigation.navigate('MyOrder');
+    }
+
+    handleTopUp = () => {
+        this.setState({visible: false});
+        this.props.navigation.navigate('TopUp');
+    }
+
     render () {
         return (
             <View style = {{backgroundColor: '#fff', flex: 1}}>
@@ -136,7 +141,7 @@ class BodyPayments extends Component {
                                     </Text>
                                     </Left>
                                     <Text style ={{color: '#0064D2', marginRight: 20}}>
-                                        IDR 300.000
+                                        IDR {rupiahFormat(this.props.cost, '')}
                                     </Text>
                                     
                                 </View>
@@ -154,11 +159,11 @@ class BodyPayments extends Component {
                         <Icon name='coins' style={{color: 'gold', margin: 10, fontSize: 30}}/>
                                 <View style={{marginTop: 12}}>
                                     <Text style = {{fontSize: 13, marginLeft: 10}}>
-                                        Username
+                                        {this.props.auth.first_name} {this.props.auth.last_name}
                                     </Text>
                                     <View style = {{ marginLeft: 10, marginBottom: 10}}>
                                         <Text>
-                                            Rp. 2.000.000,-
+                                            {rupiahFormat(this.props.balance, 'Rp. ')},-
                                         </Text>
                                     </View>
                                 </View>
@@ -189,7 +194,7 @@ class BodyPayments extends Component {
                                 </View>
                                 <Right>
                             
-                                        <Text style={{marginRight: 10 }}> IDR 2.000.000 </Text>
+                                        <Text style={{marginRight: 10 }}> IDR {rupiahFormat(this.props.balance, '')} </Text>
                             
                                 </Right>
                             </View>
@@ -201,7 +206,7 @@ class BodyPayments extends Component {
                                     
                                 </View>
                                 <Right>
-                                        <Text style={{marginRight: 10 }}> IDR 300.000 </Text>
+                                        <Text style={{marginRight: 10 }}> IDR {rupiahFormat(this.props.cost, '')} </Text>
                                 </Right>
                             </Item>
                             <Item style = {{flexDirection: 'row'}}>
@@ -211,16 +216,26 @@ class BodyPayments extends Component {
                                     </Text>
                                 </View>
                                 <Right>
-                                        <Text style={{marginRight: 10, color: '#0064D2' }}> IDR 1.700.000 </Text>
+                                        <Text style={{marginRight: 10, color: '#0064D2' }}> IDR {rupiahFormat((this.props.balance - this.props.cost), '')} </Text>
                                 </Right>
                             </Item>
-                            </Card>                                              
-                                <TouchableOpacity 
-                                    onPress={() => {this.setState({visible : false})
-                                    this.props.navigation.navigate('MyOrder')}}  
-                                    style={[{alignItems: 'center', marginBottom: 10}, styles.buttonLogin]} >
-                                        <Text style={styles.buttonText}>CONFIRM</Text>
-                                </TouchableOpacity>
+                            </Card>
+                                {(this.props.balance - this.props.cost <= 0)
+                                  ? <TouchableOpacity>
+                                        <Item 
+                                            onPress={this.handleTopUp}
+                                            style={[{alignItems: 'center', marginBottom: 10}, styles.buttonLogin]} >
+                                                <Text style={styles.buttonText}>TOP UP BALANCE</Text>
+                                        </Item>
+                                    </TouchableOpacity>
+                                  : <TouchableOpacity>
+                                        <Item
+                                            onPress={this.handleConfirm}  
+                                            style={[{alignItems: 'center', marginBottom: 10}, styles.buttonLogin]} >
+                                            <Text style={styles.buttonText}>CONFIRM</Text>
+                                        </Item>
+                                    </TouchableOpacity>
+                                }
                         </ModalContent>
                 </Modal>
 
@@ -246,13 +261,24 @@ class BodyPayments extends Component {
 
 const BodyPayment = withNavigation(BodyPayments)
 
-export default class Payment extends Component {
+class Payment extends Component {
+    constructor(props) {
+      super(props);
+    
+      this.state = {};
+    }
+
     render() {
+        const {cost} = this.props.navigation.getParam('orderData');
+        const balance = this.props.navigation.getParam('balance');
+        const auth = this.props.navigation.getParam('auth');
         return (
             <>
                 <HeaderPayment />
-                <BodyPayment />
+                <BodyPayment cost={cost} balance={balance} auth={auth} />
             </>
         )
     }
 }
+
+export default Payment;

@@ -52,6 +52,11 @@ const styles = StyleSheet.create({
 });
 
 class TabCard extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {};
+  }
   render() {
     return (
       <Tabs
@@ -87,10 +92,8 @@ class TabCard extends Component {
               </TouchableOpacity>
             </TabHeading>
           }>
-          <View>
-          </View>
             {/* <AfterLoginAll /> */}
-            <AfterOrder />
+          <AfterOrder loading={this.props.loading} data={this.props.data} />
         </Tab>
 
         <Tab

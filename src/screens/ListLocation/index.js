@@ -13,11 +13,14 @@ class ListLocation extends Component {
 		await this.props.dispatch(getCities());
 	}
 
+	async handleSearch(e){
+		await this.props.dispatch(getCities(e));
+	}
+
    render() {
-   	console.log(this.props.city)
        return (
            <>
-           <HeaderLoc />
+           <HeaderLoc onInputSearch={(e) => this.handleSearch(e)}/>
    	       <BodyLoc />
            </>
        )

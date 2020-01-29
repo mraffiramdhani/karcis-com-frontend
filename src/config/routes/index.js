@@ -119,6 +119,12 @@ const HomeStack = createStackNavigator(
         headerShown: false,
       },
     },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
   },
   {
     initialRouteName: 'Home',
@@ -252,6 +258,28 @@ TopUpStack.navigationOptions = ({ navigation }) => {
   };
 };
 
+const AccountStack = createStackNavigator(
+  {
+    Account: {
+      screen: Account,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+  }
+);
+
+AccountStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
 const BottomNavigationStack = createBottomTabNavigator(
   {
     Home: {
@@ -282,7 +310,7 @@ const BottomNavigationStack = createBottomTabNavigator(
       },
     },
     Account: {
-      screen: Account,
+      screen: AccountStack,
       navigationOptions: {
         tabBarLabel: 'Account',
         tabBarIcon: ({ tintColor }) => (
@@ -292,7 +320,9 @@ const BottomNavigationStack = createBottomTabNavigator(
     },
   },
   {
+    unmountInactiveScreens: true,
     initialRouteName: 'Home',
+    backBehaviour: 'history',
     tabBarOptions: {
       activeTintColor: '#1483F5',
       inactiveTintColor: '#35405A',
@@ -329,4 +359,6 @@ const Router = createSwitchNavigator(
   },
 );
 
+
 export default createAppContainer(Router);
+

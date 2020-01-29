@@ -66,11 +66,7 @@ class BodyLists extends Component {
 
           <ScrollView>
             {hotel.data.hotels.map(v => (
-              <TouchableOpacity key={v.id} onPress={() => this.props.navigation.navigate('DetailHotel', {
-                id: v.id,
-                cost: v.cost,
-                orderData: orderData
-              })}>
+              <TouchableOpacity key={v.id} onPress={() => this.props.onHotelPressed(v.id, v.cost, orderData)}>
                 <Item inlineLabel style={{ flexDirection: 'row' }}>
                   <CardItem style={{ width: '30%', paddingLeft: 10, paddingRight: 10 }}>
                     <Image style={styles.image} source={{ uri: `${APP_URL_IMAGE_HOTEL}${v.images[0].filename}` }} />

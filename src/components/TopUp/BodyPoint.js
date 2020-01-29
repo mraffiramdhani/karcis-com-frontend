@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'native-base';
-import Icons from 'react-native-vector-icons/FontAwesome5';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import usericon from '../../image/membercard.png';
 import {connect} from 'react-redux';
 import {getBalance} from '../../redux/action/balance';
@@ -91,13 +91,14 @@ class BodyPoint extends Component {
           </ImageBackground>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 5}}>
-          <Icons name="coins" style={styles.coin} />
-          {
-            !this.props.balance.isLoading &&
+          <Icons name="ticket-confirmation" style={styles.coin} />
           <Text style={{fontWeight: 'bold', fontSize: 16, marginTop: 15}}>
-            {rupiahFormat(this.props.balance.data.balance, "Rp.")}
+            {
+              !this.props.balance.isLoading &&
+              rupiahFormat(this.props.balance.data.balance, '')
+            }
           </Text>
-          }
+          
         </View>
 
         <View style={{marginBottom: 10}}>

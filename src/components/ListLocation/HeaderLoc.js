@@ -60,9 +60,9 @@ class HeaderLocOriginal extends Component {
           <View style={{ backgroundColor: 'white', borderRadius: 5, width: '90%', height: '40%', alignSelf: 'center', flexDirection: 'row' }}>
             <MyIcon name="location" style={{ color: 'grey', fontSize: 30, marginTop: '2.5%' }} />
             <Input onChangeText={(e) => this.props.onInputSearch(e)} placeholder='Nginep ke mana?' style={{ marginLeft: '1%', marginTop: '-2%' }} ></Input>
-            <TouchableOpacity>
+            <Item>
               <Icon name="search" style={{ color: 'grey', fontSize: 25, marginTop: 5, marginRight: '2%' }} />
-            </TouchableOpacity>
+            </Item>
           </View>
         </View>
       </View>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-paper'
-import { withNavigation } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
 import { login } from '../../redux/action/auth';
+import { setPage } from '../../redux/action/page';
+import { getBalance } from '../../redux/action/balance';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { HeaderLogin } from '../../components/Header'
@@ -13,58 +15,54 @@ class LoginOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      page: 'Login',
       email: '',
       password: '',
       isLoading: false,
-      isSuccess: false,
+      isAuth: false,
       message: ''
     }
   }
 
+  // async shouldComponentUpdate(nextProps){
+  //   if(nextProps.navigation.isFocused()){
+  //     return true;
+  //   }
+
+  //   if(!nextProps.auth.isLoading){
+  //     await this.setState({isLoading: false});
+  //     return true;
+  //   }
+  // }
+
   async handleSubmit() {
-    const { email, password } = this.state
-    const data = { email, password }
+    const { email, password } = this.state;
+    const data = { email, password };
     await this.props.dispatch(login(data));
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.auth.isLoading !== this.state.isLoading) {
-      if (prevProps.auth.isLoading === true) {
-        this.setState({
-          isLoading: true
-        })
-        console.log('masih loading')
-      } else {
-        console.log('sudah fulfill')
-        if (this.props.auth.isSuccess) {
-          console.log('berhasil login')
-          await this.setState({
-            isLoading: false,
-            isSuccess: true,
-            message: "Login Success.",
-          })
-          await AsyncStorage.setItem('token', this.props.auth.data.token)
-          this.handleRedirect()
-        } else {
-          console.log('gagal login')
-          await this.setState({
-            isLoading: false,
-            isSuccess: false,
-            message: "Login Failed. Try Again.",
-          })
-          this.handleRedirect()
-        }
+    if(this.props.auth.isLoading !== this.state.isLoading){
+      if(this.props.auth.isLoading){
+        await this.setState({isLoading: true});
+      }
+      else {
+        await this.setState({isLoading: false});
+        this.handleRedirect();
       }
     }
   }
 
   async handleRedirect() {
-    if (this.state.isSuccess) {
-      Alert.alert('Login Message', this.state.message, [
-        { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
-      ])
-    } else {
-      Alert.alert('Login Message', this.state.message)
+    if(!this.state.isLoading){
+      if (this.props.auth.isAuth) {
+        await this.props.dispatch(getBalance(this.props.auth.data.token))
+        Alert.alert('Login Message', 'Authentication Success', [
+          { text: 'OK', onPress: () => this.props.navigation.navigate(this.props.page.page) },
+        ])
+      } else {
+        Alert.alert('Login Message', 'Authentication Failed. Please Try Again.')
+      }
     }
   }
 
@@ -102,7 +100,11 @@ class LoginOriginal extends Component {
                 onPress={() => this.props.navigation.navigate('ForgotPassword')}>
                 <Text style={styles.textForgotPassword}>Lupa kata sandi?</Text>
               </TouchableOpacity>
-              <ButtonLogin label="LOG IN" onPress={() => this.handleSubmit()} />
+              {
+                this.props.auth.isLoading
+                ? <ButtonLogin label={<ActivityIndicator size="small" color="blue" />} onPress={() => this.handleSubmit()} />
+                : <ButtonLogin label={"LOG IN"} onPress={() => this.handleSubmit()} />
+              }
             </View>
             <View style={styles.containerLine}>
               <View
@@ -225,10 +227,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    page: state.page
   }
 }
 
-const Login = withNavigation(LoginOriginal)
+const Login = withNavigationFocus(LoginOriginal)
 
 export default connect(mapStateToProps)(Login)
