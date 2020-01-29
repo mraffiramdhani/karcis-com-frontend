@@ -9,9 +9,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-import {connect} from 'react-redux';
-import {login} from '../../redux/action/auth';
-
 class LoginOriginal extends Component {
   constructor(props) {
     super(props)
