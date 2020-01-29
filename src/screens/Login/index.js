@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert, ActivityIndicator, Modal } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { login } from '../../redux/action/auth';
-import { getBalance } from '../../redux/action/balance';
 
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
@@ -15,7 +15,7 @@ class Login extends Component {
       email: '',
       password: '',
       isLoading: false,
-      isAuth: false,
+      isSuccess: false,
       message: ''
     }
   }
@@ -27,28 +27,24 @@ class Login extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (this.props.auth.isLoading !== this.state.isLoading) {
-      if (this.props.auth.isLoading) {
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading) {
         await this.setState({ isLoading: true });
       }
       else {
-        await this.setState({ isLoading: false });
+        await this.setState({ isLoading: false, isSuccess: prevProps.auth.isSuccess });
         this.handleRedirect();
       }
     }
   }
 
   async handleRedirect() {
-    if (!this.state.isLoading) {
-      await this.props.dispatch(getBalance(this.props.auth.data.token))
-      if (this.props.auth.isAuth) {
-        await this.props.dispatch(getBalance(this.props.auth.data.token))
-        Alert.alert('Login Message', 'Authentication Success', [
-          { text: 'OK', onPress: () => this.props.navigation.navigate(this.props.page.page) },
-        ])
-      } else {
-        Alert.alert('Login Message', 'Authentication Failed. Please Try Again.')
-      }
+    if (this.state.isSuccess) {
+      Alert.alert('Login Success', this.props.auth.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
+      ]);
+    } else {
+      Alert.alert('Login Failed', this.props.auth.message);
     }
   }
 
@@ -56,6 +52,17 @@ class Login extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.props.auth.isLoading}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </Modal>
         <HeaderLogin title="Masuk" onPressRight={() => this.props.navigation.navigate('Setting')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>

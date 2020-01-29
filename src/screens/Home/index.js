@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar, YellowBox } from 'react-native';
 import { connect } from 'react-redux';
 import { getBalance } from '../../redux/action/balance';
 import { withNavigationFocus } from 'react-navigation';
 import rupiahFormat from '../../utils/rupiahFormat';
 
-import { Header } from '../../components/Header'
-import BannerHome from '../../components/BannerHome'
-import CategoriesHome from '../../components/CategoriesHome'
-import HorizontalHotelPromo from '../../components/HorizontalHotelPromo'
-import HorizontalSpecialPromo from '../../components/HorizontalSpecialPromo'
-import HorizontalFeatures from '../../components/HorizontalFeatures'
-import MenuCityOfSingapore from '../../components/MenuCityOfSingapore'
-import HorizontalAttraction from '../../components/HorizontalAttraction'
+import { Header } from '../../components/Header';
+import BannerHome from '../../components/BannerHome';
+import CategoriesHome from '../../components/CategoriesHome';
+import HorizontalHotelPromo from '../../components/HorizontalHotelPromo';
+import HorizontalSpecialPromo from '../../components/HorizontalSpecialPromo';
+import HorizontalFeatures from '../../components/HorizontalFeatures';
+import MenuCityOfSingapore from '../../components/MenuCityOfSingapore';
+import HorizontalAttraction from '../../components/HorizontalAttraction';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 YellowBox.ignoreWarnings(['Warning:', 'Require cycle:'])

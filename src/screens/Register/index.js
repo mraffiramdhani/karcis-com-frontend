@@ -52,6 +52,7 @@ class RegisterOriginal extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <Modal
           animationType="fade"
           transparent={true}
@@ -63,7 +64,6 @@ class RegisterOriginal extends Component {
             <ActivityIndicator size="large" color="blue" />
           </View>
         </Modal>
-        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderLogin
           title="Daftar"
           onPressRight={() => this.props.navigation.navigate('Setting')} />
