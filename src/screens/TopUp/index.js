@@ -18,7 +18,7 @@ class TopUpOriginal extends Component {
 	async componentDidMount(){
 		const jwt = this.props.auth.data.token;
 		await this.props.dispatch(setPage('TopUp'));
-		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
 		if(jwt){
 			await this.props.dispatch(getBalance(jwt));
 		}
@@ -27,7 +27,8 @@ class TopUpOriginal extends Component {
 		}
 	}
 
-	onScreenFocus(jwt){
+	onScreenFocus(){
+		const jwt = this.props.auth.data.token;
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}

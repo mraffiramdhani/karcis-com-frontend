@@ -19,7 +19,7 @@ class MyOrderOriginal extends Component {
 	async componentDidMount(){
 		const jwt = this.props.auth.data.token
 		await this.props.dispatch(setPage('MyOrder'));
-		await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
+		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
@@ -28,7 +28,8 @@ class MyOrderOriginal extends Component {
 		}
 	}
 
-	onScreenFocus(jwt){
+	onScreenFocus(){
+		const jwt = this.props.auth.data.token;
 		if(jwt === null && jwt === undefined && jwt === ''){
 			this.props.navigation.navigate('Login');
 		}
@@ -50,7 +51,7 @@ class MyOrderOriginal extends Component {
     return (
       <>
         <Headers />
-        <TabCard loading={this.props.hotelOrder.isLoading} data={this.props.hotelOrder.data} />
+        <TabCard />
       </>
     );
   }

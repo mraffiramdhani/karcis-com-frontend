@@ -64,11 +64,11 @@ class AfterOrder extends Component {
   }
 
   shouldComponentUpdate(nextProps){
-    return nextProps.loading !== this.state.isLoading;
+    return nextProps.hotelOrder.isLoading !== this.state.isLoading;
   }
 
   componentDidUpdate(prevProps){
-    if(!this.props.loading){
+    if(!this.props.hotelOrder.siLoading){
       this.setState({ isLoading: false });
     }
   }
@@ -82,10 +82,10 @@ class AfterOrder extends Component {
           && <ActivityIndicator style={{marginTop: 20}} size="large" color="blue" />
         }
         {
-          !this.state.isLoading && this.props.data.length === 0 && 
+          !this.state.isLoading && this.props.hotelOrder.length === 0 && 
           <AfterLogin />
         }
-        {  
+        {  !this.state.isLoading &&
           this.props.data.map((v,i) => {
               return(
               <Card key={i}>

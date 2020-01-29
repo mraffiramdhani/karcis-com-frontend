@@ -119,12 +119,6 @@ const HomeStack = createStackNavigator(
         headerShown: false,
       },
     },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
   },
   {
     initialRouteName: 'Home',

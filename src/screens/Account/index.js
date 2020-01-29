@@ -40,12 +40,12 @@ class AccountOriginal extends Component {
   }
 
    async componentDidMount(){
-    const jwt = this.props.auth.data.token;
     await this.props.dispatch(setPage('Account'));
-    await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
-  }
+    await this.props.navigation.addListener('didFocus', this.onScreenFocus);
+  } 
 
-  onScreenFocus(jwt){
+  onScreenFocus(){
+    const jwt = this.props.auth.data.token;
     if(jwt === null && jwt === undefined && jwt === ''){
       this.props.navigation.navigate('Login');
     }
@@ -113,6 +113,7 @@ class AccountOriginal extends Component {
       ImagePicker.launchImageLibrary(options, (response) => {
         const source = { uri: response.uri };
         if (response.uri) {
+          console.log(response);
           this.setState({ photo: source });
         }
         
@@ -142,7 +143,7 @@ class AccountOriginal extends Component {
                   {
                     !this.state.isBalanceLoading
                     ? <Text style={styles.textSaldo}>
-                        Basic - {rupiahFormat(this.props.balance.data.balance, 'Rp.')}
+                        Basic - {/*rupiahFormat(this.props.balance.data.balance, '')*/}
                       </Text>
                     : <ActivityIndicator size="small" color="blue" />
                   }

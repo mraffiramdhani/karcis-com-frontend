@@ -1,6 +1,7 @@
 import React from 'react';
 // import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
 
 import image from '../../image/splash.png';
 
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class SplashScreen extends React.Component {
+class SplashScreen extends React.Component {
   static navigationOptions = {
     headerShown: null,
   };
@@ -74,24 +75,38 @@ export default class SplashScreen extends React.Component {
   componentDidMount() {
     StatusBar.setBarStyle('light-content', true);
     StatusBar.setBackgroundColor('#0953A6');
+    const jwt = this.props.auth.data.token
     // StatusBar.setTranslucent(true);
     setTimeout(() => {
-      this.props.navigation.navigate('Home');
+      if (jwt !== null && jwt !== undefined && jwt !== '') {
+        this.props.navigation.navigate('Home');
+      }
+      else {
+        this.props.navigation.navigate('Login');
+      }
     }, 2000);
   }
 
   render() {
     return (
       <>
-      <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.backgroundImage}
-          source={image}
-          imageStyle={styles.imagebg}
-        />
-      </View>
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
+        <View style={styles.container}>
+          <ImageBackground
+            style={styles.backgroundImage}
+            source={image}
+            imageStyle={styles.imagebg}
+          />
+        </View>
       </>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(SplashScreen);

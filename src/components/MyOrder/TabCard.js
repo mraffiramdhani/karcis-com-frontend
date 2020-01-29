@@ -93,7 +93,7 @@ class TabCard extends Component {
             </TabHeading>
           }>
             {/* <AfterLoginAll /> */}
-          <AfterOrder loading={this.props.loading} data={this.props.data} />
+          <AfterOrder />
         </Tab>
 
         <Tab

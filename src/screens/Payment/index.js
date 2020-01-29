@@ -6,6 +6,8 @@ import Icons from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import Modal, { SlideAnimation, ModalTitle, ModalContent } from 'react-native-modals';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { setHotelOrder } from '../../redux/action/hotelOrder';
 import rupiahFormat from '../../utils/rupiahFormat';
 
 const styles = StyleSheet.create({
@@ -115,12 +117,14 @@ class BodyPayments extends Component {
 
     handleConfirm = () => {
         this.setState({visible : false});
-        this.props.navigation.navigate('MyOrder');
+        // this.props.navigation.navigate('MyOrder');
+        this.props.onConfirmed();
     }
 
     handleTopUp = () => {
         this.setState({visible: false});
-        this.props.navigation.navigate('TopUp');
+        // this.props.navigation.navigate('TopUp');
+        this.props.onTopUp();
     }
 
     render () {
@@ -259,13 +263,35 @@ class BodyPayments extends Component {
     }
 }
 
-const BodyPayment = withNavigation(BodyPayments)
-
-class Payment extends Component {
+class PaymentOriginal extends Component {
     constructor(props) {
       super(props);
     
-      this.state = {};
+      this.state = {
+        isLoading: false,
+        isSuccess: false
+      };
+    }
+
+    handleConfirmed(){
+        const jwt = this.props.navigation.getParam('auth').token;
+        const { cost, room_count, guest_count, room_type_id, hotel_id } = this.props.navigation.getParam('orderData');
+        const { check_in, check_out } = this.props.navigation.getParam('search');
+        const data = {
+            hotel_id,
+            room_type_id,
+            room_count,
+            guest_count,
+            check_in,
+            check_out
+        }
+        console.log(data, jwt);
+        this.props.dispatch(setHotelOrder(jwt, data));
+        // this.props.navigation.navigate('MyOrder');
+    }
+
+    handleTopUp(){
+        this.props.navigation.navigate('TopUp');
     }
 
     render() {
@@ -275,10 +301,18 @@ class Payment extends Component {
         return (
             <>
                 <HeaderPayment />
-                <BodyPayment cost={cost} balance={balance} auth={auth} />
+                <BodyPayments onConfirmed={() => this.handleConfirmed()} onTopUp={() => this.handleTopUp()} cost={cost} balance={balance} auth={auth} />
             </>
         )
     }
 }
 
-export default Payment;
+const mapStateToProps = state => {
+    return {
+        hotelOrder: state.hotelOrder
+    }
+}
+
+const Payment = withNavigation(PaymentOriginal);
+
+export default connect(mapStateToProps)(Payment);

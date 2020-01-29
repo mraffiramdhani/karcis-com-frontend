@@ -11,11 +11,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-class LoginOriginal extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      page: 'Login',
       email: '',
       password: '',
       isLoading: false,
@@ -24,17 +23,6 @@ class LoginOriginal extends Component {
     }
   }
 
-  // async shouldComponentUpdate(nextProps){
-  //   if(nextProps.navigation.isFocused()){
-  //     return true;
-  //   }
-
-  //   if(!nextProps.auth.isLoading){
-  //     await this.setState({isLoading: false});
-  //     return true;
-  //   }
-  // }
-
   async handleSubmit() {
     const { email, password } = this.state;
     const data = { email, password };
@@ -42,19 +30,20 @@ class LoginOriginal extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if(this.props.auth.isLoading !== this.state.isLoading){
-      if(this.props.auth.isLoading){
-        await this.setState({isLoading: true});
+    if (this.props.auth.isLoading !== this.state.isLoading) {
+      if (this.props.auth.isLoading) {
+        await this.setState({ isLoading: true });
       }
       else {
-        await this.setState({isLoading: false});
+        await this.setState({ isLoading: false });
         this.handleRedirect();
       }
     }
   }
 
   async handleRedirect() {
-    if(!this.state.isLoading){
+    if (!this.state.isLoading) {
+      await this.props.dispatch(getBalance(this.props.auth.data.token))
       if (this.props.auth.isAuth) {
         await this.props.dispatch(getBalance(this.props.auth.data.token))
         Alert.alert('Login Message', 'Authentication Success', [
@@ -70,9 +59,7 @@ class LoginOriginal extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
-        <HeaderLogin title="Masuk" onPressLeft={() => this.props.navigation.goBack()}
-          onPressRight={() => this.props.navigation.navigate('Setting')}
-        />
+        <HeaderLogin title="Masuk" onPressRight={() => this.props.navigation.navigate('Setting')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>
@@ -82,6 +69,8 @@ class LoginOriginal extends Component {
                 label='Email'
                 mode='outlined'
                 style={styles.textInput}
+                keyboardAppearance="default"
+                keyboardType="email-address"
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.email}
                 onChangeText={email => this.setState({ email })}
@@ -102,8 +91,8 @@ class LoginOriginal extends Component {
               </TouchableOpacity>
               {
                 this.props.auth.isLoading
-                ? <ButtonLogin label={<ActivityIndicator size="small" color="blue" />} onPress={() => this.handleSubmit()} />
-                : <ButtonLogin label={"LOG IN"} onPress={() => this.handleSubmit()} />
+                  ? <ButtonLogin label={<ActivityIndicator size="small" color="blue" />} />
+                  : <ButtonLogin label={"LOG IN"} onPress={() => this.handleSubmit()} />
               }
             </View>
             <View style={styles.containerLine}>
@@ -231,7 +220,5 @@ const mapStateToProps = state => {
     page: state.page
   }
 }
-
-const Login = withNavigationFocus(LoginOriginal)
 
 export default connect(mapStateToProps)(Login)
