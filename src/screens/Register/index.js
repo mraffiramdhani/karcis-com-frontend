@@ -1,52 +1,68 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, StatusBar, ActivityIndicator, Modal, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { checkEmail } from '../../redux/action/user';
 
 // import Components
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
 
-// utils
-import { emailValidation } from '../../utils/emailValidation'
-
-class Register extends Component {
+class RegisterOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      isValid_email: false,
-      disabled: false
+      isLoading: false,
+      isSuccess: false,
     }
   }
 
-  _checkEmail = (emailInput) => {
-    const isTrue = emailValidation(emailInput)
-
-    isTrue ? this.setState({ isValid_email: true }) : this.setState({ isValid_email: false })
-    this.setState({
-      email: emailInput,
-      disabled: false
-    });
+  _handleNextFirst() {
+    const { email } = this.state
+    this.props.dispatch(checkEmail(email));
   }
 
-  _handleNextFirst = () => {
-    const { isValid_email, email } = this.state
-    if (isValid_email == true) {
-      this.props.navigation.navigate('RegisterNextFirst', {
-        email
-      })
-    } else {
-      this.setState({
-        disabled: true
-      })
+  async componentDidUpdate(prevProps) {
+    if (prevProps.user.isLoading !== this.state.isLoading) {
+      if (prevProps.user.isLoading) {
+        await this.setState({ isLoading: true });
+      }
+      else {
+        await this.setState({ isLoading: false, isSuccess: prevProps.user.isSuccess });
+        this.showStatus();
+      }
+    }
+  }
+
+  showStatus() {
+    if (this.state.isSuccess) {
+      Alert.alert('Email Validation Success', this.props.user.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('RegisterNextFirst', { email: this.state.email }) }
+      ]);
+    }
+    else {
+      Alert.alert('Email Validation Failed', this.props.user.message);
     }
   }
 
   render() {
-    const { disabled } = this.state
-    const colorLineFrom = disabled == false ? '#0064D2' : '#F2625F'
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.props.user.isLoading}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </Modal>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderLogin
           title="Daftar"
@@ -60,16 +76,14 @@ class Register extends Component {
                 label='Email'
                 mode='outlined'
                 style={styles.textInput}
-                theme={{ colors: { primary: colorLineFrom, underlineColor: 'transparent', } }}
+                theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.email}
                 keyboardType="email-address"
-                onChangeText={this._checkEmail}
+                textContentType="emailAddress"
+                onChangeText={(e) => this.setState({ email: e })}
               />
-              {disabled == true &&
-                <Text style={styles.textError}>Format email harus seperti email@email.com</Text>}
               <ButtonLogin
                 label="SELANJUTNYA"
-                disabled={disabled}
                 onPress={() => this._handleNextFirst()} />
             </View>
             <View style={styles.containerLine}>
@@ -187,4 +201,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Register
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+const Register = withNavigation(RegisterOriginal);
+
+export default connect(mapStateToProps)(Register)

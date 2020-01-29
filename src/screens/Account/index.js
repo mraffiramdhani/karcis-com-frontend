@@ -9,7 +9,6 @@ import HorizontalProfileMission from '../../components/HorizontalProfileMission'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux';
-import { setPage } from '../../redux/action/page';
 import { getBalance } from '../../redux/action/balance';
 import { withNavigation } from 'react-navigation';
 import { logout } from '../../redux/action/auth';
@@ -22,7 +21,7 @@ const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = Dimensions.get('window').height / 4.9;
 
 class AccountOriginal extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       isLoading: false,
@@ -31,7 +30,7 @@ class AccountOriginal extends Component {
     }
 
     const jwt = this.props.auth.data.token;
-    if(jwt){
+    if (jwt) {
       this.props.dispatch(getBalance(jwt));
     }
     else {
@@ -39,27 +38,25 @@ class AccountOriginal extends Component {
     }
   }
 
-   async componentDidMount(){
-    await this.props.dispatch(setPage('Account'));
+  async componentDidMount() {
     await this.props.navigation.addListener('didFocus', this.onScreenFocus);
-  } 
+  }
 
-  onScreenFocus(){
+  onScreenFocus() {
     const jwt = this.props.auth.data.token;
-    if(jwt === null && jwt === undefined && jwt === ''){
+    if (jwt === null && jwt === undefined && jwt === '') {
       this.props.navigation.navigate('Login');
     }
     else {
-      this.props.dispatch(setPage('Account'));
-      this.props.dispatch(getBalance(jwt)); 
+      this.props.dispatch(getBalance(jwt));
     }
   }
 
-  async handleLogout(){
-      const jwt = await this.props.auth.data.token
-      if(jwt !== null){
-          await this.props.dispatch(logout(jwt))
-      }
+  async handleLogout() {
+    const jwt = await this.props.auth.data.token
+    if (jwt !== null) {
+      await this.props.dispatch(logout(jwt))
+    }
   }
 
   async componentDidUpdate(prevProps) {
@@ -89,41 +86,41 @@ class AccountOriginal extends Component {
       }
     }
 
-    if(prevProps.balance.isLoading !== this.state.isBalanceLoading){
-      if(!prevProps.balance.isLoading){
-        this.setState({isBalanceLoading: false});
+    if (prevProps.balance.isLoading !== this.state.isBalanceLoading) {
+      if (!prevProps.balance.isLoading) {
+        this.setState({ isBalanceLoading: false });
       }
     }
   }
 
   async handleRedirect() {
-      if (!this.state.isAuth) {
-          Alert.alert('Logout Message', this.state.message, [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
-          ])
-      } else {
-          Alert.alert('Logout Message', this.state.message)
-      }
+    if (!this.state.isAuth) {
+      Alert.alert('Logout Message', this.state.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
+      ])
+    } else {
+      Alert.alert('Logout Message', this.state.message)
+    }
   }
 
-    handleChoosePhoto = () => {
-      const options = {
-        noData: true,
-      };
-      ImagePicker.launchImageLibrary(options, (response) => {
-        const source = { uri: response.uri };
-        if (response.uri) {
-          console.log(response);
-          this.setState({ photo: source });
-        }
-        
-      });
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
     };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      const source = { uri: response.uri };
+      if (response.uri) {
+        console.log(response);
+        this.setState({ photo: source });
+      }
+
+    });
+  };
 
   render() {
     return (
       <SafeAreaView>
-      <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
+        <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderProfile title="Akun" />
         <ScrollView>
           <View style={styles.body}>
@@ -140,18 +137,18 @@ class AccountOriginal extends Component {
               </View>
               <View style={styles.containerSaldo}>
                 <Icon name="ticket-confirmation" size={20} color='#FFBF00' />
-                  {
-                    !this.state.isBalanceLoading
+                {
+                  !this.state.isBalanceLoading
                     ? <Text style={styles.textSaldo}>
-                        Basic - {/*rupiahFormat(this.props.balance.data.balance, '')*/}
-                      </Text>
+                      Basic - {/*rupiahFormat(this.props.balance.data.balance, '')*/}
+                    </Text>
                     : <ActivityIndicator size="small" color="blue" />
-                  }
+                }
                 <Text style={styles.textTixPoint}> TIX Point</Text>
 
-                <Right style={{marginTop: -20}}>
+                <Right style={{ marginTop: -20 }}>
                   <TouchableOpacity onPress={this.handleChoosePhoto}>
-                    <Thumbnail style = {{backgroundColor: 'grey'}} source = { this.state.photo }/>
+                    <Thumbnail style={{ backgroundColor: 'grey' }} source={this.state.photo} />
                   </TouchableOpacity>
                 </Right>
 

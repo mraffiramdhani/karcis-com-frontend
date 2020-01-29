@@ -6,8 +6,7 @@ import auth from './auth';
 import topup from './topup';
 import hotelRooms from './hotelRooms';
 import balance from './balance';
-import hotelSearch from './hotelSearch'
-import page from './page';
+import hotelSearch from './hotelSearch';
 import hotelOrder from './hotelOrder';
 import order from './order';
 import image from './image';
@@ -21,7 +20,6 @@ const appReducer = combineReducers({
   hotelRooms,
   balance,
   hotelSearch,
-  page,
   hotelOrder,
   order,
   image,

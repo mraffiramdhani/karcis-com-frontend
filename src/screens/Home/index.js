@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar , YellowBox} from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, StatusBar, YellowBox } from 'react-native';
 import { connect } from 'react-redux';
-import { setPage } from '../../redux/action/page';
 import { getBalance } from '../../redux/action/balance';
 import { withNavigationFocus } from 'react-navigation';
 import rupiahFormat from '../../utils/rupiahFormat';
@@ -27,16 +26,14 @@ class HomeOriginal extends Component {
     }
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     const jwt = this.props.auth.data.token;
-    await this.props.dispatch(setPage('Home'));
     await this.props.dispatch(getBalance(jwt));
     await this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
   }
 
-  onScreenFocus(jwt){
-    if(jwt !== null && jwt !== undefined && jwt !== ''){
-      this.props.dispatch(setPage('Home'));
+  onScreenFocus(jwt) {
+    if (jwt !== null && jwt !== undefined && jwt !== '') {
       this.props.dispatch(getBalance(jwt));
     }
   }
@@ -46,17 +43,17 @@ class HomeOriginal extends Component {
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <Header onPressLogin={() => {
-          return this.props.auth.data.token 
-          ? this.props.navigation.navigate('TopUp') 
-          : this.props.navigation.navigate('Login')
+          return this.props.auth.data.token
+            ? this.props.navigation.navigate('TopUp')
+            : this.props.navigation.navigate('Login')
         }} isAuth={
           this.props.auth.data.token && !this.props.balance.isLoading
-          ? 
-          <>
-            <Icon name="ticket" size={15} />{" "}
-            {rupiahFormat(this.props.balance.data.balance,'')}
-          </>
-          : 'Masuk'} />
+            ?
+            <>
+              <Icon name="ticket" size={15} />{" "}
+              {rupiahFormat(this.props.balance.data.balance, '')}
+            </>
+            : 'Masuk'} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={styles.body}>

@@ -1,26 +1,23 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert, ActivityIndicator, TouchableOpacity } from 'react-native'
-import { TextInput } from 'react-native-paper'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Alert, ActivityIndicator, Modal } from 'react-native'
+import { TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { register } from '../../redux/action/auth';
 
 // import Components
-import { HeaderLogin } from '../../components/Header'
-import { ButtonLogin } from '../../components/Button'
-import { ModalStateCode } from '../../components/Modal'
+import { HeaderLogin } from '../../components/Header';
+import { ButtonLogin } from '../../components/Button';
 
 class RegisterNextFirstOriginal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
       first_name: '',
       last_name: '',
       state_code: '+62',
-      telp_number: '',
+      phone: '',
       password: '',
       isValid_dataFrom: false,
       modalVisible: false,
@@ -54,7 +51,7 @@ class RegisterNextFirstOriginal extends Component {
 
   _checkTelpNumber = (tnInput) => {
     this.setState({
-      telp_number: tnInput
+      phone: tnInput
     })
   }
 
@@ -76,16 +73,15 @@ class RegisterNextFirstOriginal extends Component {
   }
 
   handleRegister() {
-    const {email, first_name, last_name, telp_number, password} = this.state;
-    if(first_name !== '' && last_name !== '' && telp_number !== '' && password !== ''){
+    const { first_name, last_name, phone, password } = this.state;
+    if (first_name !== '' && last_name !== '' && phone !== '' && password !== '') {
       const data = {
         email: this.props.navigation.getParam('email'),
         first_name: this.state.first_name,
         last_name: this.state.last_name,
-        phone: this.state.telp_number,
+        phone: this.state.phone,
         password: this.state.password
       };
-      console.log(email, first_name, last_name, telp_number, password);
       this.props.dispatch(register(data));
     }
     else {
@@ -93,13 +89,13 @@ class RegisterNextFirstOriginal extends Component {
     }
   }
 
-  async componentDidUpdate(prevProps){
-    if(prevProps.auth.isLoading !== this.state.isLoading){
-      if(prevProps.auth.isLoading){
-        await this.setState({isLoading: true});
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading) {
+      if (prevProps.auth.isLoading) {
+        await this.setState({ isLoading: true });
       }
-      else{
-        await this.setState({isLoading: false, isSuccess: prevProps.auth.isSuccess});
+      else {
+        await this.setState({ isLoading: false, isSuccess: prevProps.auth.isSuccess });
         await this.handleRedirect();
       }
     }
@@ -107,23 +103,32 @@ class RegisterNextFirstOriginal extends Component {
 
   handleRedirect() {
     if (this.state.isSuccess) {
-      Alert.alert('Register Message', this.state.message, [
-        { text: 'OK', onPress: () => this.props.navigation.navigate('Account') },
+      Alert.alert('Register Success', this.props.auth.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('RegisterNextSecond') },
       ])
     } else {
-      Alert.alert('Register Message', this.state.message)
+      Alert.alert('Register Failed', this.props.auth.message)
     }
   }
 
 
   render() {
-    const { email } = this.state
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.props.auth.isLoading}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </Modal>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderLogin
           title="Daftar"
-          onPressLeft={() => this.props.navigation.navigate('Register')}
           onPressRight={() => this.props.navigation.navigate('Setting')} />
         <ScrollView
           showsVerticalScrollIndicator={false}>
@@ -139,6 +144,7 @@ class RegisterNextFirstOriginal extends Component {
                 style={styles.textInput}
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.first_name}
+                textContentType="name"
                 onChangeText={this._checkFirstName}
               />
               <TextInput
@@ -147,6 +153,7 @@ class RegisterNextFirstOriginal extends Component {
                 style={styles.textInput}
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.last_name}
+                textContentType="name"
                 onChangeText={this._checkLastName}
               />
               <View style={styles.containerFormTelpNumber}>
@@ -162,7 +169,7 @@ class RegisterNextFirstOriginal extends Component {
                   mode='outlined'
                   style={[styles.textInput, styles.fromTelpNumber]}
                   theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
-                  value={this.state.telp_number}
+                  value={this.state.phone}
                   keyboardType="number-pad"
                   onChangeText={this._checkTelpNumber}
                 />
@@ -181,11 +188,11 @@ class RegisterNextFirstOriginal extends Component {
               </View>
               {
                 (!this.props.auth.isLoading)
-                ? <ButtonLogin
+                  ? <ButtonLogin
                     label="SELANJUTNYA"
                     onPress={() => this.handleRegister()}
                   />
-                : <ButtonLogin
+                  : <ButtonLogin
                     label={<ActivityIndicator size="small" color="blue" />}
                     disabled={true}
                   />
@@ -263,7 +270,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    user: state.user
   }
 }
 

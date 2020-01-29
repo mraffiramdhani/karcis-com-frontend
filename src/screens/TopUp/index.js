@@ -1,25 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HeaderPoint from '../../components/TopUp/HeaderPoint';
 import BodyPoint from '../../components/TopUp/BodyPoint';
 import ListPoint from '../../components/TopUp/ListPoint';
-import {connect} from 'react-redux';
-import {getBalance} from '../../redux/action/balance';
-import { setPage } from '../../redux/action/page';
-import {withNavigationFocus} from 'react-navigation';
+import { connect } from 'react-redux';
+import { getBalance } from '../../redux/action/balance';
+import { withNavigationFocus } from 'react-navigation';
 
 class TopUpOriginal extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 		this.state = {
 			page: 'TopUp',
 		}
 	}
 
-	async componentDidMount(){
+	async componentDidMount() {
 		const jwt = this.props.auth.data.token;
-		await this.props.dispatch(setPage('TopUp'));
 		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
-		if(jwt){
+		if (jwt) {
 			await this.props.dispatch(getBalance(jwt));
 		}
 		else {
@@ -27,25 +25,25 @@ class TopUpOriginal extends Component {
 		}
 	}
 
-	onScreenFocus(){
+	onScreenFocus() {
 		const jwt = this.props.auth.data.token;
-		if(jwt === null && jwt === undefined && jwt === ''){
+		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}
 		else {
-			this.props.dispatch(getBalance(jwt));	
+			this.props.dispatch(getBalance(jwt));
 		}
 	}
 
-  render() {
-    return (
-      <>
-        <HeaderPoint />
-        <BodyPoint />
-        <ListPoint />
-      </>
-    );
-  }
+	render() {
+		return (
+			<>
+				<HeaderPoint />
+				<BodyPoint />
+				<ListPoint />
+			</>
+		);
+	}
 }
 
 const mapStateToProps = state => {

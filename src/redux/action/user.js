@@ -1,10 +1,10 @@
-import { APP_URL, Get } from '../../config/Api';
+import { APP_URL, Post } from '../../config/Api';
+
+var url = APP_URL.concat('user');
 
 export const checkEmail = (email) => {
   return {
     type: 'CHECK_USER',
-    payload: {
-      email
-    }
+    payload: Post(url.concat('/email/check'), null, { email })
   }
 }

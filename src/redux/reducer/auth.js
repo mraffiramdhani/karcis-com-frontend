@@ -2,7 +2,8 @@ const initialState = {
     data: [],
     isLoading: false,
     isError: false,
-    isAuth: false,
+    isSuccess: false,
+    message: ''
 }
 
 const auth = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const auth = (state = initialState, action) => {
                 data: [],
                 isLoading: true,
                 isError: false,
-                isAuth: false
+                isSuccess: false
             }
         case 'LOGIN_REJECTED':
             return {
@@ -20,14 +21,15 @@ const auth = (state = initialState, action) => {
                 data: [],
                 isLoading: false,
                 isError: true,
-                isAuth: false
+                isSuccess: false
             }
         case 'LOGIN_FULFILLED':
             return {
                 data: action.payload.data.data,
                 isLoading: false,
                 isError: false,
-                isAuth: action.payload.data.success,
+                isSuccess: action.payload.data.success,
+                message: action.payload.data.message
             }
 
         case 'REGISTER_PENDING':
@@ -35,7 +37,7 @@ const auth = (state = initialState, action) => {
                 ...state,
                 isLoading: true,
                 isError: false,
-                isAuth: false
+                isSuccess: false
             }
         case 'REGISTER_REJECTED':
             return {
@@ -43,7 +45,7 @@ const auth = (state = initialState, action) => {
                 data: [],
                 isLoading: false,
                 isError: true,
-                isAuth: false
+                isSuccess: false
             }
         case 'REGISTER_FULFILLED':
             return {
@@ -51,7 +53,8 @@ const auth = (state = initialState, action) => {
                 data: action.payload.data.data,
                 isLoading: false,
                 isError: false,
-                isAuth: action.payload.data.success,
+                isSuccess: action.payload.data.success,
+                message: action.payload.data.message
             }
 
         case 'LOGOUT_PENDING':
@@ -59,14 +62,14 @@ const auth = (state = initialState, action) => {
                 ...state,
                 isLoading: true,
                 isError: false,
-                isAuth: false,
+                isSuccess: false,
             }
         case 'LOGOUT_REJECTED':
             return {
                 ...state,
                 isLoading: false,
                 isError: true,
-                isAuth: false,
+                isSuccess: false,
             }
         case 'LOGOUT_FULFILLED':
             return {
@@ -74,7 +77,8 @@ const auth = (state = initialState, action) => {
                 data: [],
                 isLoading: false,
                 isError: false,
-                isAuth: false,
+                isSuccess: false,
+                message: action.payload.data.message
             }
 
         case 'PATCH_USER_PENDING':
@@ -82,14 +86,14 @@ const auth = (state = initialState, action) => {
                 ...state,
                 isLoading: true,
                 isError: false,
-                isAuth: false,
+                isSuccess: false,
             }
         case 'PATCH_USER_REJECTED':
             return {
                 ...state,
                 isLoading: false,
                 isError: true,
-                isAuth: false,
+                isSuccess: false,
             }
         case 'PATCH_USER_FULFILLED':
             state.data.name = action.payload.data.data.name
@@ -98,7 +102,7 @@ const auth = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isError: false,
-                isAuth: action.payload.data.success,
+                isSuccess: action.payload.data.success,
             }
         default:
             return state

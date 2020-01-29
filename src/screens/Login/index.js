@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native'
-import { TextInput } from 'react-native-paper'
-import { withNavigationFocus } from 'react-navigation';
+import React, { Component } from 'react';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { login } from '../../redux/action/auth';
-import { setPage } from '../../redux/action/page';
 import { getBalance } from '../../redux/action/balance';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import { HeaderLogin } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'

@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
-import {Text} from 'react-native';
+import React, { Component } from 'react';
+import { Text } from 'react-native';
 import Headers from '../../components/MyOrder/Headers';
 import TabCard from '../../components/MyOrder/TabCard';
 import { connect } from 'react-redux';
-import { setPage } from '../../redux/action/page';
 import { getHotelOrder } from '../../redux/action/hotelOrder';
 import { withNavigationFocus } from 'react-navigation';
 
 class MyOrderOriginal extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 		this.state = {
 			page: 'MyOrder',
@@ -16,45 +15,43 @@ class MyOrderOriginal extends Component {
 		}
 	}
 
-	async componentDidMount(){
-		const jwt = this.props.auth.data.token
-		await this.props.dispatch(setPage('MyOrder'));
+	async componentDidMount() {
+		const jwt = this.props.auth.data.token;
 		await this.props.navigation.addListener('didFocus', this.onScreenFocus);
-		if(jwt === null && jwt === undefined && jwt === ''){
+		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}
-		else{
+		else {
 			await this.props.dispatch(getHotelOrder(jwt));
 		}
 	}
 
-	onScreenFocus(){
+	onScreenFocus() {
 		const jwt = this.props.auth.data.token;
-		if(jwt === null && jwt === undefined && jwt === ''){
+		if (jwt === null && jwt === undefined && jwt === '') {
 			this.props.navigation.navigate('Login');
 		}
 		else {
 			this.props.dispatch(getHotelOrder(jwt));
-			this.props.dispatch(setPage('MyOrder'));
 		}
 	}
 
-	async componentDidUpdate(prevProps){
-		if(prevProps.hotelOrder.isLoading !== this.state.isLoading){
-			if(!prevProps.hotelOrder.isLoading){
-				await this.setState({isLoading: false});
+	async componentDidUpdate(prevProps) {
+		if (prevProps.hotelOrder.isLoading !== this.state.isLoading) {
+			if (!prevProps.hotelOrder.isLoading) {
+				await this.setState({ isLoading: false });
 			}
 		}
 	}
 
 	render() {
-    return (
-      <>
-        <Headers />
-        <TabCard />
-      </>
-    );
-  }
+		return (
+			<>
+				<Headers />
+				<TabCard />
+			</>
+		);
+	}
 }
 
 const mapStateToProps = state => {

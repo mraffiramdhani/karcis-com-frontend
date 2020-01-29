@@ -2,7 +2,8 @@ const initialState = {
   data: [],
   isLoading: false,
   isError: false,
-  isSuccess: false
+  isSuccess: false,
+  message: ''
 }
 
 const user = (state = initialState, action) => {
@@ -27,7 +28,8 @@ const user = (state = initialState, action) => {
         data: action.payload.data.data,
         isLoading: false,
         isError: false,
-        isSuccess: action.payload.data.success
+        isSuccess: action.payload.data.success,
+        message: action.payload.data.message
       }
     default:
       return state;

@@ -6,8 +6,7 @@ import { Container, Content, Form, Item, Input, Label } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { topUp } from '../../../redux/action/topup';
-import { setPage } from '../../../redux/action/page';
-import {withNavigationFocus} from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 
 const styles = StyleSheet.create({
   button: {
@@ -40,10 +39,9 @@ class BodyFormOriginal extends Component {
     this.props.navigation.addListener('didFocus', () => this.onScreenFocus(jwt));
   }
 
-  onScreenFocus(jwt){
-    if(jwt !== null && jwt !== undefined && jwt !== ''){
-      this.props.dispatch(setPage('TopUp'));
-      this.setState({isSuccess: false, isClicked: false});
+  onScreenFocus(jwt) {
+    if (jwt !== null && jwt !== undefined && jwt !== '') {
+      this.setState({ isSuccess: false, isClicked: false });
     }
   }
 
@@ -53,17 +51,17 @@ class BodyFormOriginal extends Component {
       console.log(jwt)
       const data = { value: this.state.value }
       this.props.dispatch(topUp(jwt, data))
-      this.setState({isClicked: true});
+      this.setState({ isClicked: true });
     }
   }
 
-  async componentDidUpdate(prevProps){
-    if(prevProps.topup.isSuccess && this.state.isClicked){
-      if(this.state.isSuccess){
+  async componentDidUpdate(prevProps) {
+    if (prevProps.topup.isSuccess && this.state.isClicked) {
+      if (this.state.isSuccess) {
         this.handleRedirect();
       }
-      else{
-        this.setState({isSuccess: true});
+      else {
+        this.setState({ isSuccess: true });
       }
     }
   }
