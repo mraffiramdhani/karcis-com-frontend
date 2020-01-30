@@ -22,6 +22,27 @@ export const logout = (jwt) => {
     }
 }
 
+export const forgotPassword = (email) => {
+    return {
+        type: 'FORGOT_PASSWORD',
+        payload: Post(APP_URL.concat('password'), null, { email })
+    }
+}
+
+export const checkOTP = (code) => {
+    return {
+        type: 'CHECK_OTP',
+        payload: Post(APP_URL.concat('otp/check'), null, { code })
+    }
+}
+
+export const resetPassword = (email, password) => {
+    return {
+        type: 'RESET_PASSWORD',
+        payload: Post(APP_URL.concat('password/reset'), null, { email, password })
+    }
+}
+
 export const patchUser = (jwt, data) => {
     return {
         type: 'PATCH_USER',

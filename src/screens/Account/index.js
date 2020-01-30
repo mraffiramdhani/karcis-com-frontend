@@ -29,7 +29,6 @@ class AccountOriginal extends Component {
       isSuccess: false,
       isBalanceLoading: false,
       isBalanceSuccess: false,
-      message: '',
       photo: '',
     }
 
@@ -61,28 +60,17 @@ class AccountOriginal extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.auth.isLoading !== this.state.isLoading) {
+    if (prevProps.auth.isLoading !== this.state.isLoading && this.props.navigation.isFocused()) {
       if (prevProps.auth.isLoading) {
         await this.setState({
           isLoading: true
         })
       } else {
-        if (!this.props.auth.isSuccess) {
-          await this.setState({
-            isLoading: false,
-            isSuccess: prevProps.auth.isSuccess,
-            message: "Logout Success.",
-          })
-          this.handleRedirect()
-        } else {
-          console.log('gagal logout')
-          await this.setState({
-            isLoading: false,
-            isSuccess: prevProps.auth.isSuccess,
-            message: "Logout Failed. Try Again.",
-          })
-          this.handleRedirect()
-        }
+        await this.setState({
+          isLoading: false,
+          isSuccess: prevProps.auth.isSuccess,
+        })
+        await this.handleRedirect()
       }
     }
 
@@ -98,13 +86,11 @@ class AccountOriginal extends Component {
 
   async handleRedirect() {
     if (this.state.isSuccess) {
-      Alert.alert('Logout Message', this.state.message, [
+      Alert.alert('Logout Message', this.props.auth.message, [
         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-      ])
+      ]);
     } else {
-      Alert.alert('Logout Message', this.state.message, [
-        { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-      ])
+      Alert.alert('Logout Message', this.props.auth.message);
     }
   }
 

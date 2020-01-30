@@ -161,8 +161,8 @@ class AfterOrder extends Component {
                           }}
                         />
                         <Text style={{ color: 'grey' }}>
-                          Jumat, 24 Januari 2020
-                        <MyIcon name="dot-single" style={{ fontSize: 20 }} />
+                          {new Date(v.check_in).toDateString()}
+                          <MyIcon name="dot-single" style={{ fontSize: 20 }} />
                           <Text style={{ color: 'grey' }}> 1 Malam </Text>
                         </Text>
                       </View>

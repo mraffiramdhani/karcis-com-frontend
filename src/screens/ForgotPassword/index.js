@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, Modal, Alert, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-paper'
+import { connect } from 'react-redux';
+import { forgotPassword } from '../../redux/action/auth';
 
 import { HeaderForgotPassword } from '../../components/Header'
 import { ButtonLogin } from '../../components/Button'
@@ -9,12 +12,52 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: ''
+      email: '',
+      isLoading: false,
+      isSuccess: false
     }
   }
+
+  async handleSubmit() {
+    await this.props.dispatch(forgotPassword(this.state.email))
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading && this.props.navigation.isFocused()) {
+      if (prevProps.auth.isLoading) {
+        await this.setState({ isLoading: true });
+      }
+      else {
+        await this.setState({ isLoading: false, isSuccess: prevProps.auth.isSuccess });
+        await this.handleRedirect();
+      }
+    }
+  }
+
+  handleRedirect() {
+    if (this.state.isSuccess) {
+      Alert.alert('Forgot Password', this.props.auth.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('ForgotPasswordNext', { email: this.state.email }) },
+      ]);
+    } else {
+      Alert.alert('Forgot Password', this.props.auth.message);
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.props.auth.isLoading}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </Modal>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderForgotPassword
           onPressLeft={() => this.props.navigation.navigate('Login')}
@@ -31,11 +74,12 @@ class ForgotPassword extends Component {
                 style={styles.textInput}
                 theme={{ colors: { primary: '#0064D2', underlineColor: 'transparent', } }}
                 value={this.state.email}
+                keyboardType="email-address"
                 onChangeText={email => this.setState({ email })}
               />
               <ButtonLogin
                 label="KIRIM"
-                onPress={() => this.props.navigation.navigate('ForgotPasswordNext')} />
+                onPress={() => this.handleSubmit()} />
             </View>
           </View>
         </ScrollView>
@@ -78,4 +122,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ForgotPassword
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(ForgotPassword)

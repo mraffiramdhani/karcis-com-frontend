@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { Text, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator, ScrollView } from 'react-native';
 import { Container } from 'native-base';
 import { connect } from 'react-redux';
 import { getBalanceHistory } from '../../../redux/action/balance';
 import { withNavigation } from 'react-navigation';
+import rupiahFormat from '../../../utils/rupiahFormat';
 
 class ListHists extends Component {
   constructor(props) {
@@ -42,15 +43,20 @@ class ListHists extends Component {
   render() {
     return (
       <Container>
-        {
-          (!this.state.isLoading && this.state.isSuccess)
-            ? this.props.balance.dataHistory.map((v, i) => {
-              return (
-                <Text>{v.balance}</Text>
-              )
-            })
-            : <ActivityIndicator size="large" color="blue" />
-        }
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            (!this.state.isLoading && this.state.isSuccess)
+              ? this.props.balance.dataHistory.map((v, i) => {
+                return (
+                  <View key={i} style={{ margin: 20, flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: 20, color: 'green' }}>{rupiahFormat(v.balance, 'Rp.')}</Text>
+                    <Text>{new Date(v.created_at).toDateString()}</Text>
+                  </View>
+                )
+              })
+              : <ActivityIndicator size="large" color="blue" />
+          }
+        </ScrollView>
       </Container>
     );
   }

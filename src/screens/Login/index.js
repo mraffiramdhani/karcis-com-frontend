@@ -16,7 +16,8 @@ class Login extends Component {
       password: '',
       isLoading: false,
       isSuccess: false,
-      message: ''
+      message: '',
+      isFocused: true,
     }
   }
 
@@ -27,7 +28,7 @@ class Login extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.auth.isLoading !== this.state.isLoading) {
+    if (prevProps.auth.isLoading !== this.state.isLoading && this.props.navigation.isFocused()) {
       if (prevProps.auth.isLoading) {
         await this.setState({ isLoading: true });
       }
@@ -38,7 +39,7 @@ class Login extends Component {
     }
   }
 
-  async handleRedirect() {
+  handleRedirect() {
     if (this.state.isSuccess) {
       Alert.alert('Login Success', this.props.auth.message, [
         { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },

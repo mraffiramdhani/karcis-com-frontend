@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+/* eslint-disable react/prop-types */
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Icons from 'react-native-vector-icons/AntDesign';
-import {Left} from 'native-base';
+import { Left } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -40,13 +42,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class HeaderHistory extends Component {
+class HeaderHistories extends Component {
   render() {
     return (
       <View>
         <View style={styles.banner}>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Left>
                 <Text
                   style={{
@@ -60,7 +62,7 @@ class HeaderHistory extends Component {
                 </Text>
               </Left>
 
-              <Icons name="arrowleft" style={styles.icon} />
+              <Icons name="arrowleft" style={styles.icon} onPress={() => this.props.navigation.goBack()} />
             </View>
           </View>
         </View>
@@ -68,5 +70,7 @@ class HeaderHistory extends Component {
     );
   }
 }
+
+const HeaderHistory = withNavigation(HeaderHistories);
 
 export default HeaderHistory;

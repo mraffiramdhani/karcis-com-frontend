@@ -77,7 +77,79 @@ const auth = (state = initialState, action) => {
                 data: [],
                 isLoading: false,
                 isError: false,
+                isSuccess: action.payload.data.success,
+                message: action.payload.data.message
+            }
+
+        case 'FORGOT_PASSWORD_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
                 isSuccess: false,
+            }
+        case 'FORGOT_PASSWORD_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'FORGOT_PASSWORD_FULFILLED':
+            return {
+                ...state,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+                message: action.payload.data.message
+            }
+
+        case 'CHECK_OTP_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'CHECK_OTP_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'CHECK_OTP_FULFILLED':
+            return {
+                ...state,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
+                message: action.payload.data.message
+            }
+
+        case 'RESET_PASSWORD_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+            }
+        case 'RESET_PASSWORD_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+            }
+        case 'RESET_PASSWORD_FULFILLED':
+            return {
+                ...state,
+                data: action.payload.data.data,
+                isLoading: false,
+                isError: false,
+                isSuccess: action.payload.data.success,
                 message: action.payload.data.message
             }
 

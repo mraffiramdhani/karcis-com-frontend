@@ -1,20 +1,67 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar } from 'react-native'
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, StatusBar, ActivityIndicator, Alert, Modal } from 'react-native'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 
 import { HeaderForgotPassword } from '../../components/Header'
 
-class ForgotPasswordNext extends Component {
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { checkOTP } from '../../redux/action/auth';
+
+class ForgotPasswordNexts extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      codeVerify: ''
+      codeVerify: '',
+      isLoading: false,
+      isSuccess: false,
     }
   }
+
+  async handleSubmit(code) {
+    await this.setState({ codeVerify: code });
+    await this.props.dispatch(checkOTP(this.state.codeVerify));
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.auth.isLoading !== this.state.isLoading && this.props.navigation.isFocused()) {
+      if (prevProps.auth.isLoading) {
+        await this.setState({ isLoading: true });
+      }
+      else {
+        await this.setState({ isLoading: false, isSuccess: prevProps.auth.isSuccess });
+        await this.handleRedirect();
+      }
+    }
+  }
+
+  handleRedirect() {
+    const email = this.props.navigation.getParam('email');
+    if (this.state.isSuccess) {
+      Alert.alert('OTP Code Check Message', this.props.auth.message, [
+        { text: 'OK', onPress: () => this.props.navigation.navigate('InputNewPassword', { email }) },
+      ]);
+    } else {
+      Alert.alert('OTP Code Check Message', this.props.auth.message);
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.props.auth.isLoading}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </Modal>
         <StatusBar backgroundColor="#0953A6" barStyle="light-content" />
         <HeaderForgotPassword
           onPressLeft={() => this.props.navigation.navigate('ForgotPassword')}
@@ -31,11 +78,8 @@ class ForgotPasswordNext extends Component {
                 autoFocusOnLoad
                 codeInputFieldStyle={styles.underlineStyleBase}
                 codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                onCodeFilled={(code => {
-                  this.setState({ codeVerify: code })
-                })}
+                onCodeFilled={code => this.handleSubmit(code)}
               />
-              <Text style={styles.textWaitingCode}>Tunggu untuk mengirim ulang kode</Text>
             </View>
           </View>
         </ScrollView>
@@ -97,4 +141,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ForgotPasswordNext
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const ForgotPasswordNext = withNavigation(ForgotPasswordNexts)
+
+export default connect(mapStateToProps)(ForgotPasswordNext)
